@@ -58,12 +58,13 @@ void j1App::AddModule(j1Module* module)
 bool j1App::Awake()
 {
 	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
-	pugi::xml_parse_result result = doc.load_file("config.xml");
+	pugi::xml_parse_result result = config.load_file("config.xml");
 		//config loaded or error
-	if (doc.load_file("config.xml")) LOG("config loaded"); else LOG("loading error");
+	if (config.load_file("config.xml")) LOG("config loaded"); else LOG("loading error");
 	
 	// If everything goes well, load the top tag inside the xml_node property
 	// created in the last TODO
+	tool = config.document_element();
 
 	bool ret = true;
 

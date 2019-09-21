@@ -78,9 +78,9 @@ private:
 
 	// TODO 2: Create two new variables from pugui namespace:
 	// a xml_document to store the while config file and
-	pugi::xml_document doc;
+	pugi::xml_document config;
 	// a xml_node to read specific branches of the xml
-	pugi::xml_node node;
+	pugi::xml_node tool;
 
 	int					argc;
 	char**				args;
