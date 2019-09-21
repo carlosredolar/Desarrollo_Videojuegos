@@ -84,6 +84,7 @@ bool j1App::Awake()
 	 
 	// TODO 4: Read the title from the config file
 	// and set the window title using win->SetTitle()
+	pugi::xml_node title = tool.child("title"); win->SetTitle(tool.child_value("title"));
 
 	return ret;
 }
