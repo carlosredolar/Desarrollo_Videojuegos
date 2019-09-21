@@ -3,5 +3,13 @@
 <config>
 
    <title>My super awesome game with XML</title>
+   <fullscreen>false</fullscreen>
+   <borderless>false</borderless>
+   <resizable>true</resizable>
+   <fullscreen_window>false</fullscreen_window>
+   <width>1024</width>
+   <heigth>768</heigth>
+   <scale>1</scale>
+
 
 </config>
