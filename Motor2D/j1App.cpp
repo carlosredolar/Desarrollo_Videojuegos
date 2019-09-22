@@ -55,7 +55,7 @@ void j1App::AddModule(j1Module* module)
 }
 
 // Called before render is available
-bool j1App::Awake()
+bool j1App::Awake(pugi::xml_node* node)
 {
 	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
 	pugi::xml_parse_result result = config.load_file("config.xml");
@@ -77,8 +77,16 @@ bool j1App::Awake()
 		// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
 		// that can be used to read all variables for that module.
 		// Send nullptr if the node does not exist in config.xml
-
-		ret = item->data->Awake();
+		pugi::xml_node aD;
+		if (tool.find_node(*node) != nullptr)
+		{
+			node = &(tool.find_node(*node));
+		}
+		else
+		{
+			node = nullptr;
+		}
+		ret = item->data->Awake(node);
 		item = item->next; 
 	}
 	 
@@ -88,7 +96,7 @@ bool j1App::Awake()
 	
 	//win->SetTitle(tool.attribute("title").value());
 
-	pugi::xml_node title = tool.child("title"); win->SetTitle(tool.child_value("title"));
+	//pugi::xml_node title = tool.child("title"); win->SetTitle(tool.child_value("title"));
 
 
 	return ret;

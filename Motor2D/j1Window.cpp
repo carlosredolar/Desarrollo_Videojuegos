@@ -19,7 +19,7 @@ j1Window::~j1Window()
 }
 
 // Called before render is available
-bool j1Window::Awake()
+bool j1Window::Awake(pugi::xml_node* node)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -60,8 +60,9 @@ bool j1Window::Awake()
 
 
 		//TODO 7: Move "Todo 4" code to the awake method on the window module
-		//Pass the title as a variable when creating the window
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		//Pass the title as a variable when creating the window		
+		window = SDL_CreateWindow(*node->value, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		//window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
