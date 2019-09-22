@@ -3,6 +3,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "PugiXml\src\pugixml.hpp"
 
 // This is needed here because SDL redefines main function
 // do not add any other libraries here, instead put them in their modules

@@ -77,10 +77,11 @@ bool j1App::Awake(pugi::xml_node* node)
 		// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
 		// that can be used to read all variables for that module.
 		// Send nullptr if the node does not exist in config.xml
-		pugi::xml_node aD;
-		if (tool.find_node(*node) != nullptr)
+
+		pugi::xml_node aux = tool.child(item->data->name.GetString());
+		if (aux!=nullptr)
 		{
-			node = &(tool.find_node(*node));
+			node = &(tool.find_node(aux));
 		}
 		else
 		{
