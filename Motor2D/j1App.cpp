@@ -95,7 +95,7 @@ bool j1App::Awake(pugi::xml_node* node)
 	// and set the window title using win->SetTitle()
 
 	
-	//win->SetTitle(tool.attribute("title").value());
+	//win->SetTitle(tool.child("title").value());
 
 	//pugi::xml_node title = tool.child("title"); win->SetTitle(tool.child_value("title"));
 

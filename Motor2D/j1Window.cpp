@@ -60,9 +60,10 @@ bool j1Window::Awake(pugi::xml_node* node)
 
 
 		//TODO 7: Move "Todo 4" code to the awake method on the window module
-		//Pass the title as a variable when creating the window		
-		window = SDL_CreateWindow(*node->child("title").value, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
-		//window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		//Pass the title as a variable when creating the window	
+		//pugi::xml_node title = node->child("title");
+		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);		
+		SetTitle(*node->child("title").value);
 
 		if(window == NULL)
 		{
