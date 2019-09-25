@@ -9,7 +9,6 @@
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 
-
 class j1App;
 
 class j1Module
@@ -25,7 +24,7 @@ public:
 	}
 
 	// Called before render is available
-	virtual bool Awake(pugi::xml_node* node)
+	virtual bool Awake(pugi::xml_node&)
 	{
 		return true;
 	}
@@ -56,6 +55,18 @@ public:
 
 	// Called before quitting
 	virtual bool CleanUp()
+	{
+		return true;
+	}
+
+	// TODO 2: Create new virtual methods to Load and Save
+	virtual bool Save(pugi::xml_node& node)
+	{
+		node.append_child(name.GetString());
+		return true;
+	}
+
+	virtual bool Load(pugi::xml_node&)
 	{
 		return true;
 	}

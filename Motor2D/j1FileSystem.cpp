@@ -44,6 +44,12 @@ bool j1FileSystem::Awake(pugi::xml_node& config)
 
 	if(PHYSFS_setWriteDir(write_path) == 0)
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
+	else
+	{
+		// We add the writing directory as a reading directory too with speacial mount point
+		LOG("Writing directory is %s\n", write_path);
+		AddPath(write_path, GetSaveDirectory());
+	}
 
 	SDL_free(write_path);
 
@@ -54,16 +60,15 @@ bool j1FileSystem::Awake(pugi::xml_node& config)
 bool j1FileSystem::CleanUp()
 {
 	//LOG("Freeing File System subsystem");
-
 	return true;
 }
 
 // Add a new zip file or folder
-bool j1FileSystem::AddPath(const char* path_or_zip)
+bool j1FileSystem::AddPath(const char* path_or_zip, const char* mount_point)
 {
 	bool ret = false;
 
-	if(PHYSFS_mount(path_or_zip, NULL, 1) == 0)
+	if(PHYSFS_mount(path_or_zip, mount_point, 1) == 0)
 		LOG("File System error while adding a path or zip(%s): %s\n", path_or_zip, PHYSFS_getLastError());
 	else
 		ret = true;

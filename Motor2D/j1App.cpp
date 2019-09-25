@@ -1,3 +1,6 @@
+#include <iostream> 
+#include <sstream> 
+
 #include "p2Defs.h"
 #include "p2Log.h"
 
@@ -46,6 +49,8 @@ j1App::~j1App()
 	}
 
 	modules.clear();
+
+	config_file.reset();
 }
 
 void j1App::AddModule(j1Module* module)
@@ -55,50 +60,27 @@ void j1App::AddModule(j1Module* module)
 }
 
 // Called before render is available
-bool j1App::Awake(pugi::xml_node* node)
+bool j1App::Awake()
 {
-	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
-	pugi::xml_parse_result result = config.load_file("config.xml");
-		//config loaded or error
-	if (config.load_file("config.xml")) LOG("config loaded"); else LOG("loading error");
-	
-	// If everything goes well, load the top tag inside the xml_node property
-	// created in the last TODO
-	tool = config.document_element();
+	save = false;
+	load = false;
+	bool ret = LoadConfig();
 
-	bool ret = true;
+	// self-config
+	title.create(app_config.child("title").child_value());
+	organization.create(app_config.child("organization").child_value());
 
-	p2List_item<j1Module*>* item;
-	item = modules.start;
-
-	while(item != NULL && ret == true)
+	if(ret == true)
 	{
-		// TODO 6: Add a new argument to the Awake method to receive a pointer to an xml node.
-		// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
-		// that can be used to read all variables for that module.
-		// Send nullptr if the node does not exist in config.xml
+		p2List_item<j1Module*>* item;
+		item = modules.start;
 
-		pugi::xml_node aux = tool.child(item->data->name.GetString());
-		if (aux!=nullptr)
+		while(item != NULL && ret == true)
 		{
-			node = &(tool.find_node(aux));
+			ret = item->data->Awake(config.child(item->data->name.GetString()));
+			item = item->next;
 		}
-		else
-		{
-			node = nullptr;
-		}
-		ret = item->data->Awake(node);
-		item = item->next; 
 	}
-	 
-	// TODO 4: Read the title from the config file
-	// and set the window title using win->SetTitle()
-
-	
-	//win->SetTitle(tool.child("title").value());
-
-	//pugi::xml_node title = tool.child("title"); win->SetTitle(tool.child_value("title"));
-
 
 	return ret;
 }
@@ -141,6 +123,28 @@ bool j1App::Update()
 	return ret;
 }
 
+
+// ---------------------------------------------
+bool j1App::LoadConfig()
+{
+	bool ret = true;
+
+	pugi::xml_parse_result result = config_file.load_file("config.xml");
+
+	if(result == NULL)
+	{
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		config = config_file.child("config");
+		app_config = config.child("app");
+	}
+
+	return ret;
+}
+
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
@@ -149,6 +153,9 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
+	// TODO 2: This is a good place to call load / Save functions
+	if (save) { Save(); }			
+	if (load) { Load(); }
 }
 
 // Call modules before each loop iteration
@@ -246,3 +253,71 @@ const char* j1App::GetArgv(int index) const
 	else
 		return NULL;
 }
+
+// ---------------------------------------
+const char* j1App::GetTitle() const
+{
+	return title.GetString();
+}
+
+// ---------------------------------------
+const char* j1App::GetOrganization() const
+{
+	return organization.GetString();
+}
+
+// TODO 7: Create a method to save the current state
+bool j1App::Save()
+{
+	bool ret = true;
+	
+	saveFile.reset();
+	saveFile.append_child("save");
+	p2List_item<j1Module*>* item;
+	item = modules.start;
+
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->Save(saveFile.child("save").append_child(item->data->name.GetString()));
+		item = item->next;
+	}		
+	save = false;
+	saveFile.save_file("savegame.xml");
+		
+	return ret;
+}
+
+// TODO 5: Create a method to actually load an xml file
+// then call all the modules to load themselves
+bool j1App::Load()
+{
+	bool ret = true;
+
+	pugi::xml_parse_result result = saveFile.load_file("savegame.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		p2List_item<j1Module*>* item;
+		item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			ret = item->data->Load(saveFile.child("save").child(item->data->name.GetString()));
+			item = item->next;
+		}
+	}
+	load = false;
+	return ret;
+}
+
+// TODO 4: Create a simulation of the xml file to read 
+
+
+
+
+

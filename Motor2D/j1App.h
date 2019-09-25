@@ -25,7 +25,6 @@ public:
 
 	// Called before render is available
 	bool Awake();
-	bool Awake(pugi::xml_node* node);
 
 	// Called before the first frame
 	bool Start();
@@ -36,14 +35,28 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Save();
+
+	bool Load();
+
 	// Add a new module to handle
 	void AddModule(j1Module* module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
+	const char* GetTitle() const;
+	const char* GetOrganization() const;
+
+	// TODO 1: Create methods to request save and load
+	// that can be called anytime
+	bool				save;
+	bool				load;
 
 private:
+
+	// Load config file
+	bool LoadConfig();
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -70,23 +83,24 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 
+	
 
 private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
 	float				dt;
-
-	// TODO 2: Create two new variables from pugui namespace:
-	// a xml_document to store the while config file and
-	pugi::xml_document config;
-	// a xml_node to read specific branches of the xml
-	pugi::xml_node tool;
-
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	pugi::xml_node		app_config;
+	pugi::xml_document	saveFile;
 	int					argc;
 	char**				args;
+
+	p2SString			title;
+	p2SString			organization;
 };
 
-extern j1App* App; 
+extern j1App* App;
 
 #endif

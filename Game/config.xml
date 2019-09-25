@@ -1,29 +1,21 @@
 <!-- Config file for the game -->
 
 <config>
-	<app>	
-	</app>
-		
-	<window>
-		<title>My super awesome game with XML</title>
-		<fullscreen>false</fullscreen>
-	    <borderless>false</borderless>
-	    <resizable>true</resizable>
-	    <fullscreen_window>false</fullscreen_window>
-	    <width>1024</width>
-	    <heigth>768</heigth>
-	    <scale>1</scale>
-	</window>
+  <app>
+    <title>Game Development</title>
+    <organization>UPC</organization>
+  </app>
 	
-	<renderer>	
-	</renderer>	
-	
-	<textures>	
-	</textures>
-	
-	<audio>	
-	</audio>
-	
-	<input>	
-	</input>  
+  <renderer>
+    <vsync value="false"/>
+  </renderer>
+
+  <window>
+    <resolution width="1024" height="768" scale="1"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
 </config>

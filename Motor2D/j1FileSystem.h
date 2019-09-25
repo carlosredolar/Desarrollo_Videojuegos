@@ -23,9 +23,13 @@ public:
 	bool CleanUp();
 
 	// Utility functions
-	bool AddPath(const char* path_or_zip);
+	bool AddPath(const char* path_or_zip, const char* mount_point = NULL);
 	bool Exists(const char* file) const;
 	bool IsDirectory(const char* file) const;
+	const char* GetSaveDirectory() const
+	{
+		return "save/";
+	}
 
 	// Open for Read/Write
 	unsigned int Load(const char* file, char** buffer) const;
