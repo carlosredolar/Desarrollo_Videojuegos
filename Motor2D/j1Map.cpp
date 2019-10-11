@@ -60,7 +60,15 @@ iPoint j1Map::WorldToMap(int x, int y) const
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	SDL_Rect rect = {0, 0, 0, 0};
+	int file,col;
 	// TODO 7(old): Create a method that receives a tile id and returns it's Rect
+	file = (id / 8)+1;
+	col = (18/6)+1;
+
+	rect.x += offset_x*col;
+	rect.y += offset_y*file;
+	rect.h = tile_height;
+	rect.w = tile_width;	
 	return rect;
 }
 
