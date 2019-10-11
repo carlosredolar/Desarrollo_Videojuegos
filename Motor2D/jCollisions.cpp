@@ -4,7 +4,7 @@
 #include "p2Log.h"
 #include "jCollisions.h"
 
-ModuleCollision::ModuleCollision()
+jCollisions::jCollisions()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
@@ -54,10 +54,10 @@ ModuleCollision::ModuleCollision()
 }
 
 // Destructor
-ModuleCollision::~ModuleCollision()
+jCollisions::~jCollisions()
 {}
 
-bool ModuleCollision::PreUpdate()
+bool jCollisions::PreUpdate()
 {
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -104,13 +104,13 @@ bool ModuleCollision::PreUpdate()
 }
 
 // Called before render is available
-bool ModuleCollision::Update()
+bool jCollisions::Update()
 {
 	DebugDraw();
 	return true;
 }
 
-void ModuleCollision::DebugDraw()
+void jCollisions::DebugDraw()
 {
 	if (App->input->GetKey[SDL_SCANCODE_F1] == KEY_DOWN)
 		debug = !debug;
@@ -152,7 +152,7 @@ void ModuleCollision::DebugDraw()
 }
 
 // Called before quitting
-bool ModuleCollision::CleanUp()
+bool jCollisions::CleanUp()
 {
 	LOG("Freeing all colliders");
 
@@ -168,7 +168,7 @@ bool ModuleCollision::CleanUp()
 	return true;
 }
 
-Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC, int dmg)
+Collider* jCollisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC, int dmg)
 {
 	Collider* ret = nullptr;
 
@@ -196,7 +196,7 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 
 //-----------------------------------------------------
 
-void ModuleCollision::DeleteCollider(Collider* collider) {
+void jCollisions::DeleteCollider(Collider* collider) {
 	if (collider != nullptr) {
 		collider->to_delete = true;
 	}

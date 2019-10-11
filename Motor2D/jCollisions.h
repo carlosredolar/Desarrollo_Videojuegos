@@ -1,5 +1,5 @@
-#ifndef __ModuleCollision_H__
-#define __ModuleCollision_H__
+#ifndef _ModuleCollision_H_
+#define _ModuleCollision_H_
 
 #define MAX_COLLIDERS 100
 #include "j1Module.h"
@@ -42,12 +42,12 @@ struct Collider
 	bool CheckCollision(const SDL_Rect& r) const;
 };
 
-class ModuleCollision : public j1Module
+class jCollisions : public j1Module
 {
 public:
 
-	ModuleCollision();
-	~ModuleCollision();
+	jCollisions();
+	~jCollisions();
 
 
 	bool PreUpdate() override;
@@ -65,4 +65,4 @@ private:
 	bool debug = false;
 };
 
-#endif // __ModuleCollision_H__
+#endif // __jCollisions_H__

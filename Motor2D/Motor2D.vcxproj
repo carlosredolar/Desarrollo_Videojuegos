@@ -83,6 +83,7 @@
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="jCollisions.cpp" />
+    <ClCompile Include="jPlayer.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -92,7 +93,9 @@
   <ItemGroup>
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="jAnimation.h" />
     <ClInclude Include="jCollisions.h" />
+    <ClInclude Include="jPlayer.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
