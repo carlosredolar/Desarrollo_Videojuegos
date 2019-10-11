@@ -65,8 +65,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	file = (id / 8)+1;
 	col = (18/6)+1;
 
-	rect.x += offset_x*col;
-	rect.y += offset_y*file;
+	rect.x += (offset_x*col)+(col-1);
+	rect.y += (offset_y*file)+(file-1);
 	rect.h = tile_height;
 	rect.w = tile_width;	
 	return rect;
