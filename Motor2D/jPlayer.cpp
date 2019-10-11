@@ -225,7 +225,7 @@ bool jPlayer::Update()
 			}
 			currentState = newState;
 
-			//colliders_and_blit(current_animation);				
+			colliders_and_blit(current_animation);				
 //		}
 	}
 	return true;
