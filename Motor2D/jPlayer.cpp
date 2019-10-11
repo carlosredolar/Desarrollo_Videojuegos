@@ -159,10 +159,8 @@ bool jPlayer::Update()
 	}
 
 	if (currentState!=stDie)
-	{
-		external_input(inputs);
-		internal_input(inputs);
-		if (inputs.Count != 0)
+	{			
+		if (external_input(inputs) || internal_input(inputs))
 		{
 			while (inputs.Pop(last_input))
 			{
