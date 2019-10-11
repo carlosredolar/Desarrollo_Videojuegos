@@ -134,6 +134,13 @@ bool jPlayer::CleanUp()
 
 bool jPlayer::Update()
 {
+	Animation* current_animation=&idle;
+	p2Qeue<playerInputs> inputs;
+	playerInputs last_input;
+
+	positionlimits();
+	debugcommands();
+
 	if (GodMode)//deletes all the collision boxes if in god mode
 	{
 		for (int i = 0; i < MAX_COLLIDERS; i++)
@@ -151,83 +158,67 @@ bool jPlayer::Update()
 		}
 	}
 
-	Animation* current_animation;
-	p2Qeue<playerInputs> inputs;
-	playerInputs last_input;
-
-	positionlimits();
-	debugcommands();
-
-	if (death == false) 
+	if (currentState!=stDie)
 	{
-//		while (external_input(inputs))
-//		{
-			//internal_input(inputs);
-
-			switch (newState)
+		external_input(inputs);
+		internal_input(inputs);
+		if (inputs.Count != 0)
+		{
+			while (inputs.Pop(last_input))
 			{
-				case stIdle:
-					current_animation = &idle;
-					break;
-				/*case stWalkRight:
-					current_animation = &right;
-					position.x += speedX;
-					facingRight = true;
-					break;
-				case stWalkLeft:
-					current_animation = &left;
+				switch (last_input)
+				{
+				case INleft:
 					position.x -= speedX;
 					facingRight = false;
+					if (grounded) newState = stWalk;
 					break;
-				case stJump:
-					onAir = true;
+
+				case INright:
+					position.x += speedX;
+					facingRight = true;
+					if (grounded) newState = stWalk;
 					break;
-				case stJumpRight:
-					onAir = true;
-					current_animation = &jumpRight;
+
+				case INjump:
+					if (facingRight) current_animation = &jumpRight;
+					else current_animation = &jumpLeft;
+					grounded = false;
+					doJump();
 					break;
-				case stJumpLeft:
-					onAir = true;
-					current_animation = &jumpLeft;
-					break;*/
-				case stMoving:
-					while (external_input(inputs))
-					{
-						while (inputs.Pop(last_input))
-						{
-							switch (last_input)
-							{
-							case INleft:
-								current_animation = &left;
-								break;
-
-							case INright:
-
-								break;
-
-							case INjump:
-
-								break;
-
-							case INleftUP:
-
-								break;
-							case INrightUP:
-
-								break;
-							}
-						}
-					}
+				case INjumpEND:
+					newState = stFalling;
 					break;
-				case stDie:
-					current_animation = &die;
-					break;				
+				}
 			}
-			currentState = newState;
+		}
 
-			colliders_and_blit(current_animation);				
-//		}
+		switch (newState)
+		{
+		case stIdle:
+			current_animation = &idle;
+			break;
+		case stWalk:
+			if (facingRight) current_animation = &right;
+			else current_animation = &left;
+			break;
+		case stJump:
+			if (facingRight) current_animation = &jumpRight;
+			else current_animation = &jumpLeft;
+			break;
+		case stFalling:
+			if (facingRight) current_animation = &jumpRight;
+			else current_animation = &jumpLeft;
+			break;
+		case stDie:
+			current_animation = &die;
+			death = true;
+			break;
+		}
+		currentState = newState;
+		colliders_and_blit(current_animation);
 	}
+	else ResetPlayer();
 	return true;
 }
 
@@ -284,95 +275,84 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
 	{
 		newState = stDie;
-
-		if (currentState == stIdle) 
-		{
-			if (position.x > App->player->position.x)
-				position.x += 1;
-			if (position.x < App->player->position.x)
-				position.x -= 1;
-		}
+		death = true;
 	}
-
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_GROUND)
+	else
 	{
-		grounded = true;
-		if (currentState == stIdle)
+		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_GROUND)
 		{
-			if (position.x > App->player->position.x)
-				position.x += 1;
-			if (position.x < App->player->position.x)
-				position.x -= 1;
+			grounded = true;
 		}
-	}
 
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
-	{
-		if (currentState == stIdle)
+		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
 		{
-			if (position.x > App->player->position.x)
-				position.x += 1;
-			if (position.x < App->player->position.x)
-				position.x -= 1;
+			if (currentState == stIdle)
+			{
+
+			}
 		}
-	}
+	}	
 }
 
 bool jPlayer::external_input(p2Qeue<playerInputs>& inputs)
 {
 	bool ret = false;
-	//Key up	
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP) 
-		inputs.Push(INleftUP); ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP) 
-		inputs.Push(INrightUP); ret = true;
-
-	//Key down
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) 
+	if (!death)
 	{
-		/*if (currentState != stIdle)
+		//Key up	
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+			inputs.Push(INleftUP); ret = true;
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+			inputs.Push(INrightUP); ret = true;
+
+		//Key down
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			if (facingRight) newState = stJumpRight;
-			else newState = stJumpRight;
-		}*/
-		if(grounded)
-			inputs.Push(INjump); ret = true;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) 
-	{
-		//newState = stWalkLeft;
-		inputs.Push(INleft); 
-		ret = true;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
-	{
-		//newState = stWalkRight;
-		inputs.Push(INright);
-		ret = true;
+			if (grounded)
+			{
+				inputs.Push(INjump); 
+				jumping = true;
+				ret = true;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			inputs.Push(INleft);
+			ret = true;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			inputs.Push(INright);
+			ret = true;
+		}
 	}
 	return ret;
 }
 
-/*
-void jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
+
+bool jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
 {
-	if (jump_timer > 0)
+	bool ret = false;
+	if (jumping)
 	{
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME)
-		{
-			inputs.Push(INjumpEND);
-			jump_timer = 0;
-			position.y = 220;
-		}
+		inputs.Push(INjump);
+		!ret;
 	}
-}*/
+	if (grounded && jumping)
+	{
+		inputs.Push(INjumpEND);
+		!ret;
+	}
+	return ret;
+}
 
 void jPlayer::ResetPlayer()
 {
 	position.x = 410;
 	position.y = 220;
 	newState = stIdle;
+	death = false;
 }
 
 /*playerStates jPlayer::process_fsm(p2Qeue<playerInputs>& inputs)
@@ -429,28 +409,32 @@ void jPlayer::debugcommands()
 	}
 }
 
-void jPlayer::jump_neutral_logic() {
-
-	if (SDL_GetTicks() - jump_timer <= JUMP_TIME / 4.5) 
+void jPlayer::doJump() 
+{
+	if (!grounded)
 	{
-		position.y -= 8;
-	}
-
-	if (SDL_GetTicks() - jump_timer > JUMP_TIME / 4.5 && SDL_GetTicks() - jump_timer < JUMP_TIME / 1.28) 
-	{
-		if (SDL_GetTicks() - jump_timer < JUMP_TIME / 2) 
+		if (SDL_GetTicks() - jump_timer <= JUMP_TIME / 4.5)
 		{
-			position.y -= 4;
+			position.y -= 8;
 		}
 
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME / 2) 
+		if (SDL_GetTicks() - jump_timer > JUMP_TIME / 4.5 && SDL_GetTicks() - jump_timer < JUMP_TIME / 1.28)
 		{
-			position.y += 4;
+			if (SDL_GetTicks() - jump_timer < JUMP_TIME / 2)
+			{
+				position.y -= 4;
+			}
+
+			if (SDL_GetTicks() - jump_timer > JUMP_TIME / 2)
+			{
+				position.y += 4;
+			}
+		}
+
+		if (SDL_GetTicks() - jump_timer >= JUMP_TIME / 1.28)
+		{
+			position.y += 10;
 		}
 	}
-
-	if (SDL_GetTicks() - jump_timer >= JUMP_TIME / 1.28) 
-	{
-		position.y += 10;
-	}
+	else jumping = false;
 }

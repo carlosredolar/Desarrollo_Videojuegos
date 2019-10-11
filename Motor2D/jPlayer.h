@@ -10,26 +10,23 @@
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #define JUMP_TIME 850
+#define MAXJUMPHEIGHT 50
 #define MAX_FRAME_COLLIDERS 6
 
 struct SDL_Texture;
 
 enum playerStates
 {
-	stUnknown=0,
-	stIdle,
-	/*stWalkLeft,
-	stWalkRight,
+	stIdle=0,
 	stJump,
-	stJumpLeft,
-	stJumpRight,*/
-	stMoving,
+	stWalk,
+	stFalling,
 	stDie
 };
 
 enum playerInputs
 {
-	INnone=0,
+	INnone = 0,
 	INleft,
 	INright,
 	INjump,
@@ -49,14 +46,14 @@ public:
 	bool Update();
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
-	void internal_input(p2Qeue<playerInputs>& inputs);
+	bool internal_input(p2Qeue<playerInputs>& inputs);
 	bool external_input(p2Qeue<playerInputs>& inputs);
-    playerStates process_fsm(p2Qeue<playerInputs>& inputs);
+    //playerStates process_fsm(p2Qeue<playerInputs>& inputs);
 	void ResetPlayer();
 	void colliders_and_blit(Animation*);
 	void positionlimits();
 	void debugcommands();
-	void jump_neutral_logic();
+	void doJump();
 
 
 public:
@@ -93,9 +90,10 @@ public:
 	int speedX = 1;
 	int speedY = 1;
 	int jumpHeight = 0;
-	int speed = 1;
+
 	bool grounded = true;
 	bool facingRight = true;
+	bool jumping = false;
 
 	playerStates currentState,newState;
 
