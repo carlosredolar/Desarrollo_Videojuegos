@@ -111,6 +111,7 @@ bool jPlayer::CleanUp()
 bool jPlayer::Update()
 {
 	Animation* current_animation=&idle;
+	p2Qeue<playerInputs> inputs;
 	playerInputs last_input;
 
 	positionlimits();
@@ -133,44 +134,38 @@ bool jPlayer::Update()
 		}
 	}
 
-	if (!death)
+	if (currentState!=stDie)
 	{			
-		external_input(inputs);
-		internal_input(inputs);
-		
-		while (inputs.Pop(last_input) || newState!=currentState)
+		if (external_input(inputs) || internal_input(inputs))
 		{
-			switch (last_input)
+			while (inputs.Pop(last_input))
 			{
+				switch (last_input)
+				{
 				case INleft:
 					position.x -= speedX;
 					facingRight = false;
 					if (grounded) newState = stWalk;
 					break;
+
 				case INright:
 					position.x += speedX;
 					facingRight = true;
 					if (grounded) newState = stWalk;
 					break;
-				case INjump:
 
+				case INjump:
 					if (facingRight) current_animation = &jump;
 					else current_animation = &jump;
-					newState = stJump;
 					grounded = false;
 					doJump();
 					break;
 				case INjumpEND:
 					newState = stFalling;
 					break;
-				case INdie:
-					newState = stDie;
-					break;
-				case INfalling:
-					newState = stFalling;
-					break;
+				}
 			}
-
+		}
 
 		switch (newState)
 		{
@@ -193,31 +188,6 @@ bool jPlayer::Update()
 			current_animation = &die;
 			death = true;
 			break;
-
-			switch (newState)
-			{
-			case stIdle:
-				current_animation = &idle;
-				break;
-			case stWalk:
-				if (facingRight) current_animation = &right;
-				else current_animation = &left;
-				break;
-			case stJump:
-				if (facingRight) current_animation = &jumpRight;
-				else current_animation = &jumpLeft;
-				break;
-			case stFalling:
-				if (facingRight) current_animation = &jumpRight;
-				else current_animation = &jumpLeft;
-				if (!grounded) position.y -= FALL_VELOCITY;
-				break;
-			case stDie:
-				current_animation = &die;
-				death = true;
-				break;
-			}
-
 		}
 		currentState = newState;
 		colliders_and_blit(current_animation);
@@ -278,7 +248,8 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
 	{
-		inputs.Push(INdie);
+		newState = stDie;
+		death = true;
 	}
 	else
 	{
@@ -289,7 +260,10 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
 		{
-			
+			if (currentState == stIdle)
+			{
+
+			}
 		}
 	}	
 }
@@ -337,6 +311,11 @@ bool jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
 	if (jumping)
 	{
 		inputs.Push(INjump);
+		!ret;
+	}
+	if (grounded && jumping)
+	{
+		inputs.Push(INjumpEND);
 		!ret;
 	}
 	return ret;
@@ -406,9 +385,30 @@ void jPlayer::debugcommands()
 
 void jPlayer::doJump() 
 {
-	if (jumpHeight < MAXJUMPHEIGHT)
+	if (!grounded)
 	{
-		position.y += JUMP_VELOCITY;
+		if (SDL_GetTicks() - jump_timer <= JUMP_TIME / 4.5)
+		{
+			position.y -= 8;
+		}
+
+		if (SDL_GetTicks() - jump_timer > JUMP_TIME / 4.5 && SDL_GetTicks() - jump_timer < JUMP_TIME / 1.28)
+		{
+			if (SDL_GetTicks() - jump_timer < JUMP_TIME / 2)
+			{
+				position.y -= 4;
+			}
+
+			if (SDL_GetTicks() - jump_timer > JUMP_TIME / 2)
+			{
+				position.y += 4;
+			}
+		}
+
+		if (SDL_GetTicks() - jump_timer >= JUMP_TIME / 1.28)
+		{
+			position.y += 10;
+		}
 	}
-	else inputs.Push(INfalling); jumping = false;
+	else jumping = false;
 }

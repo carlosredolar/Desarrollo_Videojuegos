@@ -12,8 +12,6 @@
 #define JUMP_TIME 850
 #define MAXJUMPHEIGHT 50
 #define MAX_FRAME_COLLIDERS 6
-#define JUMP_VELOCITY 1
-#define FALL_VELOCITY 1
 
 struct SDL_Texture;
 
@@ -34,9 +32,7 @@ enum playerInputs
 	INjump,
 	INleftUP,
 	INrightUP,
-	INjumpEND,
-	INfalling,
-	INdie
+	INjumpEND
 };
 
 
@@ -98,7 +94,6 @@ public:
 	bool jumping = false;
 
 	playerStates currentState,newState;
-	p2Qeue<playerInputs> inputs;
 
 	Uint32 jump_timer = 0;	
 };
