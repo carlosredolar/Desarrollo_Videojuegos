@@ -13,6 +13,7 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
+class jCollision;
 
 class j1App
 {
@@ -83,7 +84,7 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-
+	jCollision*         collisions;
 private:
 
 	p2List<j1Module*>	modules;
