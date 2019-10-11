@@ -22,22 +22,16 @@ struct MapLayer
 		RELEASE(data);
 	}
 
-	// TODO 6 (old): Short function to get the value of x,y
-	inline uint Get(int x, int y) const
-	{
-		uint value=0;
-		if (data != 0)
-		{
+	inline uint Get(int x, int y) const {
 
-		}
-		return value;
+		return x + y * width;
 	}
 };
 
 // ----------------------------------------------------
 struct TileSet
 {
-	SDL_Rect GetTileRect(int id) const;
+
 
 	p2SString			name;
 	int					firstgid;
@@ -96,9 +90,9 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// Coordinate translation methods
-	iPoint MapToWorld(int x, int y) const;
-	iPoint WorldToMap(int x, int y) const;
+	iPoint PosConverter(int x, int y);
+	SDL_Rect GetTileRect(TileSet* tileset, int id);
+
 
 private:
 
@@ -106,6 +100,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+
 
 public:
 
@@ -116,6 +111,8 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	p2List_item<MapLayer*>* lay = nullptr;
 };
 
 #endif // __j1MAP_H__
