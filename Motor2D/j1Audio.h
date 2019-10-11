@@ -34,7 +34,7 @@ public:
 
 private:
 
-	_Mix_Music*			music;
+	_Mix_Music*			music = NULL;
 	p2List<Mix_Chunk*>	fx;
 };
 

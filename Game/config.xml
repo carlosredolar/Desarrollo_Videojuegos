@@ -2,7 +2,7 @@
 
 <config>
   <app>
-    <title>Game Development</title>
+    <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
 	
@@ -17,5 +17,13 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
+
+  <file_system>
+    <path>data.zip</path>
+  </file_system>
+
+  <map>
+    <folder>maps/</folder>
+  </map>
 
 </config>
