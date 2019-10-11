@@ -85,7 +85,7 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-	jCollision*         collisions;
+	jCollisions*        collisions;
 	jPlayer*			player;
 
 private:

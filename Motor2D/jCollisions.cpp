@@ -9,48 +9,73 @@ jCollisions::jCollisions()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_WALL_LEFT][COLLIDER_WALL_LEFT] = false;
+/*	matrix[COLLIDER_WALL_LEFT][COLLIDER_WALL_LEFT] = false;
 	matrix[COLLIDER_WALL_LEFT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL_LEFT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL_LEFT][COLLIDER_PLAYER_ATTACK] = true;
 	matrix[COLLIDER_WALL_LEFT][COLLIDER_ENEMY_SHOT] = true;
 	matrix[COLLIDER_WALL_LEFT][COLLIDER_WALL_RIGHT] = false;
-
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL_LEFT] = true;
+*/
+//	matrix[COLLIDER_PLAYER][COLLIDER_WALL_LEFT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+//	matrix[COLLIDER_PLAYER][COLLIDER_WALL_RIGHT] = true;
 
-	matrix[COLLIDER_ENEMY][COLLIDER_WALL_LEFT] = true;
+//	matrix[COLLIDER_ENEMY][COLLIDER_WALL_LEFT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_ATTACK] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+//	matrix[COLLIDER_ENEMY][COLLIDER_WALL_RIGHT] = true;
 
 
-	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL_LEFT] = true;
+//	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL_LEFT] = true;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_ENEMY_SHOT] = false;
-	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL] = true;
+//	matrix[COLLIDER_PLAYER_ATTACK][COLLIDER_WALL_RIGHT] = true;
 
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL_LEFT] = true;
+//	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL_LEFT] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_ATTACK] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY_SHOT] = false;
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL_RIGHT] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
+//	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL_RIGHT] = true;
 
-	matrix[COLLIDER_WALL_RIGHT][COLLIDER_WALL_LEFT] = false;
+/*	matrix[COLLIDER_WALL_RIGHT][COLLIDER_WALL_LEFT] = false;
 	matrix[COLLIDER_WALL_RIGHT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL_RIGHT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL_RIGHT][COLLIDER_PLAYER_ATTACK] = true;
 	matrix[COLLIDER_WALL_RIGHT][COLLIDER_ENEMY_SHOT] = true;
 	matrix[COLLIDER_WALL_RIGHT][COLLIDER_WALL_RIGHT] = false;
+*/
+
+	matrix[COLLIDER_WALL][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER_ATTACK] = true;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;
+	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
+
+	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER_ATTACK] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_ENEMY_SHOT] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_WALL] = false;
+
+
 }
 
 // Destructor
@@ -129,14 +154,20 @@ void jCollisions::DebugDraw()
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-		case COLLIDER_WALL_LEFT: // blue
+/*		case COLLIDER_WALL_LEFT: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		case COLLIDER_WALL_RIGHT: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
+*/			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_WALL: // blue
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case COLLIDER_GROUND: // blue
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
