@@ -27,12 +27,12 @@ struct Collider
 	COLLIDER_TYPE type;
 	j1Module* callback = nullptr;
 
-	int damage;
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE typeC, j1Module* callbackC = nullptr, int dmg = 0) {
+	
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE typeC, j1Module* callbackC = nullptr) 
+	{
 		rect = rectangle;
 		type = typeC;
 		callback = callbackC;
-		damage = dmg;
 	}
 
 	void SetPos(int x, int y)
@@ -55,7 +55,7 @@ public:
 	bool Update();
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC = nullptr, int dmg = 0);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC = nullptr);
 	void DebugDraw();
 	void DeleteCollider(Collider*);
 

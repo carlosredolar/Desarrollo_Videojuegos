@@ -137,7 +137,7 @@ bool jCollisions::Update()
 
 void jCollisions::DebugDraw()
 {
-	if (App->input->GetKey[SDL_SCANCODE_F1] == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -159,7 +159,7 @@ void jCollisions::DebugDraw()
 			break;
 		case COLLIDER_WALL_RIGHT: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-*/			break;
+		break;*/
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
@@ -199,7 +199,7 @@ bool jCollisions::CleanUp()
 	return true;
 }
 
-Collider* jCollisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC, int dmg)
+Collider* jCollisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module* callbackC)
 {
 	Collider* ret = nullptr;
 
@@ -207,7 +207,7 @@ Collider* jCollisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE typeC, j1Module*
 	{
 		if (colliders[i] == nullptr)
 		{
-			ret = colliders[i] = new Collider(rect, typeC, callbackC, dmg);
+			ret = colliders[i] = new Collider(rect, typeC, callbackC);
 			break;
 		}
 	}
