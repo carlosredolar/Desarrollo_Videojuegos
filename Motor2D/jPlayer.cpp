@@ -75,7 +75,8 @@ bool jPlayer::Start()
 {
 	bool ret = true;
 
-	graphics = App->tex->Load("Game/textures/sprite_cat.png");
+	graphics = App->tex->Load("Game/textures/PlayerRight.png");
+	graphics = App->tex->Load("Game/textures/PlayerLeft.png");
 	shadow = App->tex->Load("");
 	//position.x = 395;
 	//position.y = 220;
