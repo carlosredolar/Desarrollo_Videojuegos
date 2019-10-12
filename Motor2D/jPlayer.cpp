@@ -30,6 +30,7 @@ jPlayer :: jPlayer()
 	idleRight.PushBack1({ 25, 135, 67, 101 }, { 32,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 153, 135, 67, 102 }, { 32,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.speed = 1.0f;
+	jumpRight.loop = false;
 
 	const int idleLeftCollider = 5;//Collider num for the idle animation
 	SDL_Rect idleLeftHitbox[idleLeftCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 },{ 9,4,51,54 },{ 1,3,45,33 } };
@@ -40,6 +41,7 @@ jPlayer :: jPlayer()
 	idleLeft.PushBack1({ 436, 436, 72, 87 }, { 32,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.speed = 1.0f;
+	jumpRight.loop = false;
 
 	//Run
 	const int walkRightcollider = 5;//Collider num for the idle animation
@@ -172,9 +174,13 @@ bool jPlayer::Start()
 	graphicsLeft = App->tex->Load("textures/PlayerLeft.png");
 	//shadow = App->tex->Load("");
 	position.x = 300;
-	position.y = 500;
+	position.y = 300;
 
 	newState = stIdle;
+	facingRight = true;
+	jumping = false;
+	grounded = true;
+	death = false;
 	//Sound Effects	
 	//App->audio->LoadFx("path Assets/...");
 	//App->audio->LoadFx("path");
@@ -235,7 +241,7 @@ bool jPlayer::Update(float dt)
 		external_input(inputs);
 		internal_input(inputs);
 
-		while (inputs.Pop(last_input) || newState != currentState)
+		while (inputs.Pop(last_input))
 		{
 			while (inputs.Pop(last_input))
 			{
@@ -272,25 +278,30 @@ bool jPlayer::Update(float dt)
 		switch (newState)
 		{
 			case stIdle:
-				if (facingRight) current_animation = &idleRight;
-				else current_animation = &idleLeft;
+				//if (facingRight) current_animation = &idleRight;
+				//else current_animation = &idleLeft;
+				LOG("State idle");
 				break;
 			case stWalk:
-				if (facingRight) current_animation = &walkRight;
-				else current_animation = &walkLeft;
+				//if (facingRight) current_animation = &walkRight;
+				//else current_animation = &walkLeft;
+				LOG("State walk");
 				break;
 			case stJump:
-				if (facingRight) current_animation = &jumpRight;
-				else current_animation = &jumpLeft;
+				//if (facingRight) current_animation = &jumpRight;
+				//else current_animation = &jumpLeft;
+				LOG("State jump");
 				break;
 			case stFalling:
-				if (facingRight) current_animation = &fallingRight;
-				else current_animation = &fallingLeft;
-				if (!grounded) position.y -= FALL_VELOCITY;
+				//if (facingRight) current_animation = &fallingRight;
+				//else current_animation = &fallingLeft;
+				//if (!grounded) position.y -= FALL_VELOCITY;
+				LOG("State falling");
 				break;
 			case stDie:
-				if (facingRight) current_animation = &dieRight;
-				else current_animation = &dieLeft;
+				//if (facingRight) current_animation = &dieRight;
+				//else current_animation = &dieLeft;
+				LOG("State die");
 				death = true;
 				break;
 		}
@@ -359,10 +370,8 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 	else
 	{
-		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_GROUND)
-		{
-			grounded = true;
-		}
+		//if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_GROUND) grounded = true;
+		//else grounded = false;
 
 		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
 		{
