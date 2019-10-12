@@ -30,11 +30,11 @@ jPlayer :: jPlayer()
 	SDL_Rect runhitbox[idleCollider] = { { 0, 3, 45, 33 },{ 8, 4, 51, 54 },{ 15, 3, 37, 71 },{ 13, 71, 31, 21 },{ 2, 37, 35, 41 } };
 	COLLIDER_TYPE runCollType[idleCollider] = { { COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY } };
 	j1Module* runCallback[idleCollider] = { { this },{ this },{ this },{ this }};
-	run.PushBack1({ 652,437, 73, 86 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	run.PushBack1({ 726, 434, 63, 89 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	run.PushBack1({ 790, 433, 60, 90 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	run.PushBack1({ 851, 432, 63, 91 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	run.speed = 0.15f;
+	right.PushBack1({ 652,437, 73, 86 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	right.PushBack1({ 726, 434, 63, 89 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	right.PushBack1({ 790, 433, 60, 90 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	right.PushBack1({ 851, 432, 63, 91 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	right.speed = 0.15f;
 
 
 	//Jump
@@ -43,12 +43,12 @@ jPlayer :: jPlayer()
 	COLLIDER_TYPE jumpCollType[jumpcollider] = { {COLLIDER_ENEMY},{COLLIDER_NONE},{COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY} };
 	j1Module* jumpCallback[jumpcollider] = { {this},{this},{this},{this}};
 
-	jump.PushBack1({ 1756, 1, 47, 110 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
-	jump.PushBack1({ 1804, 27, 50, 84 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
-	jump.PushBack1({ 1855, 36, 52, 75 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
-	jump.PushBack1({ 1908, 46, 57, 65 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
-	jump.speed = 0.21f;
-	jump.loop = false;
+	jumpRight.PushBack1({ 1756, 1, 47, 110 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpRight.PushBack1({ 1804, 27, 50, 84 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpRight.PushBack1({ 1855, 36, 52, 75 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpRight.PushBack1({ 1908, 46, 57, 65 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpRight.speed = 0.21f;
+	jumpRight.loop = false;
 
 
 
@@ -76,13 +76,13 @@ bool jPlayer::Start()
 	bool ret = true;
 
 	graphics = App->tex->Load("Game/textures/sprite_cat.png");
-	shadow = App->tex->Load("");
+	//shadow = App->tex->Load("");
 	//position.x = 395;
 	//position.y = 220;
 
 	//Sound Effects	
-	App->audio->LoadFx("path Assets/...");
-	App->audio->LoadFx("path");
+	//App->audio->LoadFx("path Assets/...");
+	//App->audio->LoadFx("path");
 
 	//Start functions to reset player
 	ResetPlayer();
@@ -111,7 +111,6 @@ bool jPlayer::CleanUp()
 bool jPlayer::Update()
 {
 	Animation* current_animation=&idle;
-	p2Qeue<playerInputs> inputs;
 	playerInputs last_input;
 
 	positionlimits();
@@ -134,60 +133,67 @@ bool jPlayer::Update()
 		}
 	}
 
-	if (currentState!=stDie)
-	{			
-		if (external_input(inputs) || internal_input(inputs))
+	if (!death)
+	{
+		external_input(inputs);
+		internal_input(inputs);
+
+		while (inputs.Pop(last_input) || newState != currentState)
 		{
 			while (inputs.Pop(last_input))
 			{
 				switch (last_input)
 				{
-				case INleft:
-					position.x -= speedX;
-					facingRight = false;
-					if (grounded) newState = stWalk;
-					break;
-
-				case INright:
-					position.x += speedX;
-					facingRight = true;
-					if (grounded) newState = stWalk;
-					break;
-
-				case INjump:
-					if (facingRight) current_animation = &jump;
-					else current_animation = &jump;
-					grounded = false;
-					doJump();
-					break;
-				case INjumpEND:
-					newState = stFalling;
-					break;
+					case INleft:
+						position.x -= speedX;
+						facingRight = false;
+						if (grounded) newState = stWalk;
+						break;
+					case INright:
+						position.x += speedX;
+						facingRight = true;
+						if (grounded) newState = stWalk;
+						break;
+					case INjump:
+						newState = stJump;
+						grounded = false;
+						doJump();
+						break;
+					case INjumpEND:
+						newState = stFalling;
+						break;
+					case INdie:
+						newState = stDie;
+						break;
+					case INfalling:
+						newState = stFalling;
+						break;
 				}
 			}
 		}
 
 		switch (newState)
 		{
-		case stIdle:
-			current_animation = &idle;
-			break;
-		case stWalk:
-			if (facingRight) current_animation = &run;
-			else current_animation = &run;
-			break;
-		case stJump:
-			if (facingRight) current_animation = &jump;
-			else current_animation = &jump;
-			break;
-		case stFalling:
-			if (facingRight) current_animation = &jump;
-			else current_animation = &jump;
-			break;
-		case stDie:
-			current_animation = &die;
-			death = true;
-			break;
+			case stIdle:
+				current_animation = &idle;
+				break;
+			case stWalk:
+				if (facingRight) current_animation = &right;
+				else current_animation = &left;
+				break;
+			case stJump:
+				if (facingRight) current_animation = &jumpRight;
+				else current_animation = &jumpLeft;
+				break;
+			case stFalling:
+				if (facingRight) current_animation = &jumpRight;
+				else current_animation = &jumpLeft;
+				if (!grounded) position.y -= FALL_VELOCITY;
+				break;
+			case stDie:
+				current_animation = &die;
+				death = true;
+				break;
 		}
 		currentState = newState;
 		colliders_and_blit(current_animation);
@@ -248,8 +254,7 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY)
 	{
-		newState = stDie;
-		death = true;
+		inputs.Push(INdie);
 	}
 	else
 	{
@@ -260,12 +265,9 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
 		{
-			if (currentState == stIdle)
-			{
 
-			}
 		}
-	}	
+	}
 }
 
 bool jPlayer::external_input(p2Qeue<playerInputs>& inputs)
@@ -285,7 +287,7 @@ bool jPlayer::external_input(p2Qeue<playerInputs>& inputs)
 		{
 			if (grounded)
 			{
-				inputs.Push(INjump); 
+				inputs.Push(INjump);
 				jumping = true;
 				ret = true;
 			}
@@ -311,11 +313,6 @@ bool jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
 	if (jumping)
 	{
 		inputs.Push(INjump);
-		!ret;
-	}
-	if (grounded && jumping)
-	{
-		inputs.Push(INjumpEND);
 		!ret;
 	}
 	return ret;
@@ -385,30 +382,9 @@ void jPlayer::debugcommands()
 
 void jPlayer::doJump() 
 {
-	if (!grounded)
+	if (jumpHeight < MAXJUMPHEIGHT)
 	{
-		if (SDL_GetTicks() - jump_timer <= JUMP_TIME / 4.5)
-		{
-			position.y -= 8;
-		}
-
-		if (SDL_GetTicks() - jump_timer > JUMP_TIME / 4.5 && SDL_GetTicks() - jump_timer < JUMP_TIME / 1.28)
-		{
-			if (SDL_GetTicks() - jump_timer < JUMP_TIME / 2)
-			{
-				position.y -= 4;
-			}
-
-			if (SDL_GetTicks() - jump_timer > JUMP_TIME / 2)
-			{
-				position.y += 4;
-			}
-		}
-
-		if (SDL_GetTicks() - jump_timer >= JUMP_TIME / 1.28)
-		{
-			position.y += 10;
-		}
+		position.y += JUMP_VELOCITY;
 	}
-	else jumping = false;
+	else inputs.Push(INfalling); jumping = false;
 }
