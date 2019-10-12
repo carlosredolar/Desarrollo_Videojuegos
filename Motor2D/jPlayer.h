@@ -63,13 +63,16 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* shadow = nullptr;
-	Animation idle;
-	Animation right;
-	Animation left;
+	Animation idleRight;
+	Animation idleLeft;
+	Animation walkRight;
+	Animation walkLeft;
 	Animation jumpLeft;
 	Animation jumpRight;
-	Animation die;
-	Animation falling;
+	Animation dieRight;
+	Animation dieLeft;
+	Animation fallingLeft;
+	Animation fallingRight;
 
 	iPoint position;
 

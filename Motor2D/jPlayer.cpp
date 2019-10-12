@@ -19,22 +19,42 @@ jPlayer :: jPlayer()
 	SDL_Rect idleHitbox[idleCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 },{ 9,4,51,54 },{ 1,3,45,33 } };
 	COLLIDER_TYPE idleCollType[idleCollider] = { { COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY } };
 	j1Module* idleCallBack[idleCollider] = { { this },{ this },{ this },{ this },{ this } };
-	idle.PushBack1({ 290, 438, 72, 85 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack1({ 436, 436, 72, 87 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
-	idle.speed = 0.1f;
+	idleRight.PushBack1({ 290, 438, 72, 85 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleRight.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleRight.PushBack1({ 436, 436, 72, 87 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleRight.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleRight.speed = 0.1f;
+
+	const int idleCollider = 5;//Collider num for the idle animation
+	SDL_Rect idleHitbox[idleCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 },{ 9,4,51,54 },{ 1,3,45,33 } };
+	COLLIDER_TYPE idleCollType[idleCollider] = { { COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY } };
+	j1Module* idleCallBack[idleCollider] = { { this },{ this },{ this },{ this },{ this } };
+	idleLeft.PushBack1({ 290, 438, 72, 85 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleLeft.PushBack1({ 436, 436, 72, 87 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleCollider, idleHitbox, idleCollType, idleCallBack);
+	idleLeft.speed = 0.1f;
 
 	//Run
 	const int runcollider = 5;//Collider num for the idle animation
 	SDL_Rect runhitbox[idleCollider] = { { 0, 3, 45, 33 },{ 8, 4, 51, 54 },{ 15, 3, 37, 71 },{ 13, 71, 31, 21 },{ 2, 37, 35, 41 } };
 	COLLIDER_TYPE runCollType[idleCollider] = { { COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY } };
 	j1Module* runCallback[idleCollider] = { { this },{ this },{ this },{ this }};
-	right.PushBack1({ 652,437, 73, 86 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	right.PushBack1({ 726, 434, 63, 89 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	right.PushBack1({ 790, 433, 60, 90 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	right.PushBack1({ 851, 432, 63, 91 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
-	right.speed = 0.15f;
+	walkRight.PushBack1({ 652,437, 73, 86 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkRight.PushBack1({ 726, 434, 63, 89 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkRight.PushBack1({ 790, 433, 60, 90 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkRight.PushBack1({ 851, 432, 63, 91 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkRight.speed = 0.15f;
+
+	const int runcollider = 5;//Collider num for the idle animation
+	SDL_Rect runhitbox[idleCollider] = { { 0, 3, 45, 33 },{ 8, 4, 51, 54 },{ 15, 3, 37, 71 },{ 13, 71, 31, 21 },{ 2, 37, 35, 41 } };
+	COLLIDER_TYPE runCollType[idleCollider] = { { COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY },{ COLLIDER_ENEMY } };
+	j1Module* runCallback[idleCollider] = { { this },{ this },{ this },{ this } };
+	walkLeft.PushBack1({ 652,437, 73, 86 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkLeft.PushBack1({ 726, 434, 63, 89 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkLeft.PushBack1({ 790, 433, 60, 90 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkLeft.PushBack1({ 851, 432, 63, 91 }, { 32,2 }, runcollider, runhitbox, runCollType, runCallback);
+	walkLeft.speed = 0.15f;
 
 
 	//Jump
@@ -50,6 +70,17 @@ jPlayer :: jPlayer()
 	jumpRight.speed = 0.21f;
 	jumpRight.loop = false;
 
+	const int jumpcollider = 5;//Collider num for the idle animation
+	SDL_Rect jumphitbox[jumpcollider] = { { 5, 53, 37, 19 },{ 2, 4, 51, 54 },{ 9, 55, 37, 39 },{ 20, 86, 31, 21 },{ 8, 68, 31, 27 } };
+	COLLIDER_TYPE jumpCollType[jumpcollider] = { {COLLIDER_ENEMY},{COLLIDER_NONE},{COLLIDER_ENEMY},{COLLIDER_ENEMY},{COLLIDER_ENEMY} };
+	j1Module* jumpCallback[jumpcollider] = { {this},{this},{this},{this} };
+
+	jumpLeft.PushBack1({ 1756, 1, 47, 110 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpLeft.PushBack1({ 1804, 27, 50, 84 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpLeft.PushBack1({ 1855, 36, 52, 75 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpLeft.PushBack1({ 1908, 46, 57, 65 }, { 32, 25 }, jumpcollider, jumphitbox, jumpCollType, jumpCallback);
+	jumpLeft.speed = 0.21f;
+	jumpLeft.loop = false;
 
 
 	//die animation
@@ -58,12 +89,49 @@ jPlayer :: jPlayer()
 	COLLIDER_TYPE dmgCollType[dmgCollider] = { {COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE} };
 	j1Module* dmgCallBack[dmgCollider] = { {this},{this},{this},{this}};
 
-	die.PushBack1({ 1307,465,72,80 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
-	die.PushBack1({ 1385, 458, 79, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
-	die.PushBack1({ 1465, 458, 76, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
-	die.PushBack1({ 1542, 462, 72, 83 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
-	die.speed = 0.1f;
-	die.loop = false;
+	dieRight.PushBack1({ 1307,465,72,80 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieRight.PushBack1({ 1385, 458, 79, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieRight.PushBack1({ 1465, 458, 76, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieRight.PushBack1({ 1542, 462, 72, 83 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieRight.speed = 0.1f;
+	dieRight.loop = false;
+
+	const int dmgCollider = 5;//Collider num for the idle animation
+	SDL_Rect dmgHitbox[dmgCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 }, {9,4,51,54 },{1,3,45,33} };
+	COLLIDER_TYPE dmgCollType[dmgCollider] = { {COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE} };
+	j1Module* dmgCallBack[dmgCollider] = { {this},{this},{this},{this} };
+
+	dieLeft.PushBack1({ 1307,465,72,80 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieLeft.PushBack1({ 1385, 458, 79, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieLeft.PushBack1({ 1465, 458, 76, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieLeft.PushBack1({ 1542, 462, 72, 83 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	dieLeft.speed = 0.1f;
+	dieLeft.loop = false;
+
+	//falling animation
+	const int dmgCollider = 5;//Collider num for the idle animation
+	SDL_Rect dmgHitbox[dmgCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 }, {9,4,51,54 },{1,3,45,33} };
+	COLLIDER_TYPE dmgCollType[dmgCollider] = { {COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE} };
+	j1Module* dmgCallBack[dmgCollider] = { {this},{this},{this},{this} };
+
+	fallingRight.PushBack1({ 1307,465,72,80 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingRight.PushBack1({ 1385, 458, 79, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingRight.PushBack1({ 1465, 458, 76, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingRight.PushBack1({ 1542, 462, 72, 83 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingRight.speed = 0.1f;
+	fallingRight.loop = false;
+
+	const int dmgCollider = 5;//Collider num for the idle animation
+	SDL_Rect dmgHitbox[dmgCollider] = { { 14, 71, 31, 21 },{ 3, 37, 35, 41 },{ 16, 3, 37, 71 }, {9,4,51,54 },{1,3,45,33} };
+	COLLIDER_TYPE dmgCollType[dmgCollider] = { {COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE},{COLLIDER_NONE} };
+	j1Module* dmgCallBack[dmgCollider] = { {this},{this},{this},{this} };
+
+	fallingLeft.PushBack1({ 1307,465,72,80 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingLeft.PushBack1({ 1385, 458, 79, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingLeft.PushBack1({ 1465, 458, 76, 87 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingLeft.PushBack1({ 1542, 462, 72, 83 }, { 32, 2 }, dmgCollider, dmgHitbox, dmgCollType, dmgCallBack);
+	fallingLeft.speed = 0.1f;
+	fallingLeft.loop = false;
 
 }
 
@@ -111,7 +179,7 @@ bool jPlayer::CleanUp()
 
 bool jPlayer::Update()
 {
-	Animation* current_animation=&idle;
+	Animation* current_animation=&idleRight;
 	playerInputs last_input;
 
 	positionlimits();
@@ -176,23 +244,25 @@ bool jPlayer::Update()
 		switch (newState)
 		{
 			case stIdle:
-				current_animation = &idle;
+				if (facingRight) current_animation = &idleRight;
+				else current_animation = &idleLeft;
 				break;
 			case stWalk:
-				if (facingRight) current_animation = &right;
-				else current_animation = &left;
+				if (facingRight) current_animation = &walkRight;
+				else current_animation = &walkLeft;
 				break;
 			case stJump:
 				if (facingRight) current_animation = &jumpRight;
 				else current_animation = &jumpLeft;
 				break;
 			case stFalling:
-				if (facingRight) current_animation = &jumpRight;
-				else current_animation = &jumpLeft;
+				if (facingRight) current_animation = &fallingRight;
+				else current_animation = &fallingLeft;
 				if (!grounded) position.y -= FALL_VELOCITY;
 				break;
 			case stDie:
-				current_animation = &die;
+				if (facingRight) current_animation = &dieRight;
+				else current_animation = &dieLeft;
 				death = true;
 				break;
 		}
@@ -314,6 +384,11 @@ bool jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
 	if (jumping)
 	{
 		inputs.Push(INjump);
+		!ret;
+	}	
+	if (!grounded && !jumping)
+	{
+		inputs.Push(INfalling);
 		!ret;
 	}
 	return ret;
