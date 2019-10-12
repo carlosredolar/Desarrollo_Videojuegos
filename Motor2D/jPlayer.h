@@ -69,7 +69,6 @@ public:
 	Animation jumpLeft;
 	Animation jumpRight;
 	Animation die;
-	Animation falling;
 
 	iPoint position;
 
