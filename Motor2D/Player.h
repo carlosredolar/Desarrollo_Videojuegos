@@ -1,4 +1,4 @@
-#ifndef __ModulePlayer2_H__
+/*#ifndef __ModulePlayer2_H__
 #define __ModulePlayer2_H__
 
 #include "j1Module.h"
@@ -155,3 +155,4 @@ public:
 };
 
 #endif
+*/

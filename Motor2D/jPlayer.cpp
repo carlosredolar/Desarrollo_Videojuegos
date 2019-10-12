@@ -174,13 +174,13 @@ bool jPlayer::Start()
 	graphicsLeft = App->tex->Load("textures/PlayerLeft.png");
 	//shadow = App->tex->Load("");
 	position.x = 300;
-	position.y = 300;
+	position.y = 500;
 
-	newState = stIdle;
 	facingRight = true;
 	jumping = false;
 	grounded = true;
 	death = false;
+	jumpHeight = 0;
 	//Sound Effects	
 	//App->audio->LoadFx("path Assets/...");
 	//App->audio->LoadFx("path");
@@ -213,7 +213,8 @@ bool jPlayer::CleanUp()
 bool jPlayer::Update(float dt)
 {
 //	LOG("Player update...");
-	Animation* current_animation=&idleRight;
+	Animation* current_animation = &idleRight;
+	playerStates currentState = stUnknown;
 	playerInputs last_input;
 
 	positionlimits();
@@ -238,74 +239,52 @@ bool jPlayer::Update(float dt)
 
 	if (!death)
 	{
-		external_input(inputs);
-		internal_input(inputs);
+		external_input();
+		//internal_input();
+		playerStates newState = process_fsm();
 
-		while (inputs.Pop(last_input))
+		if (newState != currentState)
 		{
-			while (inputs.Pop(last_input))
+			switch (newState)
 			{
-				switch (last_input)
-				{
-					case INleft:
-						position.x += speedX;
-						facingRight = false;
-						if (grounded) newState = stWalk;
-						break;
-					case INright:
-						position.x -= speedX;
-						facingRight = true;
-						if (grounded) newState = stWalk;
-						break;
-					case INjump:
-						newState = stJump;
-						grounded = false;
-						doJump();
-						break;
-					case INjumpEND:
-						newState = stFalling;
-						break;
-					case INdie:
-						newState = stDie;
-						break;
-					case INfalling:
-						newState = stFalling;
-						break;
-				}
+				case stIdle:
+					//if (facingRight) current_animation = &idleRight;
+					//else current_animation = &idleLeft;
+					LOG("State idle");
+					break;
+				case stWalkRight:
+					//if (facingRight) current_animation = &walkRight;
+					//else current_animation = &walkLeft;
+					facingRight = true;
+					LOG("State walk right");
+					break;
+				case stWalkLeft:
+					//if (facingRight) current_animation = &walkRight;
+					//else current_animation = &walkLeft;
+					facingRight = false;
+					LOG("State walk left");
+					break;
+				case stJump:
+					//if (facingRight) current_animation = &jumpRight;
+					//else current_animation = &jumpLeft;
+					doJump();
+					LOG("State jump");
+					break;
+				case stFalling:
+					//if (facingRight) current_animation = &fallingRight;
+					//else current_animation = &fallingLeft;
+					//if (!grounded) position.y -= FALL_VELOCITY;
+					LOG("State falling");
+					break;
+				case stDie:
+					//if (facingRight) current_animation = &dieRight;
+					//else current_animation = &dieLeft;
+					LOG("State die");
+					//death = true;
+					break;
 			}
-		}
-
-		switch (newState)
-		{
-			case stIdle:
-				//if (facingRight) current_animation = &idleRight;
-				//else current_animation = &idleLeft;
-				LOG("State idle");
-				break;
-			case stWalk:
-				//if (facingRight) current_animation = &walkRight;
-				//else current_animation = &walkLeft;
-				LOG("State walk");
-				break;
-			case stJump:
-				//if (facingRight) current_animation = &jumpRight;
-				//else current_animation = &jumpLeft;
-				LOG("State jump");
-				break;
-			case stFalling:
-				//if (facingRight) current_animation = &fallingRight;
-				//else current_animation = &fallingLeft;
-				//if (!grounded) position.y -= FALL_VELOCITY;
-				LOG("State falling");
-				break;
-			case stDie:
-				//if (facingRight) current_animation = &dieRight;
-				//else current_animation = &dieLeft;
-				LOG("State die");
-				death = true;
-				break;
-		}
-		currentState = newState;		
+			currentState = newState;
+		}		
 	}
 	else ResetPlayer();
 	colliders_and_blit(current_animation);
@@ -358,8 +337,8 @@ void jPlayer::colliders_and_blit(Animation* current_animation)
 		App->render->Blit(graphics, position.x - (r.w - PivotX), position.y - r.h, &r);
 	}*/
 //	LOG("Render player...");
-	App->render->Blit(graphicsRight, position.x - PivotX, position.y - r.h, &r);
-	App->render->Blit(graphicsLeft, position.x - PivotX, position.y - r.h, &r);
+	if(facingRight) App->render->Blit(graphicsRight, position.x - PivotX, position.y - r.h, &r);	
+	else App->render->Blit(graphicsLeft, position.x - PivotX, position.y - r.h, &r);
 }
 
 void jPlayer::OnCollision(Collider* c1, Collider* c2) 
@@ -380,36 +359,37 @@ void jPlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
-bool jPlayer::external_input(p2Qeue<playerInputs>& inputs)
+bool jPlayer::external_input()
 {
 	bool ret = false;
-	if (!death)
+	if (!death)		
 	{
 		//Key up	
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-			inputs.Push(INleftUP); ret = true;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP){ inputs.Push(INleftUP); ret = true; }
 
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-			inputs.Push(INrightUP); ret = true;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP){ inputs.Push(INrightUP); ret = true; }
 
 		//Key down
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
 			if (grounded)
 			{
+				LOG("W");
 				inputs.Push(INjump);
 				jumping = true;
 				ret = true;
 			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			inputs.Push(INleft);
+			LOG("A");
 			ret = true;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
 			inputs.Push(INright);
+			LOG("D");
 			ret = true;
 		}
 	}
@@ -417,19 +397,19 @@ bool jPlayer::external_input(p2Qeue<playerInputs>& inputs)
 }
 
 
-bool jPlayer::internal_input(p2Qeue<playerInputs>& inputs)
+bool jPlayer::internal_input()
 {
-	bool ret = false;
-	if (jumping)
+	bool ret = true;
+	/*if (jumping)
 	{
 		inputs.Push(INjump);
-		!ret;
+		ret=true;
 	}	
 	if (!grounded && !jumping)
 	{
 		inputs.Push(INfalling);
-		!ret;
-	}
+		ret=true;
+	}*/
 	return ret;
 }
 
@@ -437,47 +417,55 @@ void jPlayer::ResetPlayer()
 {
 	position.x = 0;
 	position.y = 0;
-	newState = stIdle;
 	death = false;
 }
 
-/*playerStates jPlayer::process_fsm(p2Qeue<playerInputs>& inputs)
+playerStates jPlayer::process_fsm()
 {
 	playerStates state = stIdle;
 	playerInputs last_input;
 
 	while (inputs.Pop(last_input))
 	{
-		switch (last_input)
+		switch (state)
 		{
-			case INleft:
-
-			break;
-
-			case INright:
-
-				break;
-
-			case INjump:
-
-				break;	
-
-			case INleftUP:
-
-				break;
-			case INrightUP:
-
-				break;
+				switch(last_input)
+				{
+					case INleft:
+						LOG("MOVE LEFT");
+						position.x += SPEEDX * 5;
+						facingRight = false;
+						if (grounded) state = stWalkLeft;
+						break;
+					case INright:
+						LOG("MOVE RIGHT");
+						position.x -= SPEEDX * 5;
+						if (grounded) state = stWalkRight;
+						break;
+					case INjump:
+						state = stJump;
+						//grounded = false;						
+						break;
+					case INjumpEND:
+						state = stFalling;
+						break;
+					case INdie:
+						state = stDie;
+						break;
+					case INfalling:
+						state = stFalling;
+						break;
+				}			
 		}
 	}
 	return state;
-}*/
+}
 
 
 void jPlayer::debugcommands() 
 {
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		newState = stDie;
+		inputs.Push(INdie);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
@@ -499,7 +487,8 @@ void jPlayer::doJump()
 {
 	if (jumpHeight < MAXJUMPHEIGHT)
 	{
-		position.y += JUMP_VELOCITY;
+		position.y -= JUMP_VELOCITY;
+		jumpHeight += JUMP_VELOCITY;
 	}
-	else inputs.Push(INfalling); jumping = false;
+	else { inputs.Push(INfalling); jumping = false; jumpHeight = 0; }
 }
