@@ -46,7 +46,7 @@ public:
 	~jPlayer();
 
 	bool Start();
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
 	bool internal_input(p2Qeue<playerInputs>& inputs);
@@ -61,8 +61,8 @@ public:
 
 public:
 
-	SDL_Texture* graphics = nullptr;
-	SDL_Texture* shadow = nullptr;
+	SDL_Texture* graphicsRight = nullptr;
+	SDL_Texture* graphicsLeft = nullptr;
 	Animation idleRight;
 	Animation idleLeft;
 	Animation walkRight;
