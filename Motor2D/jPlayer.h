@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "jAnimation.h"
 #include "p2Point.h"
-#include "p2Sstring.h"
+#include <string.h>
 #include "p2Qeue.h"
 #include "SDL\include\SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
@@ -12,14 +12,12 @@
 #define JUMP_TIME 850
 #define MAXJUMPHEIGHT 50
 #define MAX_FRAME_COLLIDERS 6
-#define JUMP_VELOCITY 1
-#define FALL_VELOCITY 1
 
 struct SDL_Texture;
 
 enum playerStates
 {
-	stIdle = 0,
+	stIdle=0,
 	stJump,
 	stWalk,
 	stFalling,
@@ -28,14 +26,13 @@ enum playerStates
 
 enum playerInputs
 {
-	INleft=0,
+	INnone = 0,
+	INleft,
 	INright,
 	INjump,
 	INleftUP,
 	INrightUP,
-	INjumpEND,
-	INfalling,
-	INdie
+	INjumpEND
 };
 
 
@@ -64,10 +61,8 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* shadow = nullptr;
 	Animation idle;
-	Animation right;
-	Animation left;
-	Animation jumpLeft;
-	Animation jumpRight;
+	Animation run;
+	Animation jump;
 	Animation die;
 
 	iPoint position;
@@ -99,8 +94,6 @@ public:
 	bool jumping = false;
 
 	playerStates currentState,newState;
-	p2Qeue<playerInputs> inputs;
-
 
 	Uint32 jump_timer = 0;	
 };
