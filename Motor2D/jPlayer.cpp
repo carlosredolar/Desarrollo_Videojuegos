@@ -29,7 +29,7 @@ jPlayer :: jPlayer()
 	idleRight.PushBack1({ 921, 8, 67, 101 }, { 32,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 25, 135, 67, 101 }, { 32,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 153, 135, 67, 102 }, { 32,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
-	idleRight.speed = 1.0f;
+	idleRight.speed = 0.01f;
 	jumpRight.loop = false;
 
 	const int idleLeftCollider = 5;//Collider num for the idle animation
@@ -40,7 +40,7 @@ jPlayer :: jPlayer()
 	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.PushBack1({ 436, 436, 72, 87 }, { 32,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 32,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
-	idleLeft.speed = 1.0f;
+	idleLeft.speed = 0.01f;
 	jumpRight.loop = false;
 
 	//Run
