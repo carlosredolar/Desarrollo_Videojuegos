@@ -46,7 +46,7 @@ void j1Map::Draw()
 				if (layer->data[n] != 0) 
 				{
 					//LOG("Render map...");
-					//App->render->Blit(tileset->texture, x, y, &GetTileRect(tileset, layer->data[n]));
+					App->render->Blit(tileset->texture, x, y, &GetTileRect(tileset, layer->data[n]));
 				}
 				x += data.tile_width;
 
