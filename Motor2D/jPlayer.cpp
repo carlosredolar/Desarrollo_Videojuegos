@@ -19,6 +19,7 @@ jPlayer :: jPlayer()
 	SDL_Rect idleRightHitbox[idleRightCollider] = { 14, 71, 31, 21 };
 	COLLIDER_TYPE idleRightCollType[idleRightCollider] = { COLLIDER_PLAYER };
 	j1Module* idleRightCallBack[idleRightCollider] = { this };
+
 	idleRight.PushBack1({ 24, 6, 67, 101 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 153, 7, 67, 101 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 281, 8, 67, 100 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
@@ -30,24 +31,30 @@ jPlayer :: jPlayer()
 	idleRight.PushBack1({ 25, 135, 67, 101 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.PushBack1({ 153, 135, 67, 102 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.speed = 0.01f;
-	jumpRight.loop = false;
 
 	const int idleLeftCollider = 1;//Collider num 
 	SDL_Rect idleLeftHitbox[idleLeftCollider] = { 14, 71, 31, 21 };
 	COLLIDER_TYPE idleLeftCollType[idleLeftCollider] = { COLLIDER_PLAYER };
 	j1Module* idleLeftCallBack[idleLeftCollider] = { this };
-	idleLeft.PushBack1({ 290, 438, 72, 85 }, { 36,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
-	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 36,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
-	idleLeft.PushBack1({ 436, 436, 72, 87 }, { 36,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
-	idleLeft.PushBack1({ 363, 437, 72, 86 }, { 36,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 919, 6, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 792, 7, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 663, 8, 67, 100 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 535, 8, 67, 100 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 407, 8, 67, 99 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 279, 8, 67, 100 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 151, 9, 67, 99 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 23, 8, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 919, 135, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
+	idleLeft.PushBack1({ 791, 135, 67, 102 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.speed = 0.01f;
-	jumpRight.loop = false;
+
 
 	//Run
 	const int walkRightcollider = 1;//Collider num
 	SDL_Rect walkRighthitbox[walkRightcollider] = { 0, 3, 45, 33 };
 	COLLIDER_TYPE walkRightCollType[walkRightcollider] = { COLLIDER_PLAYER };
-j1Module* walkRightCallback[walkRightcollider] = { this };
+	j1Module* walkRightCallback[walkRightcollider] = { this };
+
 	walkRight.PushBack1({ 481,262, 66, 102 }, { 33,2 }, walkRightcollider, walkRighthitbox, walkRightCollType, walkRightCallback);
 	walkRight.PushBack1({ 611, 263, 67, 99 }, { 33,2 }, walkRightcollider, walkRighthitbox, walkRightCollType, walkRightCallback);
 	walkRight.PushBack1({ 740, 264, 67, 92 }, { 33,2 }, walkRightcollider, walkRighthitbox, walkRightCollType, walkRightCallback);
@@ -62,18 +69,23 @@ j1Module* walkRightCallback[walkRightcollider] = { this };
 	SDL_Rect walkLefthitbox[walkLeftcollider] = { 0, 3, 45, 33 };
 	COLLIDER_TYPE walkLeftCollType[walkLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* walkLeftCallback[walkLeftcollider] = { this };
-	walkLeft.PushBack1({ 652,437, 73, 86 }, { 31,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
-	walkLeft.PushBack1({ 726, 434, 63, 89 }, { 31,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
-	walkLeft.PushBack1({ 790, 433, 60, 90 }, { 31,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
-	walkLeft.PushBack1({ 851, 432, 63, 91 }, { 31,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+
+	walkLeft.PushBack1({ 464,262, 66, 102 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 335, 263, 67, 99 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 204, 264, 67, 92 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 78, 263, 67, 98 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 913,390, 66, 102 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 782, 391, 67, 100 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 653, 391, 66, 95 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
+	walkLeft.PushBack1({ 526, 391, 67, 100 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
 	walkLeft.speed = 0.01f;
 
 
 	//Jump
 	const int jumpRightcollider = 1;//Collider num 
 	SDL_Rect jumpRighthitbox[jumpRightcollider] = { 5, 53, 37, 19 };
-COLLIDER_TYPE jumpRightCollType[jumpRightcollider] = { COLLIDER_PLAYER };
-j1Module* jumpRightCallback[jumpRightcollider] = { this };
+	COLLIDER_TYPE jumpRightCollType[jumpRightcollider] = { COLLIDER_PLAYER };
+	j1Module* jumpRightCallback[jumpRightcollider] = { this };
 
 	jumpRight.PushBack1({ 410, 135, 66, 102 }, { 32, 25 }, jumpRightcollider, jumpRighthitbox, jumpRightCollType, jumpRightCallback);
 	jumpRight.PushBack1({ 537, 136, 67, 101 }, { 32, 25 }, jumpRightcollider, jumpRighthitbox, jumpRightCollType, jumpRightCallback);
@@ -88,13 +100,17 @@ j1Module* jumpRightCallback[jumpRightcollider] = { this };
 
 	const int jumpLeftcollider = 1;//Collider num 
 	SDL_Rect jumpLefthitbox[jumpLeftcollider] = { 5, 53, 37, 19 };
-COLLIDER_TYPE jumpLeftCollType[jumpLeftcollider] = { COLLIDER_PLAYER };
+	COLLIDER_TYPE jumpLeftCollType[jumpLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* jumpLeftCallback[jumpLeftcollider] = {this};
 
-	jumpLeft.PushBack1({ 1756, 1, 47, 110 }, { 25, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
-	jumpLeft.PushBack1({ 1804, 27, 50, 84 }, { 25, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
-	jumpLeft.PushBack1({ 1855, 36, 52, 75 }, { 25, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
-	jumpLeft.PushBack1({ 1908, 46, 57, 65 }, { 25, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 535, 135, 66, 102 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 407, 136, 67, 101 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 280, 141, 67, 92 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 151, 141, 67, 95 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 24, 142, 67, 95 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 929, 262, 66, 94 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 801, 262, 65, 92 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
+	jumpLeft.PushBack1({ 674, 262, 67, 95 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
 	jumpLeft.speed = 0.01f;
 	jumpLeft.loop = false;
 
@@ -123,16 +139,16 @@ COLLIDER_TYPE jumpLeftCollType[jumpLeftcollider] = { COLLIDER_PLAYER };
 	COLLIDER_TYPE dieLeftCollType[dieLeftCollider] = { COLLIDER_NONE };
 	j1Module* dieLeftCallBack[dieLeftCollider] = { this };
 
-	dieLeft.PushBack1({ 2,784,71,87 }, { 32, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 142, 772, 79, 100 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 277, 774, 86, 98 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 413, 797, 86, 75 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 542,792,93,80 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 671, 797, 90, 75 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 797,800,88,72 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 922, 801, 87, 71 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 20,930,87,70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
-	dieLeft.PushBack1({ 152, 930, 87, 70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 938,784,71,87 }, { 32, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 792, 772, 79, 100 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 648, 774, 86, 98 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 512, 797, 86, 75 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 376,792,93,80 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 250, 797, 90, 75 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 126,800,88,72 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 2, 801, 87, 71 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 904,930,87,70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
+	dieLeft.PushBack1({ 772, 930, 87, 70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
 	dieLeft.speed = 0.01f;
 	dieLeft.loop = false;
 
@@ -159,14 +175,14 @@ COLLIDER_TYPE jumpLeftCollType[jumpLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* fallingLeftCallBack[fallingLeftCollider] = {this};
 
 
-	fallingLeft.PushBack1({ 17,647,65,95 }, { 32, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 145, 645, 66, 103 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 274, 644, 68, 101 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 401, 645, 64, 100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 529,646,65,98 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 657, 645,66,100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 786, 644, 65, 101 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
-	fallingLeft.PushBack1({ 913, 645, 66, 100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 929,647,65,95 }, { 32, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 801, 645, 66, 103 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 672, 644, 68, 101 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 544, 645, 64, 100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 417,646,65,98 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 288, 645,66,100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 157, 644, 65, 101 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
+	fallingLeft.PushBack1({ 32, 645, 66, 100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
 	fallingLeft.speed = 0.01f;
 	fallingLeft.loop = false;
 
@@ -260,45 +276,55 @@ bool jPlayer::Update(float dt)
 			case stIdle:
 				if (facingRight) current_animation = &idleRight;
 				else current_animation = &idleLeft;
-				walkRight.Reset();
+				/*walkRight.Reset();
 				walkLeft.Reset();
 				fallingLeft.Reset();
 				fallingRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();*/
 				LOG("State idle");
 				break;
 			case stWalkRight:
-				walkLeft.Reset();
-				idleLeft.Reset();
-				idleRight.Reset();
 				if (facingRight) current_animation = &walkRight;
 				else current_animation = &walkLeft;
+				/*walkLeft.Reset();
+				idleLeft.Reset();
+				idleRight.Reset();*/			
 				LOG("State walk right");
 				break;
 			case stWalkLeft:
-				walkRight.Reset();
+				if (facingRight) current_animation = &walkRight;
+				else current_animation = &walkLeft;
+				/*walkRight.Reset();
 				idleLeft.Reset();
-				idleRight.Reset();
-				//if (facingRight) current_animation = &walkRight;
-				//else current_animation = &walkLeft;
+				idleRight.Reset();*/				
 				LOG("State walk left");
 				break;
 			case stJump:
-				//if (facingRight) current_animation = &jumpRight;
-				//else current_animation = &jumpLeft;
+				if (facingRight) current_animation = &jumpRight;
+				else current_animation = &jumpLeft;
 				doJump();
 				LOG("State jump");
 				break;
 			case stFalling:
-				//if (facingRight) current_animation = &fallingRight;
-				//else current_animation = &fallingLeft;
+				if (facingRight) current_animation = &fallingRight;
+				else current_animation = &fallingLeft;
 				//if (!grounded) position.y -= FALL_VELOCITY;
-				jumpLeft.Reset();
-				jumpRight.Reset();
+				//jumpLeft.Reset();
+				//jumpRight.Reset();
 				LOG("State falling");
 				break;
 			case stDie:
-				//if (facingRight) current_animation = &dieRight;
-				//else current_animation = &dieLeft;
+				if (facingRight) current_animation = &dieRight;
+				else current_animation = &dieLeft;
+				/*walkRight.Reset();
+				walkLeft.Reset();
+				fallingLeft.Reset();
+				fallingRight.Reset();
+				idleLeft.Reset();
+				idleRight.Reset();
+				jumpLeft.Reset();
+				jumpRight.Reset();*/
 				LOG("State die");
 				//ResetPlayer();
 				//death = true;
@@ -393,7 +419,6 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 		{
 			if (grounded)
 			{
-				LOG("W");
 				inputs.Push(INjump);
 				jumping = true;
 			}
@@ -401,12 +426,10 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			inputs.Push(INleft);
-			LOG("A");
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
 			inputs.Push(INright);
-			LOG("D");
 		}
 	}
 }
@@ -531,6 +554,8 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 						break;
 					case INjump:
 						state = stJump;
+						position.y -= JUMP_VELOCITY;
+						jumpHeight += JUMP_VELOCITY;
 						doJump();
 						//grounded = false;						
 						break;
@@ -541,10 +566,32 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 						state = stFalling;
 						break;
 				}
-				break;
-		}
-		
-
+			break;
+			case stFalling:
+				switch (last_input)
+					{
+					case INleft:
+						LOG("MOVE LEFT");
+						position.x -= SPEEDX;
+						facingRight = false;
+						if (grounded && !jumping) state = stWalkLeft;
+						break;
+					case INright:
+						LOG("MOVE RIGHT");
+						position.x += SPEEDX;
+						facingRight = true;
+						if (grounded && !jumping) state = stWalkRight;
+						break;					
+					case INdie:
+						state = stDie;
+						break;
+					case INfalling:
+						state = stFalling;
+						position.y -= JUMP_VELOCITY;
+						break;
+				}
+			break;
+		}	
 	}
 	return state;
 }
@@ -573,11 +620,7 @@ void jPlayer::debugcommands(p2Qeue<playerInputs> &inputs)
 
 void jPlayer::doJump() 
 {
-	if (jumpHeight < MAXJUMPHEIGHT)
-	{
-		position.y -= JUMP_VELOCITY;
-		jumpHeight += JUMP_VELOCITY;
-	}
+	if (jumpHeight < MAXJUMPHEIGHT) jumping = true;
 	else { jumping = false; jumpHeight = 0; }
 	//else { inputs.Push(INfalling); jumping = false; jumpHeight = 0; }
 }
