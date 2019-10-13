@@ -266,7 +266,7 @@ bool jPlayer::Update(float dt)
 	}
 
 		external_input(inputs);
-		//internal_input();
+		internal_input(inputs);
 		playerStates newState = process_fsm(inputs);
 
 	if (newState != currentState)
@@ -276,25 +276,24 @@ bool jPlayer::Update(float dt)
 			case stIdle:
 				if (facingRight) current_animation = &idleRight;
 				else current_animation = &idleLeft;
-				/*walkRight.Reset();
+				walkRight.Reset();
 				walkLeft.Reset();
 				fallingLeft.Reset();
 				fallingRight.Reset();
 				dieLeft.Reset();
-				dieRight.Reset();*/
-				LOG("State idle");
+				dieRight.Reset();
 				break;
 			case stWalkRight:
-				if (facingRight) current_animation = &walkRight;
-				else current_animation = &walkLeft;
+				current_animation = &walkRight;
+				facingRight = true;
 				/*walkLeft.Reset();
 				idleLeft.Reset();
 				idleRight.Reset();*/			
 				LOG("State walk right");
 				break;
 			case stWalkLeft:
-				if (facingRight) current_animation = &walkRight;
-				else current_animation = &walkLeft;
+				current_animation = &walkLeft;
+				facingRight = false;
 				/*walkRight.Reset();
 				idleLeft.Reset();
 				idleRight.Reset();*/				
@@ -438,8 +437,8 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 void jPlayer::internal_input(p2Qeue<playerInputs> &inputs)
 {
 	if (death) inputs.Push(INdie);
-	if (jumping) inputs.Push(INjump);	
-	if (!grounded && !jumping) inputs.Push(INfalling);
+	//if (jumping) inputs.Push(INjump);	
+	//if (!grounded && !jumping) inputs.Push(INfalling);
 }
 
 void jPlayer::ResetPlayer()
@@ -464,7 +463,6 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 					case INleft:
 						LOG("MOVE LEFT");
 						position.x -= SPEEDX;
-						facingRight = false;
 						if (grounded && !jumping) state = stWalkLeft;
 						break;
 					case INright:
@@ -473,11 +471,8 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 						if (grounded && !jumping) state = stWalkRight;
 						break;
 					case INjump:
-						state = stJump;
+						//state = stJump;
 						//grounded = false;						
-						break;
-					case INjumpEND:
-						state = stFalling;
 						break;
 				}
 			break;
@@ -488,24 +483,22 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 					case INleft:
 						LOG("MOVE LEFT");
 						position.x -= SPEEDX;
-						facingRight = false;
 						if (grounded && !jumping) state = stWalkLeft;
 						break;
 					case INright:
 						LOG("MOVE RIGHT");
 						position.x += SPEEDX;
-						facingRight = true;
 						if (grounded && !jumping) state = stWalkRight;
 						break;
 					case INjump:
-						state = stJump;
+						//state = stJump;
 						//grounded = false;						
 						break;				
 					case INdie:
 						state = stDie;
 						break;
 					case INfalling:
-						state = stFalling;
+						//state = stFalling;
 						break;
 				}
 			break;
@@ -516,24 +509,22 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 					case INleft:
 						LOG("MOVE LEFT");
 						position.x -= SPEEDX;
-						facingRight = false;
 						if (grounded && !jumping) state = stWalkLeft;
 						break;
 					case INright:
 						LOG("MOVE RIGHT");
 						position.x += SPEEDX;
-						facingRight = true;
 						if (grounded && !jumping) state = stWalkRight;
 						break;
 					case INjump:
-						state = stJump;
+						//state = stJump;
 						//grounded = false;						
 						break;
 					case INdie:
 						state = stDie;
 						break;
 					case INfalling:
-						state = stFalling;
+						//state = stFalling;
 						break;
 				}
 			break;
