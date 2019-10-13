@@ -13,8 +13,8 @@
 #define MAX_FRAME_COLLIDERS 6
 #define JUMP_VELOCITY 5
 #define FALL_VELOCITY 10
-#define SPEEDX  10
-#define SPEEDY 10
+#define SPEEDX  1
+#define SPEEDY 1
 
 struct SDL_Texture;
 
@@ -52,13 +52,13 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider*, Collider*);
-	bool internal_input();
-	bool external_input();
-    playerStates process_fsm();
+	void internal_input(p2Qeue<playerInputs> &inputs);
+	void external_input(p2Qeue<playerInputs> &inputs);
+    playerStates process_fsm(p2Qeue<playerInputs> &inputs);
 	void ResetPlayer();
 	void colliders_and_blit(Animation*);
 	void positionlimits();
-	void debugcommands();
+	void debugcommands(p2Qeue<playerInputs> &inputs);
 	void doJump();
 
 
@@ -102,8 +102,6 @@ public:
 	bool grounded = true;
 	bool facingRight = true;
 	bool jumping = false;
-
-	p2Qeue<playerInputs> inputs;
 
 
 	Uint32 jump_timer = 0;	

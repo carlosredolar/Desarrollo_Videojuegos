@@ -164,12 +164,12 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	return ret;
 }
 
-/*bool j1Render::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle, SDL_Point* center, bool color)
+bool j1Render::MirrorBlit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, double angle, SDL_Point* center)
 {
 	bool ret = true;
 	SDL_Rect rect;
-	rect.x = (int)((camera.x + camera_offset.x) * speed) + x * SCREEN_SIZE;
-	rect.y = (int)((camera.y + camera_offset.y) * speed) + y * SCREEN_SIZE;
+	rect.x = (int)(camera.x * speed) + x * App->win->width;
+	rect.y = (int)(camera.y * speed) + y * App->win->height;
 
 	if (section != NULL)
 	{
@@ -181,8 +181,8 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	rect.w *= SCREEN_SIZE;
-	rect.h *= SCREEN_SIZE;
+	rect.w *= App->win->width;
+	rect.h *= App->win->height;
 
 	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, center, SDL_FLIP_HORIZONTAL) != 0)
 	{
@@ -191,7 +191,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	}
 
 	return ret;
-}*/
+}
 
 /*bool j1Render::BlitWithScale(SDL_Texture * texture, int x, int y, SDL_Rect * _section, float scale, float speed, float fillAmount, RENDER_PIVOT pivot)
 {
