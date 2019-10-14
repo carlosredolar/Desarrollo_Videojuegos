@@ -16,7 +16,7 @@ jPlayer :: jPlayer()
 {
 	//Idle
 	const int idleRightCollider = 1;//Collider num 
-	SDL_Rect idleRightHitbox[idleRightCollider] = { 14, 71, 31, 21 };
+	SDL_Rect idleRightHitbox[idleRightCollider] = { 14, 71, 67, 101 };
 	COLLIDER_TYPE idleRightCollType[idleRightCollider] = { COLLIDER_PLAYER };
 	j1Module* idleRightCallBack[idleRightCollider] = { this };
 
@@ -33,7 +33,7 @@ jPlayer :: jPlayer()
 	idleRight.speed = 0.01f;
 
 	const int idleLeftCollider = 1;//Collider num 
-	SDL_Rect idleLeftHitbox[idleLeftCollider] = { 14, 71, 31, 21 };
+	SDL_Rect idleLeftHitbox[idleLeftCollider] = { 50, 100, 67, 101 };
 	COLLIDER_TYPE idleLeftCollType[idleLeftCollider] = { COLLIDER_PLAYER };
 	j1Module* idleLeftCallBack[idleLeftCollider] = { this };
 	idleLeft.PushBack1({ 919, 6, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
@@ -51,7 +51,7 @@ jPlayer :: jPlayer()
 
 	//Run
 	const int walkRightcollider = 1;//Collider num
-	SDL_Rect walkRighthitbox[walkRightcollider] = { 0, 3, 45, 33 };
+	SDL_Rect walkRighthitbox[walkRightcollider] = { 50, 100, 66, 102 };
 	COLLIDER_TYPE walkRightCollType[walkRightcollider] = { COLLIDER_PLAYER };
 	j1Module* walkRightCallback[walkRightcollider] = { this };
 
@@ -66,7 +66,7 @@ jPlayer :: jPlayer()
 	walkRight.speed = 0.01f;
 
 	const int walkLeftcollider = 1;//Collider num 
-	SDL_Rect walkLefthitbox[walkLeftcollider] = { 0, 3, 45, 33 };
+	SDL_Rect walkLefthitbox[walkLeftcollider] = { 50, 100, 66, 102 };
 	COLLIDER_TYPE walkLeftCollType[walkLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* walkLeftCallback[walkLeftcollider] = { this };
 
@@ -278,52 +278,88 @@ bool jPlayer::Update(float dt)
 				else current_animation = &idleLeft;
 				walkRight.Reset();
 				walkLeft.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
 				fallingLeft.Reset();
 				fallingRight.Reset();
 				dieLeft.Reset();
 				dieRight.Reset();
+				jumpLeft.Reset();
+				jumpRight.Reset();
 				break;
 			case stWalkRight:
 				current_animation = &walkRight;
 				facingRight = true;
-				/*walkLeft.Reset();
+				walkLeft.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
 				idleLeft.Reset();
-				idleRight.Reset();*/			
+				idleRight.Reset();
+				fallingLeft.Reset();
+				fallingRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
+				jumpLeft.Reset();
+				jumpRight.Reset();
 				LOG("State walk right");
 				break;
 			case stWalkLeft:
 				current_animation = &walkLeft;
 				facingRight = false;
-				/*walkRight.Reset();
+				walkRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
 				idleLeft.Reset();
-				idleRight.Reset();*/				
+				idleRight.Reset();
+				fallingLeft.Reset();
+				fallingRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
+				jumpLeft.Reset();
+				jumpRight.Reset();
 				LOG("State walk left");
 				break;
 			case stJump:
 				if (facingRight) current_animation = &jumpRight;
 				else current_animation = &jumpLeft;
-				doJump();
+				walkRight.Reset();
+				walkLeft.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
+				idleLeft.Reset();
+				idleRight.Reset();
+				fallingLeft.Reset();
+				fallingRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
 				LOG("State jump");
 				break;
 			case stFalling:
 				if (facingRight) current_animation = &fallingRight;
 				else current_animation = &fallingLeft;
-				//if (!grounded) position.y -= FALL_VELOCITY;
-				//jumpLeft.Reset();
-				//jumpRight.Reset();
+				walkRight.Reset();
+				walkLeft.Reset();
+				jumpLeft.Reset();
+				jumpRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
+				idleLeft.Reset();
+				idleRight.Reset();
+				dieLeft.Reset();
+				dieRight.Reset();
 				LOG("State falling");
 				break;
 			case stDie:
 				if (facingRight) current_animation = &dieRight;
 				else current_animation = &dieLeft;
-				/*walkRight.Reset();
+				idleLeft.Reset();
+				idleRight.Reset();
+				walkRight.Reset();
 				walkLeft.Reset();
 				fallingLeft.Reset();
 				fallingRight.Reset();
-				idleLeft.Reset();
-				idleRight.Reset();
 				jumpLeft.Reset();
-				jumpRight.Reset();*/
+				jumpRight.Reset();
 				LOG("State die");
 				//ResetPlayer();
 				//death = true;
@@ -436,9 +472,9 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 
 void jPlayer::internal_input(p2Qeue<playerInputs> &inputs)
 {
-	if (death) inputs.Push(INdie);
-	//if (jumping) inputs.Push(INjump);	
-	//if (!grounded && !jumping) inputs.Push(INfalling);
+	/*if (death) inputs.Push(INdie);
+	if (jumping) inputs.Push(INjump);	
+	if (!grounded && !jumping) inputs.Push(INfalling);*/
 }
 
 void jPlayer::ResetPlayer()
@@ -455,7 +491,39 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 
 	while (inputs.Pop(last_input))
 	{
-		switch (state)
+		LOG("new input");
+		switch (last_input)
+		{
+			case INleft:
+				state = stWalkLeft;
+				position.x -= SPEEDX;
+				break;
+			case INright:
+				state = stWalkRight;
+				position.x += SPEEDX;
+				break;
+			case INjump:
+				state = stJump;
+				if (jumping)
+				{
+					position.y += SPEEDY;
+					jumpHeight += SPEEDY;
+				}
+				if (jumpHeight < MAXJUMPHEIGHT)
+				{
+					jumping = false;
+				}				
+				break;
+			case INfalling:
+				state = stFalling;
+				position.y -= SPEEDY;
+				break;
+			case INdie:
+				state = stDie;
+				death=true;
+				break;
+		}
+		/*switch (state)
 		{
 			case stIdle:
 				switch (last_input)
@@ -582,7 +650,7 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 						break;
 				}
 			break;
-		}	
+		}	*/
 	}
 	return state;
 }
@@ -590,9 +658,7 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 
 void jPlayer::debugcommands(p2Qeue<playerInputs> &inputs)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		inputs.Push(INdie);
-	}
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) inputs.Push(INdie);
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{

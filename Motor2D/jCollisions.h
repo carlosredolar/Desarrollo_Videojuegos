@@ -50,7 +50,6 @@ public:
 	jCollisions();
 	~jCollisions();
 
-
 	bool PreUpdate() override;
 	bool Update();
 	bool CleanUp() override;
