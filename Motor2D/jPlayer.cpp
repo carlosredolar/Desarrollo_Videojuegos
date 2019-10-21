@@ -32,7 +32,7 @@ jPlayer :: jPlayer()
 	idleRight.PushBack1({ 153, 135, 67, 102 }, { 33,2 }, idleRightCollider, idleRightHitbox, idleRightCollType, idleRightCallBack);
 	idleRight.speed = 0.01f;
 
-	const int idleLeftCollider = 1;//Collider num 
+	/*const int idleLeftCollider = 1;//Collider num 
 	SDL_Rect idleLeftHitbox[idleLeftCollider] = { 50, 100, 67, 101 };
 	COLLIDER_TYPE idleLeftCollType[idleLeftCollider] = { COLLIDER_PLAYER };
 	j1Module* idleLeftCallBack[idleLeftCollider] = { this };
@@ -46,8 +46,8 @@ jPlayer :: jPlayer()
 	idleLeft.PushBack1({ 23, 8, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.PushBack1({ 919, 135, 67, 101 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
 	idleLeft.PushBack1({ 791, 135, 67, 102 }, { 33,2 }, idleLeftCollider, idleLeftHitbox, idleLeftCollType, idleLeftCallBack);
-	idleLeft.speed = 0.01f;
-
+	idleLeft.speed = 0.01f;*/
+	
 
 	//Run
 	const int walkRightcollider = 1;//Collider num
@@ -65,7 +65,7 @@ jPlayer :: jPlayer()
 	walkRight.PushBack1({ 148, 391, 67, 100 }, { 33,2 }, walkRightcollider, walkRighthitbox, walkRightCollType, walkRightCallback);
 	walkRight.speed = 0.01f;
 
-	const int walkLeftcollider = 1;//Collider num 
+	/*const int walkLeftcollider = 1;//Collider num 
 	SDL_Rect walkLefthitbox[walkLeftcollider] = { 50, 100, 66, 102 };
 	COLLIDER_TYPE walkLeftCollType[walkLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* walkLeftCallback[walkLeftcollider] = { this };
@@ -78,7 +78,7 @@ jPlayer :: jPlayer()
 	walkLeft.PushBack1({ 782, 391, 67, 100 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
 	walkLeft.PushBack1({ 653, 391, 66, 95 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
 	walkLeft.PushBack1({ 526, 391, 67, 100 }, { 33,2 }, walkLeftcollider, walkLefthitbox, walkLeftCollType, walkLeftCallback);
-	walkLeft.speed = 0.01f;
+	walkLeft.speed = 0.01f;*/
 
 
 	//Jump
@@ -98,7 +98,7 @@ jPlayer :: jPlayer()
 	jumpRight.speed = 0.01f;
 	jumpRight.loop = false;
 
-	const int jumpLeftcollider = 1;//Collider num 
+	/*const int jumpLeftcollider = 1;//Collider num 
 	SDL_Rect jumpLefthitbox[jumpLeftcollider] = { 5, 53, 37, 19 };
 	COLLIDER_TYPE jumpLeftCollType[jumpLeftcollider] = { COLLIDER_PLAYER };
 	j1Module* jumpLeftCallback[jumpLeftcollider] = {this};
@@ -112,7 +112,7 @@ jPlayer :: jPlayer()
 	jumpLeft.PushBack1({ 801, 262, 65, 92 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
 	jumpLeft.PushBack1({ 674, 262, 67, 95 }, { 32, 25 }, jumpLeftcollider, jumpLefthitbox, jumpLeftCollType, jumpLeftCallback);
 	jumpLeft.speed = 0.01f;
-	jumpLeft.loop = false;
+	jumpLeft.loop = false;*/
 
 
 	//die animation
@@ -134,7 +134,7 @@ jPlayer :: jPlayer()
 	dieRight.speed = 0.01f;
 	dieRight.loop = false;
 
-	const int dieLeftCollider = 1;//Collider num 
+	/*const int dieLeftCollider = 1;//Collider num 
 	SDL_Rect dieLeftHitbox[dieLeftCollider] =  { 14, 71, 31, 21 };
 	COLLIDER_TYPE dieLeftCollType[dieLeftCollider] = { COLLIDER_NONE };
 	j1Module* dieLeftCallBack[dieLeftCollider] = { this };
@@ -150,7 +150,7 @@ jPlayer :: jPlayer()
 	dieLeft.PushBack1({ 904,930,87,70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
 	dieLeft.PushBack1({ 772, 930, 87, 70 }, { 42, 2 }, dieLeftCollider, dieLeftHitbox, dieLeftCollType, dieLeftCallBack);
 	dieLeft.speed = 0.01f;
-	dieLeft.loop = false;
+	dieLeft.loop = false;*/
 
 	//falling animation
 	const int fallingRightCollider = 1;//Collider num 
@@ -169,7 +169,7 @@ jPlayer :: jPlayer()
 	fallingRight.speed = 0.01f;
 	fallingRight.loop = false;
 
-	const int fallingLeftCollider = 1;//Collider num 
+	/*const int fallingLeftCollider = 1;//Collider num 
 	SDL_Rect fallingLeftHitbox [fallingLeftCollider]= { 14, 71, 31, 21};
 	COLLIDER_TYPE fallingLeftCollType[fallingLeftCollider] = { COLLIDER_PLAYER };
 	j1Module* fallingLeftCallBack[fallingLeftCollider] = {this};
@@ -184,7 +184,7 @@ jPlayer :: jPlayer()
 	fallingLeft.PushBack1({ 157, 644, 65, 101 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
 	fallingLeft.PushBack1({ 32, 645, 66, 100 }, { 33, 2 }, fallingLeftCollider, fallingLeftHitbox, fallingLeftCollType, fallingLeftCallBack);
 	fallingLeft.speed = 0.01f;
-	fallingLeft.loop = false;
+	fallingLeft.loop = false;*/
 
 }
 
@@ -200,8 +200,8 @@ bool jPlayer::Start()
 	graphicsRight = App->tex->Load("textures/PlayerRight.png");
 	graphicsLeft = App->tex->Load("textures/PlayerLeft.png");
 	//shadow = App->tex->Load("");
-	position.x = 300;
-	position.y = 500;
+	position.x = 500;
+	position.y = 600;
 
 	facingRight = true;
 	jumping = false;
@@ -275,7 +275,7 @@ bool jPlayer::Update(float dt)
 		{
 			case stIdle:
 				if (facingRight) current_animation = &idleRight;
-				else current_animation = &idleLeft;
+				//else current_animation = &idleLeft;
 				walkRight.Reset();
 				walkLeft.Reset();
 				dieLeft.Reset();
@@ -288,7 +288,7 @@ bool jPlayer::Update(float dt)
 				jumpRight.Reset();
 				break;
 			case stWalkRight:
-				current_animation = &walkRight;
+				if(!jumping && grounded) current_animation = &walkRight;
 				facingRight = true;
 				walkLeft.Reset();
 				dieLeft.Reset();
@@ -303,7 +303,7 @@ bool jPlayer::Update(float dt)
 				jumpRight.Reset();
 				LOG("State walk right");
 				break;
-			case stWalkLeft:
+			/*case stWalkLeft:
 				current_animation = &walkLeft;
 				facingRight = false;
 				walkRight.Reset();
@@ -318,10 +318,10 @@ bool jPlayer::Update(float dt)
 				jumpLeft.Reset();
 				jumpRight.Reset();
 				LOG("State walk left");
-				break;
+				break;*/
 			case stJump:
-				if (facingRight) current_animation = &jumpRight;
-				else current_animation = &jumpLeft;
+				if (jumping) current_animation = &jumpRight;
+				//else current_animation = &jumpLeft;
 				walkRight.Reset();
 				walkLeft.Reset();
 				dieLeft.Reset();
@@ -335,8 +335,8 @@ bool jPlayer::Update(float dt)
 				LOG("State jump");
 				break;
 			case stFalling:
-				if (facingRight) current_animation = &fallingRight;
-				else current_animation = &fallingLeft;
+				if (!jumping && !grounded) current_animation = &fallingRight;
+				//else current_animation = &fallingLeft;
 				walkRight.Reset();
 				walkLeft.Reset();
 				jumpLeft.Reset();
@@ -351,7 +351,7 @@ bool jPlayer::Update(float dt)
 				break;
 			case stDie:
 				if (facingRight) current_animation = &dieRight;
-				else current_animation = &dieLeft;
+				//else current_animation = &dieLeft;
 				idleLeft.Reset();
 				idleRight.Reset();
 				walkRight.Reset();
@@ -445,23 +445,26 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 	if (!death)		
 	{
 		//Key up	
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP){ inputs.Push(INleftUP); }
+		//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP){ inputs.Push(INleftUP); }
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP){ inputs.Push(INrightUP); }
+
+		if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) { grounded = !grounded; }
 
 		//Key down
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		{
-			if (grounded)
-			{
+			//if (grounded)
+			//{
 				inputs.Push(INjump);
 				jumping = true;
-			}
+				grounded = false;
+			//}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			inputs.Push(INleft);
-		}
+		}*/
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
 			inputs.Push(INright);
@@ -472,9 +475,20 @@ void jPlayer::external_input(p2Qeue<playerInputs> &inputs)
 
 void jPlayer::internal_input(p2Qeue<playerInputs> &inputs)
 {
-	/*if (death) inputs.Push(INdie);
-	if (jumping) inputs.Push(INjump);	
-	if (!grounded && !jumping) inputs.Push(INfalling);*/
+	//if (death) inputs.Push(INdie);
+	if (jumping)
+	{
+		if (jumpHeight > MAXJUMPHEIGHT)
+		{
+			jumping = false;
+			inputs.Push(INfalling);
+		}
+		else
+		{
+			inputs.Push(INjump);
+		}
+	}
+	if (!grounded && !jumping) inputs.Push(INfalling);
 }
 
 void jPlayer::ResetPlayer()
@@ -494,29 +508,29 @@ playerStates jPlayer::process_fsm(p2Qeue<playerInputs> &inputs)
 		LOG("new input");
 		switch (last_input)
 		{
-			case INleft:
+			/*case INleft:
 				state = stWalkLeft;
 				position.x -= SPEEDX;
-				break;
+				break;*/
 			case INright:
 				state = stWalkRight;
-				position.x += SPEEDX;
+				//position.x += SPEEDX;
+				move(true, SPEEDX);
+				break;
+			case INrightUP:
+				state = stIdle;
 				break;
 			case INjump:
 				state = stJump;
-				if (jumping)
-				{
-					position.y += SPEEDY;
-					jumpHeight += SPEEDY;
-				}
-				if (jumpHeight < MAXJUMPHEIGHT)
-				{
-					jumping = false;
-				}				
+				//position.y -= SPEEDY;
+				move(false, -SPEEDY);
+				jumpHeight += SPEEDY;
 				break;
 			case INfalling:
 				state = stFalling;
-				position.y -= SPEEDY;
+				jumping = false;
+				move(false,SPEEDY);
+				//position.y += SPEEDY;
 				break;
 			case INdie:
 				state = stDie;
@@ -675,9 +689,16 @@ void jPlayer::debugcommands(p2Qeue<playerInputs> &inputs)
 	}
 }
 
-void jPlayer::doJump() 
+void jPlayer::move(bool x,int num) 
 {
-	if (jumpHeight < MAXJUMPHEIGHT) jumping = true;
-	else { jumping = false; jumpHeight = 0; }
-	//else { inputs.Push(INfalling); jumping = false; jumpHeight = 0; }
+	if (x)
+	{
+		if (waitX > 3) { position.x += num; waitX = 0; }
+		else waitX++;
+	}
+	else 
+	{
+		if (waitY > 2) { position.y += num; waitY= 0; }
+		else waitY++;
+	}
 }

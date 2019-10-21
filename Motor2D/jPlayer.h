@@ -9,7 +9,7 @@
 #include "SDL\include\SDL.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
-#define MAXJUMPHEIGHT 200
+#define MAXJUMPHEIGHT 500
 #define MAX_FRAME_COLLIDERS 6
 #define JUMP_VELOCITY 5
 #define FALL_VELOCITY 10
@@ -59,7 +59,7 @@ public:
 	void colliders_and_blit(Animation*);
 	void positionlimits();
 	void debugcommands(p2Qeue<playerInputs> &inputs);
-	void doJump();
+	void move(bool x, int num);
 
 
 public:
@@ -92,6 +92,8 @@ public:
 	int sound = 0;
 	int PivotX = 0;
 	int PivotY = 0;
+	int waitX = 0;
+	int waitY = 0;
 
 	bool leftLimit = false;
 	bool RightLimit = false;
