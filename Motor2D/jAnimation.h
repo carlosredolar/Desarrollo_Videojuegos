@@ -70,7 +70,6 @@ public:
 			hitbox[i] = rhitbox[i];
 			type[i] = ctipo[i];
 			callback[i] = pcallback[i];
-
 		}
 		last_frame++;
 	}

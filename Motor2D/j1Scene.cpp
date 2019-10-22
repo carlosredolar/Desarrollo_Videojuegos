@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "jCollisions.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,7 +33,7 @@ bool j1Scene::Start()
 {
 	App->map->Load("maps/map.tmx");
 	//App->map->Load("iso.tmx");
-
+	colliders[0] = App->collisions->AddCollider({ 100, 800,1000,100 }, COLLIDER_GROUND, this);
 	return true;
 }
 

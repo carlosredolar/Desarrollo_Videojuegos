@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "jCollisions.h"
 
 struct SDL_Texture;
 
@@ -33,6 +34,7 @@ public:
 	bool CleanUp();
 
 private:
+	Collider* colliders[20];
 };
 
 #endif // __j1SCENE_H__

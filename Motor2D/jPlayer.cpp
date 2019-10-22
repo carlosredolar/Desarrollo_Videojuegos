@@ -208,6 +208,7 @@ bool jPlayer::Start()
 	grounded = true;
 	death = false;
 	jumpHeight = 0;
+	GodMode = false;
 	//Sound Effects	
 	//App->audio->LoadFx("path Assets/...");
 	//App->audio->LoadFx("path");
@@ -418,8 +419,7 @@ void jPlayer::colliders_and_blit(Animation* current_animation)
 	}*/
 	//SDL_Point center; center.x = PivotX; center.y = PivotY;
 
-	if(facingRight) App->render->Blit(graphicsRight, position.x - PivotX, position.y - r.h, &r);
-	else App->render->Blit(graphicsLeft, position.x - PivotX, position.y - r.h, &r);
+	App->render->Blit(graphicsRight, position.x - PivotX, position.y - r.h, &r);
 }
 
 void jPlayer::OnCollision(Collider* c1, Collider* c2)
