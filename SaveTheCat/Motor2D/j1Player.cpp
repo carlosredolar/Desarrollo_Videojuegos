@@ -68,14 +68,14 @@ bool j1Player::PreUpdate(){
 	lastPosition = position;
 	last_state = state;
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 		god = !god;
 		if (god)
 		{
 			state = IDLE;
 			velocity.y = 0;
 		}
-	}
+	}*/
 
 	if (!App->pause)
 	{
