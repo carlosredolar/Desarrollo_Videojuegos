@@ -94,12 +94,7 @@ bool jCollisions::PreUpdate()
 			colliders[i] = nullptr;
 		}
 	}
-	return true;
-}
 
-// Called before render is available
-bool jCollisions::Update()
-{
 	Collider* c1;
 	Collider* c2;
 
@@ -130,18 +125,23 @@ bool jCollisions::Update()
 			}
 		}
 	}
-	DebugDraw();
+	return true;
+}
+
+// Called before render is available
+bool jCollisions::Update()
+{
+	//DebugDraw();
 	return true;
 }
 
 void jCollisions::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
+	//if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) debug = !debug;
 
-	if (debug == false)
-		return;
-
+	debug = !debug;
+	if (debug == false) { LOG("Collider draw OFF"); return; }
+	else { LOG("Collider draw ON"); }
 	Uint8 alpha = 80;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{

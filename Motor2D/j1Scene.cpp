@@ -64,9 +64,14 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		App->collisions->DebugDraw();
+
+	//if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	//colliders[0] = App->collisions->AddCollider({ 100, 800,1000,100 }, COLLIDER_GROUND, this);
+
+
 	App->map->Draw();
-
-
 	return true;
 }
 
@@ -87,4 +92,9 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::OnCollision(Collider* c1, Collider* c2)
+{
+	
 }

@@ -33,6 +33,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void OnCollision(Collider*, Collider*);
+
 private:
 	Collider* colliders[20];
 };
