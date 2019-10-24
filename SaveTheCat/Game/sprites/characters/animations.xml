@@ -4,16 +4,16 @@
 <spritesheet source="spritesheet_cat.png"/>
  <animation name="idle" loop="true">
   <data>
-  <frame x="16" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="80" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="148" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="214" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="275" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="338" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="399" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="460" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="519" y="156" w="43" h="68" speed="0.05"/>
-  <frame x="582" y="156" w="43" h="68" speed="0.05"/>
+  <frame x="17" y="161" w="40" h="60" speed="0.1"/>
+  <frame x="83" y="162" w="40" h="60" speed="0.1"/>
+  <frame x="150" y="162" w="40" h="60" speed="0.1"/>
+  <frame x="216" y="162" w="40" h="60" speed="0.1"/>
+  <frame x="278" y="163" w="40" h="60" speed="0.1"/>
+  <frame x="341" y="163" w="40" h="60" speed="0.1"/>
+  <frame x="402" y="163" w="40" h="60" speed="0.1"/>
+  <frame x="462" y="162" w="40" h="60" speed="0.1"/>
+  <frame x="521" y="161" w="40" h="60" speed="0.1"/>
+  <frame x="584" y="161" w="40" h="60" speed="0.1"/>
   </data>
  </animation>
 <animation name="run" loop="true">
@@ -37,40 +37,40 @@
   <frame x="319" y="22" w="54" h="55" speed="0.1"/>
   <frame x="396" y="22" w="54" h="55" speed="0.1"/>
   <frame x="473" y="22" w="54" h="55" speed="0.1"/>
-  <frame x="551" y="22" w="54" h="55" speed="0."/>
+  <frame x="551" y="22" w="54" h="55" speed="0.1"/>
   <frame x="626" y="22" w="54" h="55" speed="0.1"/>
   <frame x="705" y="22" w="54" h="55" speed="0.1"/>
   </data>
  </animation>
 <animation name="death" loop="false">
   <data>
-  <frame x="184" y="302" w="43" h="56" speed="0.2"/>
+  <frame x="184" y="302" w="43" h="56" speed="0.1"/>
 
   </data>
  </animation>
 <animation name="jump" loop="false">
   <data>
-  <frame x="30" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="110" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="187" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="266" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="345" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="414" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="493" y="319" w="47" h="68" speed="0.2"/>
-  <frame x="571" y="319" w="47" h="68" speed="0.2"/>
+  <frame x="31" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="110" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="189" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="268" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="347" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="416" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="494" y="319" w="47" h="68" speed="0.1"/>
+  <frame x="573" y="319" w="47" h="68" speed="0.1"/>
 
   </data>
  </animation>
 <animation name="fall" loop="false">
   <data>
-  <frame x="24" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="103" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="182" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="260" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="337" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="414" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="493" y="408" w="50" h="65" speed="0.2"/>
-  <frame x="570" y="408" w="50" h="65" speed="0.2"/>
+  <frame x="24" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="103" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="182" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="260" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="337" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="414" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="493" y="408" w="50" h="65" speed="0.1"/>
+  <frame x="570" y="408" w="50" h="65" speed="0.1"/>
   
   </data>
  </animation>

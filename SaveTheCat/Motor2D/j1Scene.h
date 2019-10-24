@@ -4,6 +4,7 @@
 #include "j1Module.h"
 
 #define CAMERA_SPEED 10
+#define SPEED 3
 
 struct SDL_Texture;
 
@@ -55,6 +56,7 @@ public:
 	int	player_x_position;
 	int	player_y_position;
 private:
+	int speedCount = 0;
 };
 
 #endif // __j1SCENE_H__
