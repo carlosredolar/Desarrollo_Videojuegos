@@ -188,7 +188,7 @@ bool j1Player::PreUpdate(){
 			velocity.x = -speed;
 		}
 
-		if (state == JUMP &&)
+		if (state == JUMP)
 		{
 			collider->SetSize(51, 66);
 			if (player_input.pressing_D) position.x += speed/2;
@@ -342,7 +342,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				position.y = App->map->data.player_initial_y;
 				velocity.x = 0;
 				velocity.y = 0;
-				//App->scene->Reset_Camera();
+				App->scene->Reset_Camera();
 			}
 			break;
 		default:

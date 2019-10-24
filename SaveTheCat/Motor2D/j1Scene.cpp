@@ -32,10 +32,11 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//invisible square delimiting the space in the camera where the player can move
-	/*top_edge = App->render->camera.y + App->render->camera.h / 4;
-	bottom_edge = App->render->camera.y + App->render->camera.h* 3/4;
-	left_edge = App->render->camera.x + App->render->camera.w / 3;
-	right_edge = App->render->camera.x + App->render->camera.w *1/2;*/
+	top_edge = App->render->camera.y + App->render->camera.h/4;
+	bottom_edge = App->render->camera.y + App->render->camera.h;
+	//left_edge = App->render->camera.x + App->render->camera.w / 3;
+	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
+	
 
 	App->audio->PlayMusic("music_sadpiano.ogg");
 	
@@ -95,8 +96,9 @@ bool j1Scene::Update(float dt)
 
 	//camera window ------------------
 
-	speedCount++;
-	if (speedCount >= SPEED) { App->render->camera.x -= 1; speedCount = 0; }
+	/*speedCount++;
+	if (speedCount >= SPEED) { App->render->camera.x -= 1; speedCount = 0; }*/
+	App->render->camera.x -= CAMERA_RUN_SPEED;
 
 	/*
 	if (((player_position->x < left_edge)) &&(left_edge > App->render->initial_camera_x + App->render->camera.w / 3)){
@@ -109,7 +111,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= App->player->speed;
 		right_edge += App->player->speed;
 		left_edge+= App->player->speed;
-	}
+	}*/
 
 	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)) {
 			App->render->camera.y += App->player->speed;
@@ -122,7 +124,7 @@ bool j1Scene::Update(float dt)
 		top_edge+= App->player->speed;
 		bottom_edge+= App->player->speed;
 	}
-	*/
+	
 	//camera manual control --------------
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -174,8 +176,8 @@ void j1Scene::Reset_Camera() {
 	App->render->camera.y = App->render->initial_camera_y;
 	top_edge = App->render->camera.y + App->render->camera.h / 4;
 	bottom_edge = App->render->camera.y + App->render->camera.h * 3 / 4;
-	left_edge = App->render->camera.x + App->render->camera.w / 3;
-	right_edge = App->render->camera.x + App->render->camera.w * 1 / 2;
+	/*left_edge = App->render->camera.x + App->render->camera.w / 3;
+	right_edge = App->render->camera.x + App->render->camera.w * 1 / 2;*/
 }
 
 void j1Scene::ResetLevel() {

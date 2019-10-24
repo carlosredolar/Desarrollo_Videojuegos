@@ -4,6 +4,7 @@
 #include "j1Module.h"
 
 #define CAMERA_SPEED 10
+#define CAMERA_RUN_SPEED 3
 #define SPEED 3
 
 struct SDL_Texture;
@@ -48,8 +49,8 @@ public:
 
 public:
 	
-	int left_edge;
-	int right_edge;
+	/*int left_edge;
+	int right_edge;*/
 	int top_edge;
 	int bottom_edge;
 	MapLoaded current_level;
