@@ -32,10 +32,10 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//invisible square delimiting the space in the camera where the player can move
-	top_edge = App->render->camera.y + App->render->camera.h / 4;
+	/*top_edge = App->render->camera.y + App->render->camera.h / 4;
 	bottom_edge = App->render->camera.y + App->render->camera.h* 3/4;
 	left_edge = App->render->camera.x + App->render->camera.w / 3;
-	right_edge = App->render->camera.x + App->render->camera.w *1/2;
+	right_edge = App->render->camera.x + App->render->camera.w *1/2;*/
 
 	App->audio->PlayMusic("music_sadpiano.ogg");
 	
@@ -122,7 +122,7 @@ bool j1Scene::Update(float dt)
 		top_edge+= App->player->speed;
 		bottom_edge+= App->player->speed;
 	}
-
+	*/
 	//camera manual control --------------
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -136,7 +136,7 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= CAMERA_SPEED;
-	*/
+	
 
 
 	App->map->Draw();

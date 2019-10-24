@@ -29,7 +29,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_PLATFORM][COLLIDER_WALL] = false;
 	matrix[COLLIDER_PLATFORM][COLLIDER_DEATH] = false;
-	debug = false;
 
 }
 

@@ -188,7 +188,7 @@ bool j1Player::PreUpdate(){
 			velocity.x = -speed;
 		}
 
-		if (state == JUMP)
+		if (state == JUMP &&)
 		{
 			collider->SetSize(51, 66);
 			if (player_input.pressing_D) position.x += speed/2;
@@ -317,12 +317,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_WALL:
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
-			if ((position.x < c2->rect.x + COLLIDER_MARGIN) /*&& (state == FALL)*/)
+			if ((position.x < c2->rect.x + COLLIDER_MARGIN) && (state == FALL))
 			{
 				can_go_right = false;
 				
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) /*&& (state == FALL)*/)
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) && (state == FALL))
 			{
 				can_go_left = false;
 			}
