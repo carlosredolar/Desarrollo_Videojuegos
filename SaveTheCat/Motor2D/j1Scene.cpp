@@ -41,15 +41,14 @@ bool j1Scene::Start()
 	
 	//App->map->Load("hello2.tmx");
 	App->map->Load("Level1.tmx");
-	//App->map->Load("Level2.tmx");
+	//App->map->Load("Level2.tmx");	
+	App->render->camera.y = -150;
+	speedCount = 0;
 	return true;
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate()
-{
-	return true;
-}
+bool j1Scene::PreUpdate() { return true; }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
@@ -96,6 +95,10 @@ bool j1Scene::Update(float dt)
 
 	//camera window ------------------
 
+	speedCount++;
+	if (speedCount >= SPEED) { App->render->camera.x -= 1; speedCount = 0; }
+
+	/*
 	if (((player_position->x < left_edge)) &&(left_edge > App->render->initial_camera_x + App->render->camera.w / 3)){
 			App->render->camera.x += App->player->speed;
 			right_edge -= App->player->speed;
@@ -133,6 +136,8 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= CAMERA_SPEED;
+	*/
+
 
 	App->map->Draw();
 
