@@ -32,7 +32,11 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	speed = config.child("speed").attribute("value").as_int();
 	jumpImpulse = config.child("jumpImpulse").attribute("value").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
-
+	jumpFX = "sounds/jump.wav";
+	deathFX = "sounds/death.wav";
+	winFX = "sounds/win.wav";
+	slideFX = "sounds/slide.wav";
+	music = "sounds/SuperSong.wav";
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
 
@@ -45,7 +49,11 @@ bool j1Player::Start(){
 	position.x = initial_x_position = App->scene->player_x_position;
 	position.y = initial_x_position = App->scene->player_y_position;
 
-	App->audio->LoadFx(hello_man.GetString());
+	App->audio->LoadFx(jumpFX.GetString());
+	App->audio->LoadFx(deathFX.GetString());
+	App->audio->LoadFx(winFX.GetString());
+	App->audio->LoadFx(slideFX.GetString());
+	App->audio->PlayMusic(music.GetString(),0);
 
 	return true;
 }
@@ -62,6 +70,7 @@ bool j1Player::PreUpdate(){
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
 	player_input.pressing_S = App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT;
+	player_input.S_keyUp = App->input->GetKey(SDL_SCANCODE_S) == KEY_UP;
 	player_input.pressing_D = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
 	player_input.pressing_space = App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN;
 
@@ -101,17 +110,20 @@ bool j1Player::PreUpdate(){
 				if (flip == SDL_FLIP_NONE)
 				{
 					state = SLIDE_FORWARD;
+					App->audio->PlayFx(4, 0);
 				}
 				else
 				{
 					state = SLIDE_BACKWARD;
+					App->audio->PlayFx(4, 0);
 				}
 			}
 			
 			if (player_input.pressing_space)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse;
+				velocity.y = jumpImpulse;	
+				App->audio->PlayFx(1, 0);
 			}
 			
 		}
@@ -129,11 +141,13 @@ bool j1Player::PreUpdate(){
 			{
 				state = JUMP;
 				velocity.y = jumpImpulse;
+				App->audio->PlayFx(1, 0);
 			}
 			
 			if (player_input.pressing_S)
 			{
 				state = SLIDE_FORWARD;
+				App->audio->PlayFx(4, 0);
 			}
 
 			velocity.x = speed;
@@ -152,11 +166,13 @@ bool j1Player::PreUpdate(){
 			{
 				state = JUMP;
 				velocity.y = jumpImpulse;
+				App->audio->PlayFx(1, 0);
 			}
 			
 			if (player_input.pressing_S)
 			{
 				state = SLIDE_BACKWARD;
+				App->audio->PlayFx(4, 0);
 			}
 
 			velocity.x = -speed;
@@ -221,6 +237,7 @@ bool j1Player::PreUpdate(){
 				state = JUMP;
 				velocity.y = jumpImpulse; 
 				can_double_jump = false;
+				App->audio->PlayFx(1, 0);
 			}
 
 			if (current_animation->Finished())
@@ -288,7 +305,7 @@ bool j1Player::Update(float dt){
 		}
 		if ((last_state = RUN_FORWARD)||(last_state == RUN_BACKWARD))
 		{
-			velocity.x /= 2;
+			velocity.x /= 2;			
 		}
 		break;
 	case FALL:
@@ -342,6 +359,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				position.y = App->map->data.player_initial_y;
 				velocity.x = 0;
 				velocity.y = 0;
+				App->audio->PlayFx(2, 0);
 				App->scene->Reset_Camera();
 			}
 			break;

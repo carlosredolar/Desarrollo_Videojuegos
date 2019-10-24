@@ -20,6 +20,7 @@ struct Player_Input {
 	bool pressing_S;
 	bool pressing_D;
 	bool pressing_space;
+	bool S_keyUp;
 };
 
 enum Player_States {
@@ -83,7 +84,7 @@ public:
 	Animation death;
 	Animation* current_animation;
 
-	p2SString hello_man;
+	p2SString jumpFX,deathFX,slideFX,winFX,music;
 
 	p2List<Animation*> animations;
 
