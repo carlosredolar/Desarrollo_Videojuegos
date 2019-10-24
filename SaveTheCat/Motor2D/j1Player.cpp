@@ -82,9 +82,10 @@ bool j1Player::PreUpdate(){
 		velocity.x = 0;
 		if (state == IDLE)
 		{
+			collider->SetSize(51, 66);
 			can_double_jump = true;
 
-			if ((player_input.pressing_D)&&(velocity.y == 0))
+			if ((player_input.pressing_D)/*&&(velocity.y == 0)*/)
 			{
 				state = RUN_FORWARD;
 			}
@@ -117,6 +118,7 @@ bool j1Player::PreUpdate(){
 		
 		if (state == RUN_FORWARD)
 		{
+			collider->SetSize(51, 66);
 			if (!player_input.pressing_D)
 			{
 				state = IDLE;
@@ -139,6 +141,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == RUN_BACKWARD)
 		{
+			collider->SetSize(51, 66);
 			if (!player_input.pressing_A)
 			{
 				state = IDLE;
@@ -162,19 +165,24 @@ bool j1Player::PreUpdate(){
 
 		if (state == SLIDE_FORWARD)
 		{
+			collider->SetSize(55, 55);
 			if (!player_input.pressing_S)
 			{
-				state = IDLE;
+				state = RUN_FORWARD;
+				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x += speed;
+			
 			velocity.x = speed;
 		}
 
 		if (state == SLIDE_BACKWARD)
 		{
+			collider->SetSize(55, 55);
 			if (!player_input.pressing_S)
 			{
-				state = IDLE;
+				state = RUN_BACKWARD;
+				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x -= speed;
 			velocity.x = -speed;
@@ -182,6 +190,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == JUMP)
 		{
+			collider->SetSize(51, 66);
 			if (player_input.pressing_D) position.x += speed/2;
 			if (player_input.pressing_A) position.x -= speed/2;
 
@@ -201,6 +210,7 @@ bool j1Player::PreUpdate(){
 		}
 		if (state == FALL)
 		{
+			collider->SetSize(51, 66);
 			//let the player move while faling
 			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed /2;
 			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed / 2;
@@ -225,7 +235,7 @@ bool j1Player::PreUpdate(){
 		}
 
 		MovementControl(); //calculate new position
-
+		
 		collider->SetPos(position.x, position.y);
 	}
 
@@ -307,11 +317,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_WALL:
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
-			if ((position.x < c2->rect.x + COLLIDER_MARGIN) && (state == FALL))
+			if ((position.x < c2->rect.x + COLLIDER_MARGIN) /*&& (state == FALL)*/)
 			{
 				can_go_right = false;
+				
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) && (state == FALL))
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) /*&& (state == FALL)*/)
 			{
 				can_go_left = false;
 			}
