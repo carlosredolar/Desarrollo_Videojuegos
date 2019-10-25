@@ -8,6 +8,7 @@
 #define SPEED 3
 
 struct SDL_Texture;
+struct Collider;
 
 enum MapLoaded
 {
@@ -66,6 +67,9 @@ public:
 	iPoint midPos;
 	iPoint closePos;
 	SDL_Rect* container;
+	SDL_Rect cam_death;
+	Collider* collider = nullptr;
+	Collider* collider_copy;
 private:
 	int speedCount = 0;
 };

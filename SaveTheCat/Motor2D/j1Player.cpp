@@ -91,7 +91,7 @@ bool j1Player::PreUpdate(){
 		velocity.x = 0;
 		if (state == IDLE)
 		{
-			collider->SetSize(51, 66);
+			collider->SetSize(42, 66);
 			can_double_jump = true;
 
 			if ((player_input.pressing_D)/*&&(velocity.y == 0)*/)
@@ -130,7 +130,7 @@ bool j1Player::PreUpdate(){
 		
 		if (state == RUN_FORWARD)
 		{
-			collider->SetSize(51, 66);
+			collider->SetSize(42, 66);
 			if (!player_input.pressing_D)
 			{
 				state = IDLE;
@@ -155,7 +155,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == RUN_BACKWARD)
 		{
-			collider->SetSize(51, 66);
+			collider->SetSize(42, 66);
 			if (!player_input.pressing_A)
 			{
 				state = IDLE;
@@ -181,7 +181,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == SLIDE_FORWARD)
 		{
-			collider->SetSize(55, 55);
+			collider->SetSize(45, 55);
 			if (!player_input.pressing_S)
 			{
 				state = RUN_FORWARD;
@@ -194,7 +194,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == SLIDE_BACKWARD)
 		{
-			collider->SetSize(55, 55);
+			collider->SetSize(45, 55);
 			if (!player_input.pressing_S)
 			{
 				state = RUN_BACKWARD;
@@ -206,7 +206,7 @@ bool j1Player::PreUpdate(){
 
 		if (state == JUMP)
 		{
-			collider->SetSize(51, 66);
+			collider->SetSize(42, 66);
 			if (player_input.pressing_D) position.x += speed/2;
 			if (player_input.pressing_A) position.x -= speed/2;
 
@@ -226,7 +226,7 @@ bool j1Player::PreUpdate(){
 		}
 		if (state == FALL)
 		{
-			collider->SetSize(51, 66);
+			collider->SetSize(42, 66);
 			//let the player move while faling
 			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed /2;
 			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed / 2;
@@ -355,8 +355,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_DEATH:
 			if (!god) {
 				state = IDLE;
-				position.x = App->map->data.player_initial_x;
-				position.y = App->map->data.player_initial_y;
+				position.x = initial_x_position;//App->map->data.player_initial_x;
+				position.y = initial_y_position;//App->map->data.player_initial_y;
 				velocity.x = 0;
 				velocity.y = 0;
 				App->audio->PlayFx(2, 0);

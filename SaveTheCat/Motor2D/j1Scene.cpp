@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Collision.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -46,6 +47,7 @@ bool j1Scene::Start()
 	midPos.x = 0; midPos.y = -App->render->camera.y;
 	closePos.x = 0; closePos.y = -App->render->camera.y;
 	container = new SDL_Rect{0,0,1350,768};
+	cam_death = SDL_Rect{ 0,0,10,768 };
 	farTimer = 0;
 	midTimer = 0;
 	closeTimer = 0;
@@ -57,6 +59,9 @@ bool j1Scene::Start()
 	//App->map->Load("Level2.tmx");	
 	App->render->camera.y = -150;
 	speedCount = 0;
+
+	//collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
+
 	return true;
 }
 
@@ -67,6 +72,7 @@ bool j1Scene::PreUpdate() { return true; }
 bool j1Scene::Update(float dt)
 {
 	iPoint* player_position = &App->player->position;
+
 
 	//Parallax
 	farTimer++; midTimer++; closeTimer++;
@@ -171,6 +177,8 @@ bool j1Scene::Update(float dt)
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());
+
+	//collider->SetPos(App->render->camera.x, App->render->camera.y);
 
 	App->win->SetTitle(title.GetString());
 	return true;
