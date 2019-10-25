@@ -36,7 +36,19 @@ bool j1Scene::Start()
 	bottom_edge = App->render->camera.y + App->render->camera.h;
 	//left_edge = App->render->camera.x + App->render->camera.w / 3;
 	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
-	
+
+	backTex = App->tex->Load("sprites/parallax/back.png");
+	farTex = App->tex->Load("sprites/parallax/far.png");
+	midTex = App->tex->Load("sprites/parallax/mid.png");
+	closeTex = App->tex->Load("sprites/parallax/close.png");
+	backPos.x = 0; backPos.y = -App->render->camera.y;
+	farPos.x = 0; farPos.y = -App->render->camera.y;
+	midPos.x = 0; midPos.y = -App->render->camera.y;
+	closePos.x = 0; closePos.y = -App->render->camera.y;
+	container = new SDL_Rect{0,0,1350,768};
+	farTimer = 0;
+	midTimer = 0;
+	closeTimer = 0;
 
 	App->audio->PlayMusic("music_sadpiano.ogg");
 	
@@ -55,6 +67,18 @@ bool j1Scene::PreUpdate() { return true; }
 bool j1Scene::Update(float dt)
 {
 	iPoint* player_position = &App->player->position;
+
+	//Parallax
+	farTimer++; midTimer++; closeTimer++;
+	backPos.x += CAMERA_RUN_SPEED;
+	if (farTimer >= CAMERA_RUN_SPEED) { farPos.x += CAMERA_RUN_SPEED; farTimer = 0; }
+	if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x += CAMERA_RUN_SPEED; midTimer = 0; }
+	if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x += CAMERA_RUN_SPEED; closeTimer = 0; }
+
+	App->render->Blit(backTex, backPos.x, backPos.y,container);
+	App->render->Blit(farTex, farPos.x, farPos.y, container);
+	App->render->Blit(midTex, midPos.x, midPos.y, container);
+	App->render->Blit(closeTex, closePos.x, closePos.y, container);
 
 	//player inputs ---------------
 
@@ -176,6 +200,10 @@ void j1Scene::Reset_Camera() {
 	App->render->camera.y = App->render->initial_camera_y;
 	top_edge = App->render->camera.y + App->render->camera.h / 4;
 	bottom_edge = App->render->camera.y + App->render->camera.h * 3 / 4;
+	backPos.x = 0;
+	farPos.x = 0;
+	midPos.x = 0;
+	closePos.x = 0;
 	/*left_edge = App->render->camera.x + App->render->camera.w / 3;
 	right_edge = App->render->camera.x + App->render->camera.w * 1 / 2;*/
 }

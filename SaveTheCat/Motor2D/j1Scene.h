@@ -4,7 +4,7 @@
 #include "j1Module.h"
 
 #define CAMERA_SPEED 10
-#define CAMERA_RUN_SPEED 3
+#define CAMERA_RUN_SPEED 2
 #define SPEED 3
 
 struct SDL_Texture;
@@ -56,6 +56,16 @@ public:
 	MapLoaded current_level;
 	int	player_x_position;
 	int	player_y_position;
+	int farTimer, midTimer, closeTimer;
+	SDL_Texture* backTex;
+	SDL_Texture* farTex; 
+	SDL_Texture* midTex;
+	SDL_Texture* closeTex;
+	iPoint backPos;
+	iPoint farPos;
+	iPoint midPos;
+	iPoint closePos;
+	SDL_Rect* container;
 private:
 	int speedCount = 0;
 };
