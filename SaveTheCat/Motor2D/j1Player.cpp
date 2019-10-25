@@ -337,7 +337,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			if ((position.x < c2->rect.x + COLLIDER_MARGIN) && (state == FALL))
 			{
 				can_go_right = false;
-				
 			}
 			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) && (state == FALL))
 			{

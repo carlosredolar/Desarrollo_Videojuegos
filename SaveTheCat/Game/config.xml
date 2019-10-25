@@ -36,16 +36,16 @@
   <map>
     <folder>maps/</folder>
     <level1>
-	<player_position x="300" y="400"/>
+	<player_position x="50" y="400"/>
     </level1>
     <level2>
-	<player_position x="300" y="450"/>
+	<player_position x="50" y="400"/>
     </level2>
   </map>
   <player>
     <folder>audio/fx</folder>
     <folder>sprites/characters</folder>
-    <position x="300" y="400" />	
+    <position x="200" y="400" />	
     <speed value="10"/>
     <jumpImpulse value="15"/>
     <gravity value="0.7"/>		

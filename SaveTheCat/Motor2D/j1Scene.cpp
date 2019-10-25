@@ -38,15 +38,15 @@ bool j1Scene::Start()
 	//left_edge = App->render->camera.x + App->render->camera.w / 3;
 	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
 
-	backTex = App->tex->Load("sprites/parallax/back.png");
-	farTex = App->tex->Load("sprites/parallax/far.png");
-	midTex = App->tex->Load("sprites/parallax/mid.png");
-	closeTex = App->tex->Load("sprites/parallax/close.png");
+	backTex = App->tex->Load("sprites/parallax/background.png");
+	farTex = App->tex->Load("sprites/parallax/sofar.png");
+	midTex = App->tex->Load("sprites/parallax/medium.png");
+	closeTex = App->tex->Load("sprites/parallax/front.png");
 	backPos.x = 0; backPos.y = -App->render->camera.y;
 	farPos.x = 0; farPos.y = -App->render->camera.y;
 	midPos.x = 0; midPos.y = -App->render->camera.y;
 	closePos.x = 0; closePos.y = -App->render->camera.y;
-	container = new SDL_Rect{0,0,1350,768};
+	container = new SDL_Rect{0,0,1350,1000};
 	cam_death = SDL_Rect{ 0,0,10,768 };
 	farTimer = 0;
 	midTimer = 0;
@@ -207,7 +207,7 @@ void j1Scene::Reset_Camera() {
 	App->render->camera.x = App->render->initial_camera_x;
 	App->render->camera.y = App->render->initial_camera_y;
 	top_edge = App->render->camera.y + App->render->camera.h / 4;
-	bottom_edge = App->render->camera.y + App->render->camera.h * 3 / 4;
+	bottom_edge = App->render->camera.y + App->render->camera.h * 3/4;
 	backPos.x = 0;
 	farPos.x = 0;
 	midPos.x = 0;
