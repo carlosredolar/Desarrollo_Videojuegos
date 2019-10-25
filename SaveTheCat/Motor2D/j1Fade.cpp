@@ -14,7 +14,7 @@
 
 j1Fade::j1Fade()
 {
-	screen = { 0, 0, App->render->camera.w,  App->render->camera.h };
+	
 }
 
 j1Fade::~j1Fade()
@@ -24,12 +24,13 @@ j1Fade::~j1Fade()
 bool j1Fade::Start()
 {
 	LOG("Preparing Fade Screen");
-	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+	screen = { 0, 0, App->render->camera.w,  App->render->camera.h };
+	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);	
 	return true;
 }
 
 // Update: draw background
-bool j1Fade::Update()
+bool j1Fade::Update(float dt)
 {
 	if (current_step == fade_step::none)
 		return true;
