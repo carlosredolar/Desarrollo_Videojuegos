@@ -454,14 +454,14 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 				
 				p2SString type(object.attribute("type").as_string());
 
-				if (type =="Collider")
-				objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_WALL);
+				if (type =="Collider"){ objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_WALL); }
+				
 
-				if (type == "Death")
-				objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
+				if (type == "Death"){ objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_DEATH); }
+				
 
-				if (type == "Level")
-					objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_LEVEL);
+				if (type == "Level"){ objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_LEVEL); }
+				
 
 				object = object.next_sibling("object");
 				i++;
