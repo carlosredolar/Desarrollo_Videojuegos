@@ -38,13 +38,13 @@ bool j1Scene::Start()
 	//left_edge = App->render->camera.x + App->render->camera.w / 3;
 	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
 
-	backTex = App->tex->Load("sprites/parallax/background.png");
+	/*backTex = App->tex->Load("sprites/parallax/background.png");
 	farTex = App->tex->Load("sprites/parallax/sofar.png");
 	midTex = App->tex->Load("sprites/parallax/medium.png");
 	closeTex = App->tex->Load("sprites/parallax/front.png");
 	backPos.x = 0; backPos.y = -App->render->camera.y;
 	farPos.x = 0; farPos.y = -App->render->camera.y;
-	midPos.x = 0; midPos.y = -App->render->camera.y;
+	midPos.x = 0; midPos.y = -App->render->camera.y;*/
 	closePos.x = 0; closePos.y = -App->render->camera.y;
 	container = new SDL_Rect{0,0,1350,1000};
 	cam_death = SDL_Rect{ 0,0,10,768 };

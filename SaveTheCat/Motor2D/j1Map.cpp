@@ -127,6 +127,7 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
+
 	if(result == NULL)
 	{
 		LOG("Could not load map xml file %s. pugi error: %s", file_name, result.description());
@@ -137,11 +138,27 @@ bool j1Map::Load(const char* file_name)
 		App->scene->current_level = LEVEL_1;
 		App->scene->player_x_position = level_1_player_x;
 		App->scene->player_y_position = level_1_player_y;
+
+		App->scene->backTex = App->tex->Load("sprites/parallax/background.png");
+		App->scene->farTex = App->tex->Load("sprites/parallax/sofar.png");
+		App->scene->midTex = App->tex->Load("sprites/parallax/medium.png");
+		App->scene->closeTex = App->tex->Load("sprites/parallax/front.png");
+		App->scene->backPos.x = 0; App->scene->backPos.y = -App->render->camera.y;
+		App->scene->farPos.x = 0; App->scene->farPos.y = -App->render->camera.y;
+		App->scene->midPos.x = 0; App->scene->midPos.y = -App->render->camera.y;
 	}
 	if (file_name == "Level2.tmx") {
 		App->scene->current_level = LEVEL_2; 
 		App->scene->player_x_position = level_2_player_x;
 		App->scene->player_y_position = level_2_player_y;
+
+		App->scene->backTex = App->tex->Load("sprites/parallax/back.png");
+		App->scene->farTex = App->tex->Load("sprites/parallax/far.png");
+		App->scene->midTex = App->tex->Load("sprites/parallax/mid.png");
+		App->scene->closeTex = App->tex->Load("sprites/parallax/close.png");
+		App->scene->backPos.x = 0; App->scene->backPos.y = -App->render->camera.y;
+		App->scene->farPos.x = 0; App->scene->farPos.y = -App->render->camera.y;
+		App->scene->midPos.x = 0; App->scene->midPos.y = -App->render->camera.y;
 	}
 
 	// Load general info ----------------------------------------------
