@@ -92,12 +92,14 @@ bool j1Scene::Update(float dt)
 		if (current_level == LEVEL_1)
 		{
 			ResetLevel();
+			Reset_Camera();
 		}
 		else
 		{
 			App->map->CleanUp();
 			App->map->Load("Level1.tmx");
 			ResetLevel();
+			Reset_Camera();
 		}
 	}
 
@@ -106,12 +108,14 @@ bool j1Scene::Update(float dt)
 		if (current_level == LEVEL_2)
 		{
 			ResetLevel();
+			Reset_Camera();
 		}
 		else
 		{
 			App->map->CleanUp();
 			App->map->Load("Level2.tmx");
 			ResetLevel();
+			Reset_Camera();
 		}
 	}
 
