@@ -237,4 +237,5 @@ void j1Scene::ResetLevel() {
 	App->player->position.y = player_y_position;
 	cam_run_start = SDL_GetTicks();
 	cam_run_start_timer = cam_run_start + 5000;
+	App->player->winSound = false;
 }

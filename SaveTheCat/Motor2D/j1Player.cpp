@@ -55,6 +55,10 @@ bool j1Player::Start(){
 	App->audio->LoadFx(slideFX.GetString());
 	App->audio->PlayMusic(music.GetString(),0);
 
+	waitTimer = 0;
+	deathSound = false;
+	winSound = false;
+
 	return true;
 }
 
@@ -313,6 +317,16 @@ bool j1Player::Update(float dt){
 		break;
 	case DEATH:
 		current_animation = &death;
+		if (waitTime(30))
+		{
+			LOG("Wait done");
+			position.x = initial_x_position;//App->map->data.player_initial_x;
+			position.y = initial_y_position;//App->map->data.player_initial_y;
+			App->scene->Reset_Camera();
+			App->scene->ResetLevel();
+			state = IDLE;
+			deathSound = false;
+		}
 		fall.Reset();
 		jump.Reset();
 		slide.Reset();
@@ -362,17 +376,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			break;
 		case COLLIDER_DEATH:
 			if (!god) {
-				state = IDLE;
-				
+				state = DEATH;
 				velocity.x = 0;
 				velocity.y = 0;
-				App->audio->PlayFx(2, 0);
-				position.x = initial_x_position;//App->map->data.player_initial_x;
-				position.y = initial_y_position;//App->map->data.player_initial_y;
-				App->scene->Reset_Camera();
-				App->scene->ResetLevel();
-				
-				
+				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }										
 			}
 			break;
 		case COLLIDER_LEVEL:
@@ -383,12 +390,17 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				{
 					//App->scene->current_level = LEVEL_2;
 					App->map->Load("Level2.tmx");
-
+					App->scene->ResetLevel();
+					App->scene->Reset_Camera();
+					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }					
 				}
 				if (App->scene->current_level == LEVEL_2)
 				{
 					App->scene->current_level = LEVEL_1;
 					App->map->Load("Level1.tmx");
+					App->scene->ResetLevel();
+					App->scene->Reset_Camera();
+					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
 				}
 				
 				App->scene->ResetLevel();
@@ -475,4 +487,12 @@ bool j1Player::Load(pugi::xml_node& data)
 	position.y = data.child("position").attribute("y").as_int();
 
 	return true;
+}
+
+bool j1Player::waitTime(float sec)
+{
+	bool ret = false;
+	waitTimer++;
+	if (waitTimer >= sec){ret = true; waitTimer = 0; }
+	return ret;
 }
