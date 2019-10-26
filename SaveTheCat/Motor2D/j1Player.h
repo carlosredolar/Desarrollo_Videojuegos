@@ -31,6 +31,7 @@ enum Player_States {
 	FALL,
 	SLIDE_FORWARD,
 	SLIDE_BACKWARD,
+	DEATH,
 
 };
 
@@ -71,6 +72,8 @@ public:
 	Player_Input player_input;
 	int initial_x_position;
 	int initial_y_position;
+	int death_reset;
+	int death_timer;
 	iPoint position;
 	iPoint lastPosition;
 	fVec2 velocity;

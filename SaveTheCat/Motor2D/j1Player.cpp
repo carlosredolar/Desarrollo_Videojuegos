@@ -311,10 +311,19 @@ bool j1Player::Update(float dt){
 	case FALL:
 		current_animation = &fall;
 		break;
+	case DEATH:
+		current_animation = &death;
+		fall.Reset();
+		jump.Reset();
+		slide.Reset();
+		
+		break;
 	default:
 		LOG("No state found");
 		break;
 	}
+
+	death_reset = SDL_GetTicks();
 	
 	return true;
 }
@@ -354,12 +363,16 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_DEATH:
 			if (!god) {
 				state = IDLE;
-				position.x = initial_x_position;//App->map->data.player_initial_x;
-				position.y = initial_y_position;//App->map->data.player_initial_y;
+				
 				velocity.x = 0;
 				velocity.y = 0;
 				App->audio->PlayFx(2, 0);
+				position.x = initial_x_position;//App->map->data.player_initial_x;
+				position.y = initial_y_position;//App->map->data.player_initial_y;
 				App->scene->Reset_Camera();
+				App->scene->ResetLevel();
+				
+				
 			}
 			break;
 		case COLLIDER_LEVEL:

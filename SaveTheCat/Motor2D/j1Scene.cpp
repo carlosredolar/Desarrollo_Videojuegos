@@ -73,13 +73,20 @@ bool j1Scene::Update(float dt)
 {
 	iPoint* player_position = &App->player->position;
 
+	cam_run_start = SDL_GetTicks();
 
-	//Parallax
-	farTimer++; midTimer++; closeTimer++;
-	backPos.x += CAMERA_RUN_SPEED;
-	if (farTimer >= CAMERA_RUN_SPEED) { farPos.x += CAMERA_RUN_SPEED; farTimer = 0; }
-	if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x += CAMERA_RUN_SPEED; midTimer = 0; }
-	if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x += CAMERA_RUN_SPEED; closeTimer = 0; }
+	if (cam_run_start > cam_run_start_timer)
+	{
+		App->render->camera.x -= CAMERA_RUN_SPEED;
+
+		//Parallax
+		farTimer++; midTimer++; closeTimer++;
+		backPos.x += CAMERA_RUN_SPEED;
+		if (farTimer >= CAMERA_RUN_SPEED) { farPos.x += CAMERA_RUN_SPEED; farTimer = 0; }
+		if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x += CAMERA_RUN_SPEED; midTimer = 0; }
+		if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x += CAMERA_RUN_SPEED; closeTimer = 0; }
+	}
+	
 
 	App->render->Blit(backTex, backPos.x, backPos.y,container);
 	App->render->Blit(farTex, farPos.x, farPos.y, container);
@@ -132,7 +139,8 @@ bool j1Scene::Update(float dt)
 
 	/*speedCount++;
 	if (speedCount >= SPEED) { App->render->camera.x -= 1; speedCount = 0; }*/
-	App->render->camera.x -= CAMERA_RUN_SPEED;
+	
+	
 
 	/*
 	if (((player_position->x < left_edge)) &&(left_edge > App->render->initial_camera_x + App->render->camera.w / 3)){
@@ -223,4 +231,6 @@ void j1Scene::Reset_Camera() {
 void j1Scene::ResetLevel() {
 	App->player->position.x = player_x_position;
 	App->player->position.y = player_y_position;
+	cam_run_start = SDL_GetTicks();
+	cam_run_start_timer = cam_run_start + 5000;
 }

@@ -52,6 +52,8 @@ public:
 	
 	/*int left_edge;
 	int right_edge;*/
+	int cam_run_start;
+	int cam_run_start_timer = 5000;
 	int top_edge;
 	int bottom_edge;
 	MapLoaded current_level;
