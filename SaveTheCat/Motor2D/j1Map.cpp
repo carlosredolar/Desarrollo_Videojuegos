@@ -146,6 +146,7 @@ bool j1Map::Load(const char* file_name)
 		App->scene->backPos.x = 0; App->scene->backPos.y = -App->render->camera.y;
 		App->scene->farPos.x = 0; App->scene->farPos.y = -App->render->camera.y;
 		App->scene->midPos.x = 0; App->scene->midPos.y = -App->render->camera.y;
+		App->scene->closePos.x = 0; App->scene->closePos.y = -App->render->camera.y;
 	}
 	if (file_name == "Level2.tmx") {
 		App->scene->current_level = LEVEL_2; 
@@ -159,6 +160,7 @@ bool j1Map::Load(const char* file_name)
 		App->scene->backPos.x = 0; App->scene->backPos.y = -App->render->camera.y;
 		App->scene->farPos.x = 0; App->scene->farPos.y = -App->render->camera.y;
 		App->scene->midPos.x = 0; App->scene->midPos.y = -App->render->camera.y;
+		App->scene->closePos.x = 0; App->scene->closePos.y = -App->render->camera.y;
 	}
 
 	// Load general info ----------------------------------------------

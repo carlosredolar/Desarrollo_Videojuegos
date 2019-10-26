@@ -34,7 +34,7 @@ bool j1Scene::Start()
 {
 	//invisible square delimiting the space in the camera where the player can move
 	top_edge = App->render->camera.y + App->render->camera.h/4;
-	bottom_edge = App->render->camera.y + App->render->camera.h;
+	bottom_edge = App->render->camera.y + App->render->camera.h*3/4;
 	//left_edge = App->render->camera.x + App->render->camera.w / 3;
 	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
 
@@ -45,7 +45,7 @@ bool j1Scene::Start()
 	backPos.x = 0; backPos.y = -App->render->camera.y;
 	farPos.x = 0; farPos.y = -App->render->camera.y;
 	midPos.x = 0; midPos.y = -App->render->camera.y;*/
-	closePos.x = 0; closePos.y = -App->render->camera.y;
+	//closePos.x = 0; closePos.y = -App->render->camera.y;
 	container = new SDL_Rect{0,0,1350,1000};
 	cam_death = SDL_Rect{ 0,0,10,768 };
 	farTimer = 0;
@@ -57,7 +57,7 @@ bool j1Scene::Start()
 	//App->map->Load("hello2.tmx");
 	App->map->Load("Level1.tmx");
 	//App->map->Load("Level2.tmx");	
-	App->render->camera.y = -150;
+	App->render->camera.y = 0;
 	speedCount = 0;
 
 	//collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
