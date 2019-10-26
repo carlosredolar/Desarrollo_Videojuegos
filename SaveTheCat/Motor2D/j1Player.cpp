@@ -377,21 +377,24 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			break;
 		case COLLIDER_LEVEL:
 			if (!god) {
+				App->map->CleanUp();
+
 				if (App->scene->current_level == LEVEL_1)
 				{
-					App->map->CleanUp();
+					//App->scene->current_level = LEVEL_2;
 					App->map->Load("Level2.tmx");
-					App->scene->ResetLevel();
-					App->scene->Reset_Camera();
-					
+
 				}
 				if (App->scene->current_level == LEVEL_2)
 				{
-					App->map->CleanUp();
+					App->scene->current_level = LEVEL_1;
 					App->map->Load("Level1.tmx");
-					App->scene->ResetLevel();
-					App->scene->Reset_Camera();
 				}
+				
+				App->scene->ResetLevel();
+				App->scene->Reset_Camera();
+				
+
 			}
 			break;
 		default:

@@ -34,6 +34,12 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLATFORM][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_PLATFORM][COLLIDER_LEVEL] = false;
 
+	matrix[COLLIDER_LEVEL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_LEVEL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_LEVEL][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_LEVEL][COLLIDER_PLATFORM] = false;
+	matrix[COLLIDER_LEVEL][COLLIDER_LEVEL] = false;
+
 }
 
 // Destructor
