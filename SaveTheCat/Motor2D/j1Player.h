@@ -62,6 +62,8 @@ public:
 
 	bool LoadAnimations();
 
+	bool waitTime(float s);
+
 private:
 
 
@@ -70,13 +72,17 @@ public:
 	SDL_Texture* player_tex;
 	p2SString folder;
 	Player_Input player_input;
-	int initial_x_position;
-	int initial_y_position;
-	int death_reset;
-	int death_timer;
+	int initial_x_position=0;
+	int initial_y_position=0;
+	int death_reset=0;
+	int death_timer=0;
+	float waitTimer=0;
 	iPoint position;
 	iPoint lastPosition;
 	fVec2 velocity;
+
+	bool deathSound = false;
+	bool winSound = false;
 
 	//animations
 	Animation idle;
