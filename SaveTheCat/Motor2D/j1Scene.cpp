@@ -33,8 +33,12 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//invisible square delimiting the space in the camera where the player can move
-	top_edge = App->render->camera.y + App->render->camera.h/4;
-	bottom_edge = App->render->camera.y + App->render->camera.h*3/4;
+	if (App->render->camera.y < 1)
+	{
+		top_edge = App->render->camera.y + App->render->camera.h / 4;
+		bottom_edge = App->render->camera.y + App->render->camera.h * 3 / 4;
+	}
+	
 	//left_edge = App->render->camera.x + App->render->camera.w / 3;
 	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
 

@@ -81,14 +81,14 @@ bool j1Player::PreUpdate(){
 	lastPosition = position;
 	last_state = state;
 
-	/*if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 		god = !god;
 		if (god)
 		{
 			state = IDLE;
 			velocity.y = 0;
 		}
-	}*/
+	}
 
 	if (!App->pause)
 	{
@@ -109,7 +109,7 @@ bool j1Player::PreUpdate(){
 			}
 
 
-			if (player_input.pressing_S)
+			if (player_input.pressing_S && !god)
 			{
 				if (flip == SDL_FLIP_NONE)
 				{
@@ -123,7 +123,7 @@ bool j1Player::PreUpdate(){
 				}
 			}
 			
-			if (player_input.pressing_space)
+			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
 				velocity.y = jumpImpulse;	
@@ -141,14 +141,14 @@ bool j1Player::PreUpdate(){
 				velocity.x = 0;
 			}
 			
-			if (player_input.pressing_space)
+			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
 				velocity.y = jumpImpulse;
 				App->audio->PlayFx(1, 0);
 			}
 			
-			if (player_input.pressing_S)
+			if (player_input.pressing_S && !god)
 			{
 				state = SLIDE_FORWARD;
 				App->audio->PlayFx(4, 0);
@@ -166,14 +166,14 @@ bool j1Player::PreUpdate(){
 				velocity.x = 0;
 			}
 			
-			if (player_input.pressing_space)
+			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
 				velocity.y = jumpImpulse;
 				App->audio->PlayFx(1, 0);
 			}
 			
-			if (player_input.pressing_S)
+			if (player_input.pressing_S && !god)
 			{
 				state = SLIDE_BACKWARD;
 				App->audio->PlayFx(4, 0);
@@ -186,7 +186,7 @@ bool j1Player::PreUpdate(){
 		if (state == SLIDE_FORWARD)
 		{
 			collider->SetSize(45, 55);
-			if (!player_input.pressing_S)
+			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_FORWARD;
 				velocity.y = JUMP_AFTER_SLIDE;
@@ -199,7 +199,7 @@ bool j1Player::PreUpdate(){
 		if (state == SLIDE_BACKWARD)
 		{
 			collider->SetSize(45, 55);
-			if (!player_input.pressing_S)
+			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_BACKWARD;
 				velocity.y = JUMP_AFTER_SLIDE;
@@ -208,13 +208,13 @@ bool j1Player::PreUpdate(){
 			velocity.x = -speed;
 		}
 
-		if (state == JUMP)
+		if (state == JUMP && !god)
 		{
 			collider->SetSize(42, 66);
 			if (player_input.pressing_D) position.x += speed/2;
 			if (player_input.pressing_A) position.x -= speed/2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse/2))
+			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse/2) && !god)
 			{ 
 				jump.Reset();
 				velocity.y = jumpImpulse;
@@ -235,7 +235,7 @@ bool j1Player::PreUpdate(){
 			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed /2;
 			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed / 2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true) & (velocity.y <= jumpImpulse / 2))
+			if ((player_input.pressing_space)&&(can_double_jump == true) & (velocity.y <= jumpImpulse / 2) && !god)
 			{
 				jump.Reset();
 				state = JUMP;
