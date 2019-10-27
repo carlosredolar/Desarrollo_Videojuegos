@@ -20,18 +20,28 @@ You can check our repository using this link: https://github.com/carlosredolar/S
 ### Movement 
 
 A - Run left
+
 D - Run Right
+
 S - Slide
+
 SPACE - Jump
+
 SPACE x2 - Double jump
 
 ### Debug
 F1 - Start level 1
+
 F2 - Start level 2
+
 F3 - Restart level
+
 F5 - Save
+
 F6 - Load
+
 F9 - View colliders
+
 F10 - God Mode
 
 ## Credits
