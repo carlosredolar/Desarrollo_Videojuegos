@@ -250,6 +250,18 @@ bool j1Player::PreUpdate(){
 			}
 		}
 
+		if (state == DEATH)
+		{
+			collider->SetSize(56, 60);
+
+			if (current_animation->Finished())
+			{
+				state = IDLE;
+				jump.Reset();
+			}
+
+		}
+
 		if ((velocity.y < -10)&&(state == IDLE))
 		{
 			state = FALL;
@@ -301,7 +313,7 @@ bool j1Player::Update(float dt){
 		break;
 
 	case JUMP:
-		current_animation = &jump;
+		current_animation = &death;
 		if (velocity.y <= 0)
 		{
 			state = FALL;
@@ -316,7 +328,7 @@ bool j1Player::Update(float dt){
 		current_animation = &fall;
 		break;
 	case DEATH:
-		current_animation = &death;
+		current_animation = &jump;
 		if (waitTime(30))
 		{
 			LOG("Wait done");
@@ -383,7 +395,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			}
 			break;
 		case COLLIDER_LEVEL:
-			if (!god) {
+			if (!god) 
+			{
 				App->map->CleanUp();
 
 				if (App->scene->current_level == LEVEL_1)
@@ -403,10 +416,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
 				}
 				
-				App->scene->ResetLevel();
-				App->scene->Reset_Camera();
-				
-
+				/*App->scene->ResetLevel();
+				App->scene->Reset_Camera();*/
 			}
 			break;
 		default:

@@ -72,6 +72,7 @@ public:
 	SDL_Rect cam_death;
 	Collider* collider = nullptr;
 	Collider* collider_copy;
+	Collider* cameraLimit = nullptr;
 private:
 	int speedCount = 0;
 };

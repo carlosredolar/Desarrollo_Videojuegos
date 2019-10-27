@@ -7,10 +7,11 @@
 	<map />
 	<scene />
 	<player>
-		<position x="290" y="428" />
+		<position x="50" y="799" />
 	</player>
 	<:anonymous />
+	<:anonymous />
 	<renderer>
-		<camera x="294" y="-192" />
+		<camera x="0" y="-190" />
 	</renderer>
 </game_state>

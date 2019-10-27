@@ -44,7 +44,16 @@
  </animation>
 <animation name="death" loop="false">
   <data>
-  <frame x="184" y="302" w="43" h="56" speed="0.1"/>
+  <frame x="21" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="106" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="188" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="270" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="349" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="427" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="503" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="577" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="652" y="236" w="56" h="60" speed="0.3"/>
+  <frame x="730" y="236" w="56" h="60" speed="0.3"/>
 
   </data>
  </animation>

@@ -51,7 +51,7 @@ bool j1Scene::Start()
 	midPos.x = 0; midPos.y = -App->render->camera.y;*/
 	//closePos.x = 0; closePos.y = -App->render->camera.y;
 	container = new SDL_Rect{0,0,1350,1000};
-	cam_death = SDL_Rect{ 0,0,10,768 };
+	cam_death = SDL_Rect{ 0,0,10,App->render->camera.h*2 };
 	farTimer = 0;
 	midTimer = 0;
 	closeTimer = 0;
@@ -64,7 +64,7 @@ bool j1Scene::Start()
 	App->render->camera.y = 0;
 	speedCount = 0;
 
-	//collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
+	collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
 
 	return true;
 }
@@ -82,6 +82,7 @@ bool j1Scene::Update(float dt)
 	if (cam_run_start > cam_run_start_timer)
 	{
 		App->render->camera.x -= CAMERA_RUN_SPEED;
+		collider->SetPos(-App->render->camera.x, 0);
 
 		//Parallax
 		farTimer++; midTimer++; closeTimer++;
@@ -194,8 +195,6 @@ bool j1Scene::Update(float dt)
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());
 
-	//collider->SetPos(App->render->camera.x, App->render->camera.y);
-
 	App->win->SetTitle(title.GetString());
 	return true;
 }
@@ -205,9 +204,10 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	ret = false;
-
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		App->input->windowEvents[WE_QUIT] = true;
+	}
 	return ret;
 }
 
@@ -224,6 +224,7 @@ void j1Scene::Reset_Camera() {
 	App->render->camera.y = App->render->initial_camera_y;
 	top_edge = App->render->camera.y + App->render->camera.h / 4;
 	bottom_edge = App->render->camera.y + App->render->camera.h * 3/4;
+	collider->SetPos(-App->render->camera.x, 0);
 	backPos.x = 0;
 	farPos.x = 0;
 	midPos.x = 0;
