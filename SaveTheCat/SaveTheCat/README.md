@@ -1,6 +1,6 @@
 # Save The Cat
 
-UWU, the normal cat, is in a big trouble. It is in the lost dimension, help it defeating monsters and try to bring it safe at home.
+Felix, the normal cat, is in a big trouble. It is in the lost dimension, help it defeating monsters and try to bring it safe at home.
 
 
 ## Authors:
@@ -8,8 +8,9 @@ UWU, the normal cat, is in a big trouble. It is in the lost dimension, help it d
 ### Carlos Redolar Torres
 https://github.com/carlosredolar
 
-### ..............
-.............enlace..........
+### Adrià Avila Borrallo
+https://github.com/Avilgor
+
 
 We are students of video game development in CITM Terrassa and this is our development project.  
 
@@ -66,3 +67,25 @@ GNU GENERAL PUBLIC LICENSE
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
+
+### Work distribution
+
+- Adria:
+   - Player
+   - Scene
+   - Animations
+   - Cam Colliders
+   - Render
+   - Audio
+   
+- Carlos:
+   - Player
+   - Maps
+   - Inputs
+   - Scene
+   - Animations
+   - Map Colliders
+   - Render
+   - Sprties, textures and background
+   
+We have been working at the same time in some modules, helping us with the problems that we were having. 
