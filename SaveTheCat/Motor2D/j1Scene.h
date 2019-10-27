@@ -60,6 +60,7 @@ public:
 	int	player_x_position;
 	int	player_y_position;
 	int farTimer, midTimer, closeTimer;
+	int want_to_load;
 	SDL_Texture* backTex;
 	SDL_Texture* farTex; 
 	SDL_Texture* midTex;

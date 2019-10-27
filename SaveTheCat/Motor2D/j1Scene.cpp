@@ -99,6 +99,14 @@ bool j1Scene::Update(float dt)
 	App->render->Blit(closeTex, closePos.x, closePos.y, container);
 
 	//player inputs ---------------
+	if (current_level == LEVEL_1)
+	{
+		want_to_load = 2;
+	}
+	else if (current_level == LEVEL_2)
+	{
+		want_to_load = 1;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		if (current_level == LEVEL_1)

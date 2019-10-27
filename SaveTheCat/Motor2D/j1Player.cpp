@@ -397,27 +397,30 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_LEVEL:
 			if (!god) 
 			{
-				App->map->CleanUp();
-
-				if (App->scene->current_level == LEVEL_1)
+				
+				if (App->scene->current_level == LEVEL_1 && App->scene->want_to_load == 2)
 				{
+					App->map->CleanUp();
+					App->scene->CleanUp();
 					//App->scene->current_level = LEVEL_2;
 					App->map->Load("Level2.tmx");
-					App->scene->ResetLevel();
-					App->scene->Reset_Camera();
+					//App->scene->ResetLevel();
+					//App->scene->Reset_Camera();
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }					
 				}
-				if (App->scene->current_level == LEVEL_2)
+				if (App->scene->current_level == LEVEL_2 && App->scene->want_to_load == 1)
 				{
-					App->scene->current_level = LEVEL_1;
+					App->map->CleanUp();
+					App->scene->CleanUp();
+					//App->scene->current_level = LEVEL_1;
 					App->map->Load("Level1.tmx");
-					App->scene->ResetLevel();
-					App->scene->Reset_Camera();
+					//App->scene->ResetLevel();
+					//App->scene->Reset_Camera();
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
 				}
 				
-				/*App->scene->ResetLevel();
-				App->scene->Reset_Camera();*/
+				App->scene->ResetLevel();
+				App->scene->Reset_Camera();
 			}
 			break;
 		default:
