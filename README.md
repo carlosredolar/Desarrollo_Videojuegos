@@ -67,3 +67,13 @@ GNU GENERAL PUBLIC LICENSE
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
+
+### Work distribution
+
+-Adria:
+   - Player
+   - Scene
+   - Animations
+   - Colliders
+   - Render
+   
