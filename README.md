@@ -70,10 +70,22 @@ GNU GENERAL PUBLIC LICENSE
 
 ### Work distribution
 
--Adria:
+- Adria:
    - Player
    - Scene
    - Animations
-   - Colliders
+   - Cam Colliders
    - Render
+   - Audio
    
+- Carlos:
+   - Player
+   - Maps
+   - Inputs
+   - Scene
+   - Animations
+   - Map Colliders
+   - Render
+   - Sprties, textures and background
+   
+We have been working at the same time in some modules, helping us with the problems that we were having. 
