@@ -1,6 +1,6 @@
 # Save The Cat
 
-UWU, the normal cat, is in a big trouble. It is in the lost dimension, help it defeating monsters and try to bring it safe at home.
+Felix, the normal cat, is in a big trouble. It is in the lost dimension, help it defeating monsters and try to bring it safe at home.
 
 
 ## Authors:
