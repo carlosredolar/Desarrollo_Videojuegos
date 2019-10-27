@@ -102,18 +102,11 @@ bool j1Map::CleanUp()
 
 		for (uint i = 0; i < item3->data->size; i++)
 		{
-			try
+			while ((item3->data->collider[i] != nullptr) && (item3->data->collider[i]->to_delete == false))
 			{
-				while ((item3->data->collider[i] != nullptr) && (item3->data->collider[i]->to_delete == false))
-				{
-					item3->data->collider[i]->to_delete = true;
-					item3->data->collider[i] = nullptr;
-				}
-			}
-			catch (int e)
-			{
-				LOG("An exception occurred removing colliders");
-			}
+				item3->data->collider[i]->to_delete = true;
+				item3->data->collider[i] = nullptr;
+			}			
 		}
 
 
