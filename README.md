@@ -11,8 +11,6 @@ https://github.com/carlosredolar
 ### Adrià Avila Borrallo
 https://github.com/Avilgor
 
-### ..............
-.............enlace..........
 
 We are students of video game development in CITM Terrassa and this is our development project.  
 
