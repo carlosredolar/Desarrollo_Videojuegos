@@ -50,7 +50,7 @@ bool j1Scene::Start()
 	farPos.x = 0; farPos.y = -App->render->camera.y;
 	midPos.x = 0; midPos.y = -App->render->camera.y;*/
 	//closePos.x = 0; closePos.y = -App->render->camera.y;
-	container = new SDL_Rect{0,0,13500,1000};
+	container = new SDL_Rect{0,0,1350,1000};
 	cam_death = SDL_Rect{ 0,0,10,App->render->camera.h*2 };
 	farTimer = 0;
 	midTimer = 0;
@@ -200,7 +200,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("Save The Cat",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());
