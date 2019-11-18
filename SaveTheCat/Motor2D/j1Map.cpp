@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Scene.h"
+#include "j1Pathfinding.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)

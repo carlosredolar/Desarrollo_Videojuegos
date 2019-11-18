@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <sstream>
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -51,6 +52,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// render last to swap buffer
 	AddModule(render);
+
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -110,7 +113,7 @@ bool j1App::Awake()
 			item = item->next;
 		}
 	}
-
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
@@ -128,7 +131,7 @@ bool j1App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
-
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
@@ -284,7 +287,7 @@ bool j1App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
-
+	PERF_PEEK(ptimer);
 	return ret;
 }
 
