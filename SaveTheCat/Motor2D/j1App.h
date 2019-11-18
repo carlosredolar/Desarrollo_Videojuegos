@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "j1PerfTimer.h"
+#include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -16,6 +18,7 @@ class j1Map;
 class j1Player;
 class j1Collision;
 class j1Fade;
+class j1PathFinding;
 
 class j1App
 {
@@ -89,6 +92,7 @@ public:
 	j1Player*			player;
 	j1Collision*		collision;
 	j1Fade*				fadeScreen;
+	j1PathFinding* pathfinding = NULL;
 
 	bool pause = false;
 
