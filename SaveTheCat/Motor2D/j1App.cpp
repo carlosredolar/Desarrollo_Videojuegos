@@ -81,6 +81,7 @@ void j1App::AddModule(j1Module* module)
 bool j1App::Awake()
 {
 	PERF_START(ptimer);
+	last_sec_frame_time.Start();
 
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
@@ -98,8 +99,12 @@ bool j1App::Awake()
 		// self-config
 		ret = true;
 		app_config = config.child("app");
+		frameCap = app_config.attribute("framerate_cap").as_int();
+		//else frameCap = 60;
+		
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		
 	}
 
 	if(ret == true)
@@ -138,6 +143,8 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	frame_time.Start();
+	FrameTimer.Start();
 	bool ret = true;
 	PrepareUpdate();
 
@@ -206,6 +213,15 @@ void j1App::FinishUpdate()
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
+
+	//If we want to cap the frame rate
+	if ((frameCap != 0) && FrameTimer.Read() < (1000 / frameCap))
+	{
+		//Sleep the remaining frame time
+		SDL_Delay((1000 / frameCap)- FrameTimer.Read());			
+	}
+	last_sec_frame_count++;	
+	frame_count++;
 }
 
 // Call modules before each loop iteration

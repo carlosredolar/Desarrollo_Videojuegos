@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1Collision.h"
+#include "j1Pathfinding.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -70,7 +71,32 @@ bool j1Scene::Start()
 }
 
 // Called each loop iteration
-bool j1Scene::PreUpdate() { return true; }
+bool j1Scene::PreUpdate() 
+{ 
+	// debug pathfing ------------------
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
+	return true; 
+}
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
@@ -200,12 +226,30 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Save The Cat",
+	/*p2SString title("Save The Cat",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count());
+					App->map->data.tilesets.count());*/
 
-	App->win->SetTitle(title.GetString());
+	//App->win->SetTitle(title.GetString());
+
+	// Debug pathfinding ------------------------------
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->MapToWorld(p.x, p.y);
+
+	//App->render->Blit(debug_tex, p.x, p.y);
+
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		//App->render->Blit(debug_tex, pos.x, pos.y);
+	}
+
 	return true;
 }
 

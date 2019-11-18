@@ -100,17 +100,22 @@ bool j1Map::CleanUp()
 	while (item3 != NULL)
 	{
 		LOG("Objectgroups releasing");
-
-		for (uint i = 0; i < item3->data->size; i++)
+		try
 		{
-			while ((item3->data->collider[i] != nullptr) && (item3->data->collider[i]->to_delete == false))
+			for (uint i = 0; i < item3->data->size; i++)
 			{
-				item3->data->collider[i]->to_delete = true;
-				item3->data->collider[i] = nullptr;
-			}			
+				while ((item3->data->collider[i] != nullptr) && (item3->data->collider[i]->to_delete == false))
+				{
+					item3->data->collider[i]->to_delete = true;
+					item3->data->collider[i] = nullptr;
+				}
+			}
 		}
-
-
+		catch (EXCEPINFO e)
+		{
+			return false;
+		}
+		
 		delete[] item3->data->collider;
 		RELEASE(item3->data);
 		item3 = item3->next;
@@ -479,6 +484,20 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 		}
 
 	return ret;
+}
+
+int Properties::Get(const char* value, int default_value) const
+{
+	p2List_item<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value)
+			return item->data->value;
+		item = item->next;
+	}
+
+	return default_value;
 }
 
 SDL_Rect TileSet::GetRect(int tile_id) {

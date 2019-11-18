@@ -52,7 +52,6 @@ struct MapLayer {
 		RELEASE(tile_gid);
 	}
 	inline uint Get(int x, int y) const { if (tile_gid >0) return x + y * width; };
-	~MapLayer() { RELEASE(tile_gid); }
 };
 // ----------------------------------------------------
 struct TileSet
