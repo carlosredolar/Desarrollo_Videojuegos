@@ -11,11 +11,46 @@
 struct Collider;
 
 // ----------------------------------------------------
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
 struct MapLayer {
 	p2SString name = "No name";
 	uint width = 0u;
 	uint height = 0u;
 	uint* tile_gid = nullptr;
+	Properties	properties;
+	MapLayer() : tile_gid(NULL)
+	{}
+
+	~MapLayer()
+	{
+		RELEASE(tile_gid);
+	}
 	inline uint Get(int x, int y) const { if (tile_gid >0) return x + y * width; };
 	~MapLayer() { RELEASE(tile_gid); }
 };
@@ -97,6 +132,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 	void Reset_Level();
 
 private:
@@ -106,6 +142,8 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
 

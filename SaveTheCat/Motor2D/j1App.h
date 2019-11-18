@@ -92,7 +92,7 @@ public:
 	j1Player*			player;
 	j1Collision*		collision;
 	j1Fade*				fadeScreen;
-	j1PathFinding* pathfinding = NULL;
+	j1PathFinding*		pathfinding;
 
 	bool pause = false;
 
@@ -111,6 +111,14 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	j1PerfTimer			ptimer;
+	Uint64			frame_count = 0;
+	j1Timer				startup_time;
+	j1Timer				frame_time;
+	j1Timer				last_sec_frame_time;
+	Uint32			last_sec_frame_count = 0;
+	Uint32			prev_last_sec_frame_count = 0;
 
 };
 
