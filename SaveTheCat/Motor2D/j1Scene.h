@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 #define CAMERA_SPEED 10
 #define CAMERA_RUN_SPEED 2

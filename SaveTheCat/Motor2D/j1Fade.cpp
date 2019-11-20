@@ -32,6 +32,7 @@ bool j1Fade::Start()
 // Update: draw background
 bool j1Fade::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Fade", Profiler::Color::Chocolate)
 	if (current_step == fade_step::none)
 		return true;
 

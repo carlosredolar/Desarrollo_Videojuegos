@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 struct SDL_Texture;
 struct Collider;

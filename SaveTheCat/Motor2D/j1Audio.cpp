@@ -82,6 +82,7 @@ bool j1Audio::CleanUp()
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
+	BROFILER_CATEGORY("Update_PlayMusic", Profiler::Color::Chartreuse)
 	bool ret = true;
 
 	if(!active)
@@ -159,6 +160,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 // Play WAV
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
+	BROFILER_CATEGORY("Update_PlayMusic", Profiler::Color::DeepSkyBlue)
 	bool ret = false;
 
 	if(!active)

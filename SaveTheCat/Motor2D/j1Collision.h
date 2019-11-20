@@ -4,6 +4,7 @@
 #define MAX_COLLIDERS 500
 
 #include "j1Module.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 enum COLLIDER_TYPE
 {

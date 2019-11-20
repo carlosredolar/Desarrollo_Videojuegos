@@ -70,6 +70,7 @@ bool j1Player::CleanUp() {
 
 
 bool j1Player::PreUpdate(){
+	BROFILER_CATEGORY("PreUpdate_Player", Profiler::Color::Tan)
 	//get player input
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
@@ -281,7 +282,7 @@ bool j1Player::PreUpdate(){
 }
 
 bool j1Player::Update(float dt){
-
+	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
 	switch (state)
 	{
 	case IDLE:
@@ -355,7 +356,7 @@ bool j1Player::Update(float dt){
 }
 
 bool j1Player::PostUpdate() {
-
+	BROFILER_CATEGORY("PostUpdate_Player", Profiler::Color::Thistle)
 	App->render->Blit(player_tex, position.x, position.y, &current_animation->GetCurrentFrame(), flip);
 
 	return true;	

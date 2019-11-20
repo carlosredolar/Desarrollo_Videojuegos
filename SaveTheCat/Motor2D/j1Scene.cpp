@@ -73,6 +73,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate() 
 { 
+	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::AliceBlue)
 	// debug pathfing ------------------
 	static iPoint origin;
 	static bool origin_selected = false;
@@ -101,6 +102,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_Scene", Profiler::Color::AntiqueWhite)
 	iPoint* player_position = &App->player->position;
 
 	cam_run_start = SDL_GetTicks();
@@ -256,6 +258,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate_Scene", Profiler::Color::Azure)
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

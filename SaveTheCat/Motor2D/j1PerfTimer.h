@@ -2,6 +2,7 @@
 #define __j1PERFTIMER_H__
 
 #include "p2Defs.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 class j1PerfTimer
 {

@@ -48,6 +48,7 @@ bool j1Particles::CleanUp()
 // Update: draw background
 bool j1Particles::Update()
 {
+	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Salmon)
 	bool ret = true;
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{

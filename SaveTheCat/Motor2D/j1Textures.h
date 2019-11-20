@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2List.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 struct SDL_Texture;
 struct SDL_Surface;

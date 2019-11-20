@@ -7,6 +7,7 @@
 #include "p2Point.h"
 #include "j1Collision.h"
 #include "SDL/include/SDL_render.h"
+#include "brofiler/Brofiler/Brofiler.h"
 
 #define MAX_ACTIVE_PARTICLES 100
 

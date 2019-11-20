@@ -97,7 +97,7 @@ bool j1Collision::PreUpdate()
 // Called before render is available
 bool j1Collision::Update(float dt)
 {
-
+	BROFILER_CATEGORY("Update_Collision", Profiler::Color::Black)
 	bool ret = true;
 	DebugDraw();
 
