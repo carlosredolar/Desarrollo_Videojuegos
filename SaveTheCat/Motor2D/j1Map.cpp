@@ -36,6 +36,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Update_MapDraw", Profiler::Color::CadetBlue)
 	if(map_loaded == false)
 		return;
 	else

@@ -2,6 +2,7 @@
 #define __j1RENDER_H__
 
 #include "SDL/include/SDL.h"
+#include "brofiler/Brofiler/Brofiler.h"
 #include "p2Point.h"
 #include "j1Module.h"
 

@@ -143,6 +143,7 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+
 	frame_time.Start();
 	FrameTimer.Start();
 	bool ret = true;

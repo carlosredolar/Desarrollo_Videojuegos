@@ -97,6 +97,7 @@ bool j1Collision::PreUpdate()
 // Called before render is available
 bool j1Collision::Update(float dt)
 {
+
 	bool ret = true;
 	DebugDraw();
 
