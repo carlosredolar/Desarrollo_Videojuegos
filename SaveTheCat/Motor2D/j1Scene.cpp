@@ -198,7 +198,7 @@ bool j1Scene::Update(float dt)
 		left_edge+= App->player->speed;
 	}*/
 
-	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)) {
+	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
 			App->render->camera.y += App->player->speed;
 			top_edge -= App->player->speed;
 			bottom_edge -= App->player->speed;
