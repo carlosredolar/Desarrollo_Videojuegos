@@ -77,6 +77,8 @@ public:
 	Collider* cameraLimit = nullptr;
 private:
 	int speedCount = 0;
+	SDL_Texture* debug_tex;
+	bool debugPath;
 };
 
 #endif // __j1SCENE_H__

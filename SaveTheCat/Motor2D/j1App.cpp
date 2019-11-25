@@ -136,6 +136,7 @@ bool j1App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
+	startup_time.Start();
 	PERF_PEEK(ptimer);
 	return ret;
 }
@@ -185,6 +186,11 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	// TODO 4: Calculate the dt: differential time since last frame
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -207,8 +213,8 @@ void j1App::FinishUpdate()
 
 	float avg_fps = float(frame_count) / startup_time.ReadSec();
 	float seconds_since_startup = startup_time.ReadSec();
-	Uint32 last_frame_ms = frame_time.Read();
-	Uint32 frames_on_last_update = prev_last_sec_frame_count;
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
@@ -221,8 +227,8 @@ void j1App::FinishUpdate()
 		//Sleep the remaining frame time
 		SDL_Delay((1000 / frameCap)- FrameTimer.Read());			
 	}
-	last_sec_frame_count++;	
-	frame_count++;
+	/*last_sec_frame_count++;	
+	frame_count++;*/
 }
 
 // Call modules before each loop iteration

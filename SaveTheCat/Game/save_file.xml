@@ -7,11 +7,12 @@
 	<map />
 	<scene />
 	<player>
-		<position x="50" y="799" />
+		<position x="971" y="511" />
 	</player>
 	<:anonymous />
 	<:anonymous />
+	<pathfinding />
 	<renderer>
-		<camera x="0" y="-190" />
+		<camera x="-746" y="-195" />
 	</renderer>
 </game_state>
