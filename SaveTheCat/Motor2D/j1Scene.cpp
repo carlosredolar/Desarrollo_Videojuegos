@@ -66,7 +66,7 @@ bool j1Scene::Start()
 	App->render->camera.y = 0;
 	speedCount = 0;
 
-	debug_tex = App->tex->Load("maps/path.png");
+	//debug_tex = App->tex->Load("maps/path.png");
 
 	collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
 
@@ -77,6 +77,7 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate() 
 { 
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::AliceBlue)
+	/*
 	// debug pathfing ------------------
 	static iPoint origin;
 	static bool origin_selected = false;
@@ -98,7 +99,7 @@ bool j1Scene::PreUpdate()
 			origin = p;
 			origin_selected = true;
 		}
-	}
+	}*/
 	return true; 
 }
 
@@ -238,6 +239,7 @@ bool j1Scene::Update(float dt)
 
 	//App->win->SetTitle(title.GetString());
 
+	/*
 	// Debug pathfinding ------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) debugPath=!debugPath;
 
@@ -260,7 +262,7 @@ bool j1Scene::Update(float dt)
 			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			App->render->Blit(debug_tex, pos.x, pos.y);
 		}
-	}
+	}*/
 	
 	return true;
 }
