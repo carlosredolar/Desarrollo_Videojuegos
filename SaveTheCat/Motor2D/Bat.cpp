@@ -1,4 +1,4 @@
-#include "Bat.h"
+/*#include "Bat.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -23,6 +23,8 @@ Bat::~Bat() { }
 bool Bat::Start()
 {
 	debug_tex = App->tex->Load("maps/path.png");
+
+	return ret;
 }
 
 void Bat::PathControl()
@@ -72,4 +74,4 @@ bool Bat::CleanUp()
 	debug_tex = nullptr;
 	bat_tex = nullptr;
 	return true;
-}
+}*/

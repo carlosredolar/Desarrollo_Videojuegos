@@ -17,10 +17,10 @@ struct Bat_Input {
 };
 
 enum Bat_States {
-	IDLE,
-	RUN_RIGHT,
-	RUN_LEFT,
-	DEATH,
+	IDLE_BAT,
+	FLY_RIGHT_BAT,
+	FLY_LEFT_BAT,
+	DEATH_BAT,
 };
 
 class Bat : public j1Module 
