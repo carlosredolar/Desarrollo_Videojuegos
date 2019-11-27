@@ -50,6 +50,7 @@ public:
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
+	float GetDT() const;
 
 	void LoadGame();
 	void SaveGame() const;
@@ -100,7 +101,6 @@ private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
-	float				dt;
 	int					argc;
 	char**				args;
 
@@ -120,7 +120,8 @@ private:
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	uint32				frameCap = 0;
+	float				dt = 0.0f;
+	int					capped_ms = -1;
 
 };
 

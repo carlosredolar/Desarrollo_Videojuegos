@@ -58,7 +58,7 @@ bool j1Scene::Start()
 	midTimer = 0;
 	closeTimer = 0;
 
-	App->audio->PlayMusic("music_sadpiano.ogg");
+	//App->audio->PlayMusic("music_sadpiano.ogg");
 	
 	//App->map->Load("hello2.tmx");
 	App->map->Load("Level1.tmx");
@@ -217,16 +217,16 @@ bool j1Scene::Update(float dt)
 	//camera manual control --------------
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += CAMERA_SPEED;
+		App->render->camera.y += CAMERA_SPEED*dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= CAMERA_SPEED;
+		App->render->camera.y -= CAMERA_SPEED*dt;
 
 	if((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&(App->render->camera.x < 0))
-		App->render->camera.x += CAMERA_SPEED;
+		App->render->camera.x += CAMERA_SPEED*dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= CAMERA_SPEED;
+		App->render->camera.x -= CAMERA_SPEED*dt;
 	
 
 

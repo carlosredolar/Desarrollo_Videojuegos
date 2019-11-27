@@ -99,11 +99,16 @@ bool j1App::Awake()
 		// self-config
 		ret = true;
 		app_config = config.child("app");
-		frameCap = app_config.attribute("framerate_cap").as_int();
-		//else frameCap = 60;
 		
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+
+		int cap = app_config.attribute("framerate_cap").as_int(-1);
+
+		if (cap > 0)
+		{
+			capped_ms = 1000 / cap;
+		}
 		
 	}
 
@@ -144,7 +149,6 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
-
 	frame_time.Start();
 	FrameTimer.Start();
 	bool ret = true;
@@ -189,7 +193,7 @@ void j1App::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
-	// TODO 4: Calculate the dt: differential time since last frame
+	dt = frame_time.ReadSec();
 	frame_time.Start();
 }
 
@@ -217,18 +221,15 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
-		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-	//If we want to cap the frame rate
-	if ((frameCap != 0) && FrameTimer.Read() < (1000 / frameCap))
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
-		//Sleep the remaining frame time
-		SDL_Delay((1000 / frameCap)- FrameTimer.Read());			
+		j1PerfTimer t;
+		SDL_Delay(capped_ms - last_frame_ms);
 	}
-	/*last_sec_frame_count++;	
-	frame_count++;*/
 }
 
 // Call modules before each loop iteration

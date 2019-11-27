@@ -281,7 +281,9 @@ bool j1Player::PreUpdate(){
 	return true;
 }
 
-bool j1Player::Update(float dt){
+bool j1Player::Update(float dt)
+{
+	//LOG("Dt= %f",dt);
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
 	switch (state)
 	{
