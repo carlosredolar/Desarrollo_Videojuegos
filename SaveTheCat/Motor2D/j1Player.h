@@ -65,9 +65,6 @@ public:
 
 	bool waitTime(float s);
 
-private:
-
-
 public:
 
 	SDL_Texture* player_tex;
@@ -115,6 +112,9 @@ public:
 	bool can_go_right = true;
 	bool can_go_left = true;
 	bool god = false;
+
+private:
+	float dt = 0.0f;
 };
 
 #endif // !_j1PLAYER_H_

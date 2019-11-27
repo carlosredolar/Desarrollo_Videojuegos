@@ -127,7 +127,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse;	
+				velocity.y = jumpImpulse * this->dt;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -145,7 +145,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse;
+				velocity.y = jumpImpulse * this->dt;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -155,7 +155,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = speed;
+			velocity.x = speed * this->dt;
 		}
 
 		if (state == RUN_BACKWARD)
@@ -170,7 +170,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse;
+				velocity.y = jumpImpulse * this->dt;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -180,7 +180,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = -speed;
+			velocity.x = -speed * this->dt;
 		}
 
 
@@ -194,7 +194,7 @@ bool j1Player::PreUpdate(){
 			}
 			//position.x += speed;
 			
-			velocity.x = speed;
+			velocity.x = speed * this->dt;
 		}
 
 		if (state == SLIDE_BACKWARD)
@@ -206,7 +206,7 @@ bool j1Player::PreUpdate(){
 				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x -= speed;
-			velocity.x = -speed;
+			velocity.x = -speed * this->dt;
 		}
 
 		if (state == JUMP && !god)
@@ -218,7 +218,7 @@ bool j1Player::PreUpdate(){
 			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse/2) && !god)
 			{ 
 				jump.Reset();
-				velocity.y = jumpImpulse;
+				velocity.y = jumpImpulse * this->dt;
 				can_double_jump = false;
 			}
 
@@ -240,7 +240,7 @@ bool j1Player::PreUpdate(){
 			{
 				jump.Reset();
 				state = JUMP;
-				velocity.y = jumpImpulse; 
+				velocity.y = jumpImpulse * this->dt;
 				can_double_jump = false;
 				App->audio->PlayFx(1, 0);
 			}
@@ -285,6 +285,7 @@ bool j1Player::Update(float dt)
 {
 	//LOG("Dt= %f",dt);
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
+	this->dt = dt;
 	switch (state)
 	{
 	case IDLE:
@@ -324,7 +325,7 @@ bool j1Player::Update(float dt)
 		}
 		if ((last_state = RUN_FORWARD)||(last_state == RUN_BACKWARD))
 		{
-			velocity.x /= 2;			
+			velocity.x /= 2*dt;			
 		}
 		break;
 	case FALL:
