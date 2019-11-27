@@ -9,7 +9,15 @@
 #include "j1Map.h"
 #include "j1Audio.h"
 #include "j1Zombie.h"
+#include "j1Player.h"
+#include "j1Pathfinding.h"
 
+
+j1Zombie::j1Zombie() :j1Module() {
+	name.create("zombie");
+	debugPath = false;
+	LoadAnimations();
+}
 
 j1Zombie::~j1Zombie() {
 	/*
@@ -19,7 +27,52 @@ j1Zombie::~j1Zombie() {
 	collider = nullptr;
 	raycast->to_delete = true;
 	raycast = nullptr;
-	*/
+	*/	
+}
+
+bool j1Zombie::Awake(pugi::xml_node& config)
+{
+	bool ret = true;
+
+	return ret;
+}
+
+bool j1Zombie::Start()
+{
+	bool ret = true;
+	debug_tex = App->tex->Load("maps/path.png");
+
+	return ret;
+}
+
+void j1Zombie::PathControl()
+{
+	static iPoint origin = position;
+	static bool origin_selected = false;
+
+	int x, y;
+	x = App->player->position.x;
+	y = App->player->position.y;
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+
+	//if the player is close we create a path to him
+	if (abs(App->player->position.x - position.x) < 100)
+	{
+		iPoint origin = App->map->WorldToMap(position.x, position.y);
+		iPoint destination = App->map->WorldToMap(App->player->position.x, App->player->position.y);
+		App->pathfinding->CreatePath(origin, destination);
+		chasing = true;
+	}
+	else { chasing = false; }
+}
+
+bool j1Zombie::PreUpdate()
+{
+	PathControl();
+
+	return true;
 }
 
 bool j1Zombie::Update(float dt) {
@@ -29,30 +82,45 @@ bool j1Zombie::Update(float dt) {
 
 
 	//what to do when getting to a gap
-	if (last_collider != nullptr)
+	/*if (last_collider != nullptr)
 	{
 		if (!raycast->CheckCollision(last_collider->rect))
 		{
 			grounded = false;
 			//current_speed.x = -current_speed.x;
 		}
-	}
+	}*/
 
 	//guard path
 	//if ((position.x < path_minimum)||(position.x > path_maximum)) current_speed.x -= current_speed.x;
 
-	//pathfind
-	PathfindtoPlayer(400, player);
+
+	// Debug pathfinding ------------------------------
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) debugPath = !debugPath;
+
+	if (chasing && debugPath)
+	{
+		int x, y;
+		SDL_Rect Debug_rect = { 0,0,32,32 };
+
+		path = App->pathfinding->GetLastPath();
+
+		for (uint i = 0; i < path->Count(); ++i)///Text for path
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(debug_tex, pos.x, pos.y);
+		}
+	}
 
 	//movement
-	if ((path_to_player != nullptr) && (path_to_player->Count() != 0))
+	if ((path != nullptr) && (path->Count() != 0))
 	{
 		//compare position to tile to go
 		int i = 0;
 		iPoint current_map_position = App->map->WorldToMap(position.x, position.y);
 		iPoint tile_to_go;
-		tile_to_go.x = path_to_player->At(i)->x;
-		tile_to_go.y = path_to_player->At(i)->y;
+		tile_to_go.x = path->At(i)->x;
+		tile_to_go.y = path->At(i)->y;
 
 		if (tile_to_go.y < current_map_position.y)
 		{
@@ -64,11 +132,11 @@ bool j1Zombie::Update(float dt) {
 			i++;
 			if (i > 1)
 			{
-				tile_to_go = App->map->WorldToMap(path_to_player->At(i)->x, path_to_player->At(i)->y);
+				tile_to_go = App->map->WorldToMap(path->At(i)->x, path->At(i)->y);
 			}
 		}
 
-		if (current_map_position.x > tile_to_go.x) {
+		/*if (current_map_position.x > tile_to_go.x) {
 			LOG("Going left");
 			state = RUN_BACKWARD;
 		}
@@ -82,10 +150,10 @@ bool j1Zombie::Update(float dt) {
 		}
 		if (current_map_position.y < tile_to_go.y) {
 			LOG("Going down");
-		}
+		}*/
 	}
 
-	//state machine
+	/*//state machine
 	switch (state)
 	{
 		run = idle;
@@ -133,20 +201,20 @@ bool j1Zombie::Update(float dt) {
 		collider->SetPos(position.x, position.y);
 	if ((raycast != nullptr) && (collider != nullptr))
 		raycast->SetPos(collider->rect.x + collider->rect.w * 0.5f - raycast->rect.w * 0.5f, position.y + current_animation->GetCurrentFrame().h);
-
+		*/
 	return ret;
 }
 
-bool j1WalkingEnemy::PostUpdate() {
+bool j1Zombie::PostUpdate() {
 	bool ret = true;
-	App->render->Blit(texture, position.x, position.y, &current_animation->GetCurrentFrame(), flip);
+	//App->render->Blit(texture, position.x, position.y, &current_animation->GetCurrentFrame(), flip);
 	return ret;
 }
 
 
-void j1WalkingEnemy::OnCollision(Collider* c1, Collider* c2) {
+void j1Zombie::OnCollision(Collider* c1, Collider* c2) {
 
-	if (c1 == raycast)
+	/*if (c1 == raycast)
 	{
 		last_collider = c2;
 	}
@@ -184,5 +252,50 @@ void j1WalkingEnemy::OnCollision(Collider* c1, Collider* c2) {
 		break;
 	default:
 		break;
+	}*/
+}
+
+bool j1Zombie::CleanUp()
+{
+	collider = nullptr;
+	debug_tex = nullptr;
+	zombie_tex = nullptr;
+	return true;
+}
+
+bool j1Zombie::LoadAnimations()
+{
+	bool ret = true;
+	/*pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
+	bool ret = true;
+	uint i = 0u;
+	uint j = 0;
+
+	if (result == NULL)
+	{
+		LOG("Could not load animations xml file %s. pugi error: %s", "animations.xml", result.description());
+		ret = false;
 	}
+
+
+	LOG("%u animations loaded", i);*/
+
+	return ret;
+}
+
+bool j1Zombie::Save(pugi::xml_node& data) const {
+
+	pugi::xml_node p_position = data.append_child("position");
+
+	p_position.append_attribute("x") = position.x;
+	p_position.append_attribute("y") = position.y;
+	return true;
+}
+
+bool j1Zombie::Load(pugi::xml_node& data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+
+	return true;
 }

@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
+#include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
 
 struct SDL_Texture;
@@ -18,11 +19,11 @@ struct Collider;
 
 
 enum Zombie_States {
-	IDLE,
-	RUN_FORWARD,
-	RUN_BACKWARD,
-	FALL,
-	DEATH,
+	IDLE_ZOMBIE,
+	RUN_FORWARD_ZOMBIE,
+	RUN_BACKWARD_ZOMBIE,
+	FALL_ZOMBIE,
+	DEATH_ZOMBIE,
 
 };
 
@@ -53,6 +54,7 @@ public:
 
 	bool LoadAnimations();
 
+	void PathControl();
 	bool waitTime(float s);
 
 public:
@@ -70,6 +72,8 @@ public:
 
 	bool deathSound = false;
 	bool winSound = false;
+	bool chasing = false;
+	bool debugPath;
 
 	//animations
 	Animation idle;
@@ -90,6 +94,7 @@ public:
 	SDL_RendererFlip flip;
 	Collider* collider = nullptr;
 	Collider* collider_copy;
+	SDL_Texture* debug_tex;
 
 	float speed;
 	float jumpImpulse;
@@ -99,6 +104,7 @@ public:
 	bool can_go_right = true;
 	bool can_go_left = true;
 	bool god = false;
+	const p2DynArray<iPoint>* path;
 
 private:
 	float dt = 0.0f;
