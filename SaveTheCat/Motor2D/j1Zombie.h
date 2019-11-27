@@ -19,12 +19,12 @@ struct Collider;
 
 
 enum Zombie_States {
-	IDLE_ZOMBIE,
-	RUN_FORWARD_ZOMBIE,
-	RUN_BACKWARD_ZOMBIE,
-	FALL_ZOMBIE,
-	DEATH_ZOMBIE,
 
+	IDLE_Z,
+	RUN_FORWARD_Z,
+	RUN_BACKWARD_Z,
+	FALL_Z,
+	DEATH_Z,
 };
 
 class j1Zombie : public j1Module {

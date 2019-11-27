@@ -26,8 +26,8 @@ j1Zombie::~j1Zombie() {
 	collider->to_delete = true;
 	collider = nullptr;
 	raycast->to_delete = true;
-	raycast = nullptr;
-	*/	
+	raycast = nullptr;*/
+	
 }
 
 bool j1Zombie::Awake(pugi::xml_node& config)
@@ -72,10 +72,12 @@ bool j1Zombie::PreUpdate()
 {
 	PathControl();
 
-	return true;
+	return true;	
+
 }
 
-bool j1Zombie::Update(float dt) {
+bool j1Zombie::Update(float dt) 
+{
 	bool ret = true;
 	lastPosition = position;
 	gravity = 925;
@@ -276,7 +278,6 @@ bool j1Zombie::LoadAnimations()
 		LOG("Could not load animations xml file %s. pugi error: %s", "animations.xml", result.description());
 		ret = false;
 	}
-
 
 	LOG("%u animations loaded", i);*/
 
