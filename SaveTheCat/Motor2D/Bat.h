@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
+#include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
 
 struct SDL_Texture;
@@ -52,6 +53,7 @@ public:
 	bool LoadAnimations();
 
 	bool waitTime(float s);
+
 private:
 	
 public:
@@ -68,6 +70,7 @@ public:
 	fVec2 velocity;
 	bool debugPath;
 	bool deathSound = false;
+	bool chasing = false;
 
 	//animations
 	Animation idle;
@@ -87,6 +90,7 @@ public:
 	Collider* collider = nullptr;
 	Collider* collider_copy;
 	SDL_Texture* debug_tex;
+	const p2DynArray<iPoint>* path;
 };
 
 #endif //
