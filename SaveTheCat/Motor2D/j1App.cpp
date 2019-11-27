@@ -149,8 +149,6 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
-	frame_time.Start();
-	FrameTimer.Start();
 	bool ret = true;
 	PrepareUpdate();
 
@@ -434,4 +432,9 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+float j1App::GetDT() const
+{
+	return dt;
 }
