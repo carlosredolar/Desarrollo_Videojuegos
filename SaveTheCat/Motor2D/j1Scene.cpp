@@ -52,7 +52,7 @@ bool j1Scene::Start()
 	farPos.x = 0; farPos.y = -App->render->camera.y;
 	midPos.x = 0; midPos.y = -App->render->camera.y;*/
 	//closePos.x = 0; closePos.y = -App->render->camera.y;
-	container = new SDL_Rect{0,0,13500,1000};
+	container = new SDL_Rect{0,0,8000,1000};
 	cam_death = SDL_Rect{ 0,0,10,App->render->camera.h*2 };
 	farTimer = 0;
 	midTimer = 0;
