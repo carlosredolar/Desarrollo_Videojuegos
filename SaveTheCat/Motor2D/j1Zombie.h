@@ -18,11 +18,11 @@ struct Collider;
 
 
 enum Zombie_States {
-	IDLE,
-	RUN_FORWARD,
-	RUN_BACKWARD,
-	FALL,
-	DEATH,
+	IDLE_Z,
+	RUN_FORWARD_Z,
+	RUN_BACKWARD_Z,
+	FALL_Z,
+	DEATH_Z,
 
 };
 

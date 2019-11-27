@@ -19,7 +19,7 @@ class j1Player;
 class j1Collision;
 class j1Fade;
 class j1PathFinding;
-class j1Zombie;
+//class j1Zombie;
 
 class j1App
 {
@@ -95,7 +95,7 @@ public:
 	j1Collision*		collision;
 	j1Fade*				fadeScreen;
 	j1PathFinding*		pathfinding;
-	j1Zombie*			zombie;
+	//j1Zombie*			zombie;
 
 	bool pause = false;
 

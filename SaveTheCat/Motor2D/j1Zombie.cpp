@@ -1,4 +1,4 @@
-#include "p2Log.h"
+/*#include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Render.h"
@@ -12,14 +12,14 @@
 
 
 j1Zombie::~j1Zombie() {
-	/*
+	
 	App->tex->UnLoad(texture);
 	texture = nullptr;
 	collider->to_delete = true;
 	collider = nullptr;
 	raycast->to_delete = true;
 	raycast = nullptr;
-	*/
+	
 }
 
 bool j1Zombie::Update(float dt) {
@@ -185,4 +185,4 @@ void j1WalkingEnemy::OnCollision(Collider* c1, Collider* c2) {
 	default:
 		break;
 	}
-}
+}*/
