@@ -7,7 +7,7 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -46,8 +46,8 @@
     <folder>audio/fx</folder>
     <folder>sprites/characters</folder>
     <position x="200" y="400" />	
-    <speed value="2"/>
-    <jumpImpulse value="5"/>
-    <gravity value="0.07"/>		
+    <speed value="10"/>
+    <jumpImpulse value="25"/>
+    <gravity value="1.4"/>		
   </player>
 </config>

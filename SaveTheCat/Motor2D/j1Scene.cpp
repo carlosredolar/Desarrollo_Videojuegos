@@ -120,7 +120,7 @@ bool j1Scene::Update(float dt)
 
 	cam_run_start = SDL_GetTicks();
 
-	if (cam_run_start > cam_run_start_timer)
+	if (cam_run_start > cam_run_start_timer && App->render->camera.x > -3770)
 	{
 		App->render->camera.x -= CAMERA_RUN_SPEED;
 		collider->SetPos(-App->render->camera.x, 0);
