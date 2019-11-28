@@ -212,8 +212,8 @@ bool j1Player::PreUpdate(){
 		if (state == JUMP && !god)
 		{
 			collider->SetSize(42, 66);
-			if (player_input.pressing_D) position.x += speed /** this->dt*//2;
-			if (player_input.pressing_A) position.x -= speed /** this->dt*//2;
+			if (player_input.pressing_D) position.x += speed /** this->dt/2*/;
+			if (player_input.pressing_A) position.x -= speed /** this->dt/2*/;
 
 			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse /** this->dt*/ /2) && !god)
 			{ 

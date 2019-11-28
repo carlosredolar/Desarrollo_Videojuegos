@@ -268,7 +268,7 @@ bool j1Zombie::LoadAnimations()
 {
 	bool ret = true;
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsZombie.xml");
-	bool ret = true;
+	//bool ret = true;
 	uint i = 0u;
 	uint j = 0;
 

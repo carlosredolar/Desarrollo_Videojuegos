@@ -154,7 +154,7 @@ bool Bat::LoadAnimations()
 {
 	bool ret = true;
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsBat.xml");
-	bool ret = true;
+	//bool ret = true;
 	uint i = 0u;
 	uint j = 0;
 
