@@ -153,7 +153,7 @@ void Bat::OnCollision(Collider* c1, Collider* c2)
 bool Bat::LoadAnimations() 
 {
 	bool ret = true;
-	/*pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
+	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsBat.xml");
 	bool ret = true;
 	uint i = 0u;
 	uint j = 0;
@@ -164,8 +164,7 @@ bool Bat::LoadAnimations()
 		ret = false;
 	}
 
-
-	LOG("%u animations loaded", i);*/
+	LOG("%u animations loaded", i);
 
 	return ret;
 }

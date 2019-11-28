@@ -26,8 +26,7 @@ j1Zombie::~j1Zombie() {
 	collider->to_delete = true;
 	collider = nullptr;
 	raycast->to_delete = true;
-	raycast = nullptr;*/
-	
+	raycast = nullptr;*/	
 }
 
 bool j1Zombie::Awake(pugi::xml_node& config)
@@ -268,7 +267,7 @@ bool j1Zombie::CleanUp()
 bool j1Zombie::LoadAnimations()
 {
 	bool ret = true;
-	/*pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
+	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsZombie.xml");
 	bool ret = true;
 	uint i = 0u;
 	uint j = 0;
@@ -279,7 +278,7 @@ bool j1Zombie::LoadAnimations()
 		ret = false;
 	}
 
-	LOG("%u animations loaded", i);*/
+	LOG("%u animations loaded", i);
 
 	return ret;
 }
