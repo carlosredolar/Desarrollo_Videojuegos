@@ -226,16 +226,16 @@ bool j1Scene::Update(float dt)
 	//camera manual control --------------
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += CAMERA_SPEED*dt;
+		App->render->camera.y += CAMERA_SPEED/**dt*/;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= CAMERA_SPEED*dt;
+		App->render->camera.y -= CAMERA_SPEED/**dt*/;
 
 	if((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&(App->render->camera.x < 0))
-		App->render->camera.x += CAMERA_SPEED*dt;
+		App->render->camera.x += CAMERA_SPEED/**dt*/;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= CAMERA_SPEED*dt;
+		App->render->camera.x -= CAMERA_SPEED/**dt*/;
 	
 
 
