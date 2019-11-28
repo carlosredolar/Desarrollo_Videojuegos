@@ -5,7 +5,7 @@
 #include "brofiler/Brofiler/Brofiler.h"
 
 #define CAMERA_SPEED 5
-#define CAMERA_RUN_SPEED 0.5f
+#define CAMERA_RUN_SPEED 1
 #define SPEED 3
 
 struct SDL_Texture;
