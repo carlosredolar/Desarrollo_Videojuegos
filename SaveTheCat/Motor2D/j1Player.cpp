@@ -190,7 +190,7 @@ bool j1Player::PreUpdate(){
 			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_FORWARD;
-				velocity.y = JUMP_AFTER_SLIDE;
+				velocity.y = JUMP_AFTER_SLIDE * this->dt;
 			}
 			//position.x += speed;
 			
@@ -203,7 +203,7 @@ bool j1Player::PreUpdate(){
 			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_BACKWARD;
-				velocity.y = JUMP_AFTER_SLIDE;
+				velocity.y = JUMP_AFTER_SLIDE * this->dt;
 			}
 			//position.x -= speed;
 			velocity.x = -speed * this->dt;
@@ -212,10 +212,10 @@ bool j1Player::PreUpdate(){
 		if (state == JUMP && !god)
 		{
 			collider->SetSize(42, 66);
-			if (player_input.pressing_D) position.x += speed * this->dt * this->dt /2;
-			if (player_input.pressing_A) position.x -= speed * this->dt * this->dt /2;
+			if (player_input.pressing_D) position.x += speed * this->dt/2;
+			if (player_input.pressing_A) position.x -= speed * this->dt/2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse/2) && !god)
+			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse * this->dt /2) && !god)
 			{ 
 				jump.Reset();
 				velocity.y = jumpImpulse * this->dt;
@@ -233,10 +233,10 @@ bool j1Player::PreUpdate(){
 		{
 			collider->SetSize(42, 66);
 			//let the player move while faling
-			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed * this->dt /2;
-			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed * this->dt / 2;
+			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed * this->dt * this->dt /2;
+			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed * this->dt * this->dt / 2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true) & (velocity.y <= jumpImpulse / 2) && !god)
+			if ((player_input.pressing_space)&&(can_double_jump == true) & (velocity.y <= jumpImpulse * this->dt / 2) && !god)
 			{
 				jump.Reset();
 				state = JUMP;
