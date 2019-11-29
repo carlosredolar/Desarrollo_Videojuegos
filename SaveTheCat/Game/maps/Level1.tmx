@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="150" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="58">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="150" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="58">
  <tileset firstgid="1" name="Tile" tilewidth="32" tileheight="32" tilecount="78" columns="13">
   <image source="Tile.png" width="416" height="192"/>
  </tileset>
@@ -9948,7 +9948,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10010,7 +10010,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="48"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10129,7 +10129,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile gid="72"/>
    <tile/>
    <tile gid="35"/>
    <tile/>
@@ -10384,7 +10384,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="48"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -10679,7 +10679,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11504,7 +11504,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11516,7 +11516,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="48"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11692,14 +11692,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="48"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="47"/>
+   <tile gid="72"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12049,24 +12049,15 @@
   <object id="35" type="Level" x="4737.33" y="1089.33" width="52" height="60"/>
   <object id="36" type="Collider" x="-14.6667" y="-9.33333" width="22.6667" height="1300"/>
   <object id="37" type="Death" x="419.333" y="1056" width="21.3333" height="32.6667"/>
-  <object id="38" type="Death" x="641.333" y="997.333" width="25.3333" height="25.3333"/>
-  <object id="39" type="Death" x="803.333" y="928.667" width="22" height="31.3333"/>
   <object id="40" type="Death" x="769.333" y="1152.67" width="22" height="30"/>
   <object id="41" type="Death " x="737.333" y="1157.33" width="22.6667" height="24.6667"/>
   <object id="43" type="Collider" x="964" y="1094" width="26.6667" height="27.3333"/>
-  <object id="44" type="Death" x="1252" y="837.333" width="24.6667" height="26.6667"/>
   <object id="45" type="Death" x="1538" y="1056.67" width="22" height="33.3333"/>
   <object id="46" type="Death" x="1506.67" y="1062" width="24.6667" height="25.3333"/>
   <object id="47" type="Death" x="2050.67" y="1056.67" width="21.3333" height="31.3333"/>
-  <object id="48" type="Death" x="2243.33" y="869.333" width="22.6667" height="24.6667"/>
-  <object id="49" type="Death" x="3042" y="1157.33" width="23.3333" height="27.3333"/>
-  <object id="50" type="Death" x="3236" y="832" width="20.6667" height="32"/>
-  <object id="51" type="Death" x="3426.67" y="1151.33" width="22" height="32.6667"/>
   <object id="52" type="Death" x="3907.33" y="1156.67" width="24" height="27.3333"/>
   <object id="53" type="Death" x="4036.67" y="1089.33" width="20" height="30"/>
-  <object id="54" type="Death" x="4254.67" y="1184.67" width="24" height="31.3333"/>
   <object id="55" type="Death" x="4292.67" y="896.667" width="52" height="32"/>
   <object id="56" type="Death" x="4352" y="903.333" width="25.3333" height="24.6667"/>
-  <object id="57" type="Death" x="4483.33" y="1190" width="22" height="25.3333"/>
  </objectgroup>
 </map>
