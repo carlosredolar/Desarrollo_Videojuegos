@@ -9,12 +9,12 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Audio.h"
+#include "EntityManager.h"
 
-j1Player::j1Player():j1Module () {
-	name.create("player");
-
-	LoadAnimations();
-
+j1Player::j1Player() :Entity(EntityType::PLAYER) 
+{
+	//name.create("player");
+	LoadAnimations("animations.tmx");
 }
 
 j1Player::~j1Player(){ }
@@ -441,7 +441,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 }
 
-bool j1Player::LoadAnimations() {
+/*bool j1Player::LoadAnimations() {
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
 	bool ret = true;
 	uint i = 0u;
@@ -489,7 +489,7 @@ bool j1Player::LoadAnimations() {
 	LOG("%u animations loaded", i);
 
 	return ret;
-}
+}*/
 
 void j1Player::MovementControl() {
 	position.x += velocity.x;

@@ -1,4 +1,3 @@
-
 #include "Bat.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -12,11 +11,44 @@
 #include "j1Audio.h"
 #include "j1Pathfinding.h"
 #include "j1Player.h"
+#include "Entity.h"
+#include "EntityManager.h"
 
-Bat::Bat() :j1Module() {
-	name.create("bat");
+
+Bat::Bat() :Entity(EntityType::FLYING_ENEMY) {
+	name.create("flying_enemy");
+	type = EntityType::FLYING_ENEMY;
 	debugPath = false;
-	LoadAnimations();
+
+	//animations
+	//texture = App->entities->flying_enemy_texture;
+	current_animation = &idle;
+	idle.PushBack({ 0,66,45,26 });
+	flip = SDL_FLIP_NONE;
+
+	//variables from EntityManager
+	player = App->entities->player;
+	if (App->entities->reference_flying_enemy != nullptr)
+	{
+		speed = App->entities->reference_flying_enemy->speed;
+		health = App->entities->reference_flying_enemy->health;
+		damage = App->entities->reference_flying_enemy->damage;
+
+		animations = App->entities->reference_flying_enemy->animations;
+
+		//to be changed
+		/*
+		idle = *animations.start->data;
+		attack = *animations.start->next->data;
+		run = *animations.end->data;
+		*/
+	}
+
+	lastPosition = position;
+
+	//colliders
+	collider = App->collision->AddCollider({ 0,66,45,26 }, COLLIDER_ENEMY, (j1Module*)this);
+	raycast = App->collision->AddCollider({ 16,34,20,5 }, COLLIDER_ENEMY, (j1Module*)this);
 }
 
 Bat::~Bat() { }
