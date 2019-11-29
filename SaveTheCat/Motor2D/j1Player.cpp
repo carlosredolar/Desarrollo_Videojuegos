@@ -99,7 +99,7 @@ bool j1Player::PreUpdate(){
 			collider->SetSize(42, 66);
 			can_double_jump = true;
 
-			if ((player_input.pressing_D)/*&&(velocity.y == 0)*/)
+			if (player_input.pressing_D)
 			{
 				state = RUN_FORWARD;
 			}
@@ -127,7 +127,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse/* * this->dt*/;
+				velocity.y = jumpImpulse;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -145,7 +145,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse/* * this->dt*/;
+				velocity.y = jumpImpulse;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -155,7 +155,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = speed /** this->dt*/;
+			velocity.x = speed;
 		}
 
 		if (state == RUN_BACKWARD)
@@ -170,7 +170,7 @@ bool j1Player::PreUpdate(){
 			if (player_input.pressing_space && !god)
 			{
 				state = JUMP;
-				velocity.y = jumpImpulse/* * this->dt*/;
+				velocity.y = jumpImpulse;
 				App->audio->PlayFx(1, 0);
 			}
 			
@@ -180,7 +180,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = -speed/* * this->dt*/;
+			velocity.x = -speed;
 		}
 
 
@@ -190,11 +190,11 @@ bool j1Player::PreUpdate(){
 			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_FORWARD;
-				velocity.y = JUMP_AFTER_SLIDE/* * this->dt*/;
+				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x += speed;
 			
-			velocity.x = speed/* * this->dt*/;
+			velocity.x = speed;
 		}
 
 		if (state == SLIDE_BACKWARD)
@@ -203,22 +203,22 @@ bool j1Player::PreUpdate(){
 			if (!player_input.pressing_S && !god)
 			{
 				state = RUN_BACKWARD;
-				velocity.y = JUMP_AFTER_SLIDE /** this->dt*/;
+				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x -= speed;
-			velocity.x = -speed /** this->dt*/;
+			velocity.x = -speed;
 		}
 
 		if (state == JUMP && !god)
 		{
 			collider->SetSize(42, 66);
-			if (player_input.pressing_D) position.x += speed /** this->dt/2*/;
-			if (player_input.pressing_A) position.x -= speed /** this->dt/2*/;
+			if ((player_input.pressing_D) && (can_go_right == true)) velocity.x = speed / 2;
+			if ((player_input.pressing_A) && (can_go_left == true)) velocity.x = -speed / 2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse /** this->dt*/ /2) && !god)
+			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse * 0.5f) && !god)
 			{ 
 				jump.Reset();
-				velocity.y = jumpImpulse/* * this->dt*/;
+				velocity.y = jumpImpulse;
 				can_double_jump = false;
 			}
 
@@ -233,14 +233,14 @@ bool j1Player::PreUpdate(){
 		{
 			collider->SetSize(42, 66);
 			//let the player move while faling
-			if ((player_input.pressing_D)&&(can_go_right == true)) position.x += speed /** this->dt*//2;
-			if ((player_input.pressing_A)&&(can_go_left == true)) position.x -= speed /** this->dt*// 2;
+			if ((player_input.pressing_D)&&(can_go_right == true)) velocity.x = speed/2;
+			if ((player_input.pressing_A)&&(can_go_left == true)) velocity.x = -speed/2;
 
-			if ((player_input.pressing_space)&&(can_double_jump == true) & (velocity.y <= jumpImpulse /** this->dt*/ / 2) && !god)
+			if ((player_input.pressing_space)&&(can_double_jump == true)&&(velocity.y <= jumpImpulse * 0.5f) && !god)
 			{
 				jump.Reset();
 				state = JUMP;
-				velocity.y = jumpImpulse /** this->dt*/;
+				velocity.y = jumpImpulse;
 				can_double_jump = false;
 				App->audio->PlayFx(1, 0);
 			}
@@ -275,8 +275,8 @@ bool j1Player::PreUpdate(){
 
 	if (god)
 	{
-		if (player_input.pressing_W) position.y -= speed /** this->dt*/;
-		if (player_input.pressing_S) position.y += speed /** this->dt*/;
+		if (player_input.pressing_W) position.y -= velocity.x;
+		if (player_input.pressing_S) position.y += velocity.x;
 	}
 	return true;
 }
@@ -297,38 +297,44 @@ bool j1Player::Update(float dt)
 	case RUN_FORWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_NONE;
+		//velocity.x = speed * dt;
 		break;
 
 	case RUN_BACKWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_HORIZONTAL;
+		//velocity.x = -speed * dt;
 		break;
 
 
 	case SLIDE_FORWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_NONE;
+		//velocity.x = speed * dt;
 		break;
 
 	case SLIDE_BACKWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_HORIZONTAL;
+		//velocity.x = -speed * dt;
 		break;
 
 	case JUMP:
 		current_animation = &death;
+		//velocity.y = jumpImpulse * dt;
 		if (velocity.y <= 0)
 		{
 			state = FALL;
 			jump.Reset();
 		}
-		if ((last_state = RUN_FORWARD)||(last_state == RUN_BACKWARD))
+		/*if ((last_state = RUN_FORWARD)||(last_state == RUN_BACKWARD))
 		{
-			velocity.x /= 2 /** this->dt*/;
-		}
+			//velocity.x /= 2;
+		}*/
 		break;
 	case FALL:
 		current_animation = &fall;
+		//velocity.y -= gravity * dt;
 		break;
 	case DEATH:
 		current_animation = &jump;
@@ -351,6 +357,8 @@ bool j1Player::Update(float dt)
 		LOG("No state found");
 		break;
 	}
+	position.x += velocity.x * dt;
+	position.y -= velocity.y * dt;
 
 	death_reset = SDL_GetTicks();
 	

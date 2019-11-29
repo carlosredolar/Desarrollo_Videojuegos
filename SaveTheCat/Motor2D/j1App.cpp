@@ -109,12 +109,12 @@ bool j1App::Awake()
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
 
-		/*int cap = app_config.attribute("framerate_cap").as_int(-1);
+		int cap = app_config.attribute("framerate_cap").as_int(-1);
 
 		if (cap > 0)
 		{
 			capped_ms = 1000 / cap;
-		}*/
+		}
 		
 	}
 
@@ -197,8 +197,9 @@ void j1App::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
-	//dt = frame_time.ReadSec();
+	dt = frame_time.ReadSec();
 	frame_time.Start();
+	ptimer.Start();
 }
 
 // ---------------------------------------------
@@ -229,11 +230,11 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-	/*if (capped_ms > 0 && last_frame_ms < capped_ms)
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
 		j1PerfTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
-	}*/
+	}
 }
 
 // Call modules before each loop iteration
