@@ -127,10 +127,10 @@ bool j1Scene::Update(float dt)
 
 		//Parallax
 		farTimer++; midTimer++; closeTimer++;
-		backPos.x += CAMERA_RUN_SPEED;
-		if (farTimer >= CAMERA_RUN_SPEED) { farPos.x += CAMERA_RUN_SPEED; farTimer = 0; }
-		if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x += CAMERA_RUN_SPEED; midTimer = 0; }
-		if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x += CAMERA_RUN_SPEED; closeTimer = 0; }
+		backPos.x += CAMERA_RUN_SPEED-2;
+		if (farTimer >= CAMERA_RUN_SPEED) { farPos.x -= CAMERA_RUN_SPEED-3; farTimer = 0; }
+		if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x -= CAMERA_RUN_SPEED-4; midTimer = 0; }
+		if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x = 0; closeTimer = 0; }
 	}
 	
 
@@ -158,7 +158,7 @@ bool j1Scene::Update(float dt)
 		else
 		{
 			App->map->CleanUp();
-			App->collision->CleanUp();
+			//App->collision->CleanUp();
 			//App->scene->CleanUp();
 			App->map->Load("Level1.tmx");
 			ResetLevel();
@@ -176,7 +176,7 @@ bool j1Scene::Update(float dt)
 		else
 		{
 			App->map->CleanUp();
-			App->collision->CleanUp();
+			//App->collision->CleanUp();
 			//App->scene->CleanUp();
 			App->map->Load("Level2.tmx");
 			ResetLevel();
