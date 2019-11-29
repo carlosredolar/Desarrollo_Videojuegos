@@ -158,7 +158,8 @@ bool j1Scene::Update(float dt)
 		else
 		{
 			App->map->CleanUp();
-			App->scene->CleanUp();
+			App->collision->CleanUp();
+			//App->scene->CleanUp();
 			App->map->Load("Level1.tmx");
 			ResetLevel();
 			Reset_Camera();
@@ -175,7 +176,8 @@ bool j1Scene::Update(float dt)
 		else
 		{
 			App->map->CleanUp();
-			App->scene->CleanUp();
+			App->collision->CleanUp();
+			//App->scene->CleanUp();
 			App->map->Load("Level2.tmx");
 			ResetLevel();
 			Reset_Camera();
@@ -217,7 +219,7 @@ bool j1Scene::Update(float dt)
 			bottom_edge -= App->player->speed;
 	}
 
-	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 380)) {
+	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 360)) {
 		App->render->camera.y -= App->player->speed;
 		top_edge+= App->player->speed;
 		bottom_edge+= App->player->speed;

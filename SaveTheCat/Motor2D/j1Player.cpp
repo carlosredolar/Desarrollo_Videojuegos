@@ -63,8 +63,9 @@ bool j1Player::Start(){
 }
 
 bool j1Player::CleanUp() {
-	collider = nullptr;
-	player_tex = nullptr;
+	collider->to_delete = true;
+	SDL_DestroyTexture(player_tex);
+	//player_tex = nullptr;
 	return true;
 }
 
