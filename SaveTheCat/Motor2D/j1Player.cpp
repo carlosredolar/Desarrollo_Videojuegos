@@ -270,7 +270,7 @@ bool j1Player::PreUpdate(){
 			state = FALL;
 		}
 
-		MovementControl(); //calculate new position
+		MovementControl(dt); //calculate new position
 		
 		collider->SetPos(position.x, position.y);
 	}
@@ -359,8 +359,8 @@ bool j1Player::Update(float dt)
 		LOG("No state found");
 		break;
 	}
-	position.x += velocity.x * dt;
-	position.y -= velocity.y * dt;
+	//position.x += velocity.x * dt;
+	//position.y -= velocity.y * dt;
 
 	death_reset = SDL_GetTicks();
 	
@@ -492,10 +492,10 @@ bool j1Player::LoadAnimations() {
 	return ret;
 }
 
-void j1Player::MovementControl() {
-	position.x += velocity.x;
-	position.y -= velocity.y;
-	if (!god) velocity.y -= gravity;
+void j1Player::MovementControl(float dt) {
+	position.x += velocity.x * dt;
+	position.y -= velocity.y * dt;
+	if (!god) velocity.y -= gravity * dt;
 	
 }
 
