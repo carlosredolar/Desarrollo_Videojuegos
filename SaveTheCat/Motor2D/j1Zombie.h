@@ -9,7 +9,6 @@
 #include "p2Vec2.h"
 #include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -28,7 +27,7 @@ enum Zombie_States {
 	DEATH_Z,
 };
 
-class j1Zombie : public Entity {
+class j1Zombie : public j1Module {
 public:
 	j1Zombie();
 

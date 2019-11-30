@@ -19,9 +19,6 @@ class j1Player;
 class j1Collision;
 class j1Fade;
 class j1PathFinding;
-class EntityManager;
-class j1Zombie;
-class Bat;
 //class j1Zombie;
 
 class j1App
@@ -98,7 +95,6 @@ public:
 	j1Collision*		collision;
 	j1Fade*				fadeScreen;
 	j1PathFinding*		pathfinding;
-	EntityManager*		entities;
 	//j1Zombie*			zombie;
 
 	bool pause = false;

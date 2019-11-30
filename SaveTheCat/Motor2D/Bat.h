@@ -9,7 +9,6 @@
 #include "p2Vec2.h"
 #include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -25,7 +24,7 @@ enum Bat_States {
 	DEATH_BAT,
 };
 
-class Bat : public Entity 
+class Bat : public j1Module 
 {
 public:
 	Bat();

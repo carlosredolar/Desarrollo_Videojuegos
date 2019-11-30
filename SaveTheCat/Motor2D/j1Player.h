@@ -8,7 +8,6 @@
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -25,7 +24,7 @@ struct Player_Input {
 	bool S_keyUp;
 };
 
-/*enum Player_States {
+enum Player_States {
 	IDLE, 
 	RUN_FORWARD,
 	RUN_BACKWARD,
@@ -35,9 +34,9 @@ struct Player_Input {
 	SLIDE_BACKWARD,
 	DEATH,
 
-};*/
+};
 
-class j1Player : public Entity {
+class j1Player : public j1Module {
 public:
 	j1Player();
 
@@ -62,7 +61,7 @@ public:
 	bool Save(pugi::xml_node& data) const;
 	bool Load(pugi::xml_node& data);
 
-	//bool LoadAnimations();
+	bool LoadAnimations();
 
 	bool waitTime(float s);
 
@@ -98,8 +97,8 @@ public:
 
 	pugi::xml_document animation_doc;
 
-	EntityState state;
-	EntityState last_state;
+	Player_States state;
+	Player_States last_state;
 
 	SDL_RendererFlip flip;
 	Collider* collider = nullptr;
