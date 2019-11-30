@@ -14,7 +14,7 @@
 j1Player::j1Player() :j1Entity(EntityType::PLAYER)
 {
 	//name.create("player");
-	LoadAnimations("animations.tmx");
+	LoadAnimations();
 }
 
 j1Player::~j1Player(){ }
@@ -38,7 +38,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	slideFX = "sounds/slide.wav";
 	music = "sounds/SuperSong.wav";
 
-	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
+	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->entities->player); //a collider to start
 
 	return ret;
 }
@@ -58,6 +58,7 @@ bool j1Player::Start(){
 	waitTimer = 0;
 	deathSound = false;
 	winSound = false;
+
 
 	return true;
 }

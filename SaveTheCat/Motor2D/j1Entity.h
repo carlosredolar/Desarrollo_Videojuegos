@@ -40,7 +40,7 @@ public:
 	virtual bool CleanUp() { return true; };
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
 	void PathfindtoPlayer(int range, j1Entity* player);
-	bool LoadAnimations(const char* animation_file);
+	bool LoadAnimations();
 
 public:
 	iPoint position;
@@ -74,8 +74,10 @@ public:
 	Animation run;
 	Animation fall;
 	Animation attack;
-	Animation die;
+	Animation death;
 	Animation* current_animation = nullptr;
+
+	pugi::xml_document animation_doc;
 
 	EntityType type = EntityType::UNKNOWN;
 	EntityState state = EntityState::IDLE;

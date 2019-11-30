@@ -75,7 +75,57 @@ void j1Entity::PathfindtoPlayer(int range, j1Entity* player) {
 
 }
 
-bool j1Entity::LoadAnimations(const char* path) {
+bool j1Entity::LoadAnimations() {
+	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
+	bool ret = true;
+	uint i = 0u;
+	uint j = 0;
+
+	if (result == NULL)
+	{
+		LOG("Could not load animations xml file %s. pugi error: %s", "animations.xml", result.description());
+		ret = false;
+	}
+
+	animations.add(&idle);
+	animations.add(&run);
+	animations.add(&slide);
+	animations.add(&jump);
+	animations.add(&fall);
+	animations.add(&death);
+
+	pugi::xml_node animation = animation_doc.child("animations").child("animation");
+	pugi::xml_node frame;
+	p2List_item<Animation*>* item = animations.start;
+	int x, y, w, h;
+	float anim_speed = 1;
+
+	LOG("Loading animations ---------");
+
+	for (animation; animation; animation = animation.next_sibling("animation"))
+	{
+		item->data->loop = animation.attribute("loop").as_bool();
+
+		for (frame = animation.child("data").child("frame"); frame; frame = frame.next_sibling("frame"))
+		{
+			x = frame.attribute("x").as_int();
+			y = frame.attribute("y").as_int();
+			w = frame.attribute("w").as_int();
+			h = frame.attribute("h").as_int();
+			anim_speed = frame.attribute("speed").as_float();
+
+			item->data->PushBack({ x,y,w,h }, anim_speed);
+		}
+		i++;
+		item = item->next;
+	}
+
+	LOG("%u animations loaded", i);
+
+	return ret;
+}
+
+/*bool j1Entity::LoadAnimations(const char* path) {
 	bool ret = true;
 
 	p2SString file("sprites/characters/%s", path);
@@ -148,4 +198,4 @@ bool j1Entity::LoadAnimations(const char* path) {
 	}
 
 	return ret;
-}
+}*/
