@@ -12,7 +12,7 @@
 struct SDL_Texture;
 struct Collider;
 
-#define FUTURE_COLLIDER speed*2.5f
+#define COLLIDER_PREDICTION speed
 #define JUMP_AFTER_SLIDE 5.1f
 
 struct Player_Input {
@@ -56,7 +56,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void MovementControl();
+	void MovementControl(float dt);
 
 	bool Save(pugi::xml_node& data) const;
 	bool Load(pugi::xml_node& data);

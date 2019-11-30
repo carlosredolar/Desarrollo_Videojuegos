@@ -270,7 +270,7 @@ bool j1Player::PreUpdate(){
 			state = FALL;
 		}
 
-		MovementControl(); //calculate new position
+		//MovementControl(); //calculate new position
 		
 		collider->SetPos(position.x, position.y);
 	}
@@ -360,6 +360,7 @@ bool j1Player::Update(float dt)
 		break;
 	}
 
+	MovementControl(dt);
 
 	death_reset = SDL_GetTicks();
 	
@@ -381,16 +382,26 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_WALL:
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
-			if ((position.x < c2->rect.x + FUTURE_COLLIDER) && (state == FALL))
+			
+			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) && (state == FALL))
 			{
+				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
+					position.y = c2->rect.y - App->player->collider->rect.h;
+					state = IDLE;
+					fall.Reset();
+				}
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - FUTURE_COLLIDER) && (state == FALL))
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) && (state == FALL))
 			{
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + FUTURE_COLLIDER) && (last_state == FALL))
+			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) && (last_state == FALL))
 			{
+
+				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
+					position.y = c2->rect.y - App->player->collider->rect.h;
+				}
 				state = IDLE;
 				fall.Reset();
 				can_go_right = true;
@@ -491,10 +502,10 @@ bool j1Player::LoadAnimations() {
 	return ret;
 }
 
-void j1Player::MovementControl() {
-	position.x += velocity.x;
-	position.y -= velocity.y;
-	if (!god) velocity.y -= gravity;
+void j1Player::MovementControl(float dt) {
+	position.x += velocity.x * dt;
+	position.y -= velocity.y * dt;
+	if (!god) velocity.y -= gravity * dt;
 	
 }
 
