@@ -29,16 +29,21 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	folder.create(config.child("folder").child_value());
 
 	//set initial attributes of the player
-	speed = config.child("speed").attribute("value").as_int();
+	speed = config.child("speed").attribute("value").as_float();
 	jumpImpulse = config.child("jumpImpulse").attribute("value").as_float();
-	gravity = config.child("gravity").attribute("value").as_float();
+	gravity =  config.child("gravity").attribute("value").as_float();
 	jumpFX = "sounds/jump.wav";
 	deathFX = "sounds/death.wav";
 	winFX = "sounds/win.wav";
 	slideFX = "sounds/slide.wav";
 	music = "sounds/SuperSong.wav";
 
-	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->entities->player); //a collider to start
+	
+
+	//position.x = initial_x_position = App->scene->player_x_position;
+	//position.y = initial_y_position = App->scene->player_y_position;
+
+	collider = App->collision->AddCollider(SDL_Rect{ 300,400,32,64 }, COLLIDER_PLAYER, (j1Module*)App->entities->player); //a collider to start
 
 	return ret;
 }
@@ -158,6 +163,9 @@ bool j1Player::PreUpdate(){
 			}
 
 			velocity.x = speed;
+			//(int)ceil(velocity.x = speed);
+
+			//velocity.y = 0;
 		}
 
 		if (state == RUN_BACKWARD)
@@ -270,7 +278,7 @@ bool j1Player::PreUpdate(){
 			state = FALL;
 		}
 
-		MovementControl(dt); //calculate new position
+		//MovementControl(dt); //calculate new position
 		
 		collider->SetPos(position.x, position.y);
 	}
@@ -359,6 +367,7 @@ bool j1Player::Update(float dt)
 		LOG("No state found");
 		break;
 	}
+	MovementControl(dt);
 	//position.x += velocity.x * dt;
 	//position.y -= velocity.y * dt;
 

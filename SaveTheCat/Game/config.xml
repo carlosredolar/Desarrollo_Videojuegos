@@ -42,12 +42,14 @@
 	<player_position x="50" y="400"/>
     </level2>
   </map>
-  <player>
-    <folder>audio/fx</folder>
-    <folder>sprites/characters</folder>
-    <position x="200" y="400" />	
-    <speed value="20"/>
-    <jumpImpulse value="20"/>
-    <gravity value="1.5"/>		
-  </player>
+  <entities>
+    <player>
+      <folder>audio/fx</folder>
+      <folder>sprites/characters</folder>
+      <position x="300" y="400" />	
+      <speed value="300"/>
+      <jumpImpulse value="300"/>
+      <gravity value="120"/>		
+    </player>
+  </entities>
 </config>
