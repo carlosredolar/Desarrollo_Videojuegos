@@ -1,4 +1,5 @@
-#include "j1Bat.h"
+
+#include "Bat.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -11,56 +12,23 @@
 #include "j1Audio.h"
 #include "j1Pathfinding.h"
 #include "j1Player.h"
-#include "j1Entity.h"
-#include "j1EntityManager.h"
 
-
-j1Bat::j1Bat() :j1Entity(EntityType::FLYING_ENEMY) {
-	name.create("flying_enemy");
-	type = EntityType::FLYING_ENEMY;
+Bat::Bat() :j1Module() {
+	name.create("bat");
 	debugPath = false;
-
-	//animations
-	//texture = App->entities->flying_enemy_texture;
-	current_animation = &idle;
-	idle.PushBack({ 0,66,45,26 });
-	flip = SDL_FLIP_NONE;
-
-	//variables from EntityManager
-	player = App->entities->player;
-	if (App->entities->reference_flying_enemy != nullptr)
-	{
-		speed = App->entities->reference_flying_enemy->speed;
-		health = App->entities->reference_flying_enemy->health;
-		damage = App->entities->reference_flying_enemy->damage;
-
-		animations = App->entities->reference_flying_enemy->animations;
-
-		//to be changed
-		/*
-		idle = *animations.start->data;
-		attack = *animations.start->next->data;
-		run = *animations.end->data;
-		*/
-	}
-
-	lastPosition = position;
-
-	//colliders
-	collider = App->collision->AddCollider({ 0,66,45,26 }, COLLIDER_ENEMY, (j1Module*)this);
-	raycast = App->collision->AddCollider({ 16,34,20,5 }, COLLIDER_ENEMY, (j1Module*)this);
+	LoadAnimations();
 }
 
-j1Bat::~j1Bat() { }
+Bat::~Bat() { }
 
-bool j1Bat::Awake(pugi::xml_node& config)
+bool Bat::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
 	return ret;
 }
 
-bool j1Bat::Start()
+bool Bat::Start()
 {
 	bool ret = true;
 	debug_tex = App->tex->Load("maps/path.png");
@@ -68,7 +36,7 @@ bool j1Bat::Start()
 	return ret;
 }
 
-void j1Bat::PathControl()
+void Bat::PathControl()
 {
 	static iPoint origin = position;
 	static bool origin_selected = false;
@@ -91,14 +59,14 @@ void j1Bat::PathControl()
 	else { chasing = false; }
 }
 
-bool j1Bat::PreUpdate()
+bool Bat::PreUpdate()
 {
 	PathControl();
 	
 	return true;
 }
 
-bool j1Bat::Update(float dt)
+bool Bat::Update(float dt)
 {
 	bool ret = true;
 	// Debug pathfinding ------------------------------
@@ -162,7 +130,7 @@ bool j1Bat::Update(float dt)
 	return ret;
 }
 
-bool j1Bat::CleanUp()
+bool Bat::CleanUp() 
 {
 	collider = nullptr;
 	debug_tex = nullptr;
@@ -170,19 +138,19 @@ bool j1Bat::CleanUp()
 	return true;
 }
 
-bool j1Bat::PostUpdate() {
+bool Bat::PostUpdate() {
 	/*BROFILER_CATEGORY("PostUpdate_Player", Profiler::Color::Thistle)
 		App->render->Blit(player_tex, position.x, position.y, &current_animation->GetCurrentFrame(), flip);*/
 
 	return true;
 }
 
-void j1Bat::OnCollision(Collider* c1, Collider* c2)
+void Bat::OnCollision(Collider* c1, Collider* c2) 
 {
 			
 }
 
-bool j1Bat::LoadAnimations()
+bool Bat::LoadAnimations() 
 {
 	bool ret = true;
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsBat.xml");
@@ -201,7 +169,7 @@ bool j1Bat::LoadAnimations()
 	return ret;
 }
 
-bool j1Bat::Save(pugi::xml_node& data) const {
+bool Bat::Save(pugi::xml_node& data) const {
 
 	pugi::xml_node p_position = data.append_child("position");
 
@@ -210,7 +178,7 @@ bool j1Bat::Save(pugi::xml_node& data) const {
 	return true;
 }
 
-bool j1Bat::Load(pugi::xml_node& data)
+bool Bat::Load(pugi::xml_node& data)
 {
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();

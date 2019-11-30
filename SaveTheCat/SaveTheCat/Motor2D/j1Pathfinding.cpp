@@ -167,75 +167,10 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	/*int ret = -1;
+	int ret = -1;
 
 	// Nice try :)
 
-	return ret;*/
-
-	//BROFILER_CATEGORY("CreatePath", Profiler::Color::Azure)
-
-		if ((!IsWalkable(origin)) || (!IsWalkable(destination)))
-		{
-			return -1;
-		}
-	last_path.Clear();
-
-	PathList open, close;
-	PathNode node(0, origin.DistanceNoSqrt(destination), origin, nullptr);
-
-	node.pos = origin;
-	open.list.add(node);
-
-	while ((open.list.count() > 0) && (close.list.count() < 150)) {
-		p2List_item<PathNode>* item;
-
-		item = open.GetNodeLowestScore();
-		close.list.add(item->data);
-		open.list.del(item);
-
-		if (item->data.pos != destination)
-		{
-			PathList adjacentSquares;
-			close.list.end->data.FindWalkableAdjacents(adjacentSquares);
-
-			for (p2List_item<PathNode>* node_item = adjacentSquares.list.start; node_item != NULL; node_item = node_item->next)
-			{
-				if (close.Find(node_item->data.pos))
-				{
-					continue;
-				}
-				else if (open.Find(node_item->data.pos))
-				{
-					PathNode probable_path = open.Find(node_item->data.pos)->data;
-					node_item->data.CalculateF(destination);
-					if (probable_path.g > node_item->data.g) probable_path.parent = node_item->data.parent;
-				}
-				else
-				{
-					node_item->data.CalculateF(destination);
-					open.list.add(node_item->data);
-				}
-			}
-			adjacentSquares.list.clear();
-		}
-		else
-		{
-			p2List_item<PathNode>* path_item = close.list.end;
-
-			for (; path_item->data.parent != nullptr; path_item = close.Find(path_item->data.parent->pos))
-			{
-
-				last_path.PushBack(path_item->data.pos);
-				if (path_item->data.parent == nullptr) {
-					last_path.PushBack(close.list.start->data.pos);
-				}
-			}
-
-			last_path.Flip();
-			return last_path.Count();
-		}
-	}
-	return -1;
+	return ret;
 }
 

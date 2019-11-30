@@ -75,7 +75,7 @@ bool j1Scene::Start()
 	App->render->camera.y = 0;
 	speedCount = 0;
 
-	debug_tex = App->tex->Load("maps/path.png");
+	//debug_tex = App->tex->Load("maps/path.png");
 
 	collider = App->collision->AddCollider(cam_death, COLLIDER_DEATH, (j1Module*)App->scene);
 
@@ -86,7 +86,7 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate() 
 { 
 	BROFILER_CATEGORY("PreUpdate_Scene", Profiler::Color::AliceBlue)
-	
+	/*
 	// debug pathfing ------------------
 	static iPoint origin;
 	static bool origin_selected = false;
@@ -108,7 +108,7 @@ bool j1Scene::PreUpdate()
 			origin = p;
 			origin_selected = true;
 		}
-	}
+	}*/
 	return true; 
 }
 
@@ -250,11 +250,11 @@ bool j1Scene::Update(float dt)
 
 	//App->win->SetTitle(title.GetString());
 
-	
+	/*
 	// Debug pathfinding ------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) debugPath=!debugPath;
 
-	/*if (debugPath)
+	if (debugPath)
 	{
 		////////Mouse text render
 		int x, y;
@@ -274,30 +274,6 @@ bool j1Scene::Update(float dt)
 			App->render->Blit(debug_tex, pos.x, pos.y);
 		}
 	}*/
-
-	//prueba
-	int x, y;
-	SDL_Rect Debug_rect = { 0,0,32,32 };
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
-
-	//App->render->Blit(debug_tex, p.x, p.y);
-	Debug_rect.x = p.x;
-	Debug_rect.y = p.y;
-	if (App->collision->debug)App->render->DrawQuad(Debug_rect, 0, 0, 255, 80);
-
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		Debug_rect.x = pos.x;
-		Debug_rect.y = pos.y;
-		if (App->collision->debug)App->render->DrawQuad(Debug_rect, 90, 850, 230, 80);
-		//App->render->Blit(debug_tex, pos.x, pos.y);
-	}
 	
 	return true;
 }

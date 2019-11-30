@@ -1,5 +1,5 @@
-#ifndef _j1ZOMBIE_H_
-#define _j1ZOMBIE_H_
+#ifndef _j1PLAYER_H_
+#define _j1PLAYER_H_
 
 #include "j1Module.h"
 #include "p2Point.h"
@@ -7,32 +7,40 @@
 #include "j1Audio.h"
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
-#include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "j1Entity.h"
 
 struct SDL_Texture;
 struct Collider;
 
-#define COLLIDER_MARGIN speed*1.5f
+#define FUTURE_COLLIDER speed*2.5f
 #define JUMP_AFTER_SLIDE 5.1f
 
-
-
-enum Zombie_States {
-
-	IDLE_Z,
-	RUN_FORWARD_Z,
-	RUN_BACKWARD_Z,
-	FALL_Z,
-	DEATH_Z,
+struct Player_Input {
+	bool pressing_W;
+	bool pressing_A;
+	bool pressing_S;
+	bool pressing_D;
+	bool pressing_space;
+	bool S_keyUp;
 };
 
-class j1Zombie : public j1Entity {
-public:
-	j1Zombie();
+enum Player_States {
+	IDLE, 
+	RUN_FORWARD,
+	RUN_BACKWARD,
+	JUMP,
+	FALL,
+	SLIDE_FORWARD,
+	SLIDE_BACKWARD,
+	DEATH,
 
-	virtual ~j1Zombie();
+};
+
+class j1Player : public j1Module {
+public:
+	j1Player();
+
+	virtual ~j1Player();
 
 	bool Awake(pugi::xml_node&);
 
@@ -48,54 +56,53 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	//void MovementControl();
+	void MovementControl();
 
 	bool Save(pugi::xml_node& data) const;
 	bool Load(pugi::xml_node& data);
 
 	bool LoadAnimations();
 
-	void PathControl();
-	//bool waitTime(float s);
+	bool waitTime(float s);
 
 public:
 
-	SDL_Texture* zombie_tex;
+	SDL_Texture* player_tex;
 	p2SString folder;
-	int initial_x_position = 0;
-	int initial_y_position = 0;
-	int death_reset = 0;
-	int death_timer = 0;
-	float waitTimer = 0;
+	Player_Input player_input;
+	int initial_x_position=0;
+	int initial_y_position=0;
+	int death_reset=0;
+	int death_timer=0;
+	float waitTimer=0;
 	iPoint position;
 	iPoint lastPosition;
 	fVec2 velocity;
 
 	bool deathSound = false;
 	bool winSound = false;
-	bool chasing = false;
-	bool debugPath;
 
 	//animations
 	Animation idle;
+	Animation jump;
 	Animation run;
+	Animation slide;
 	Animation fall;
 	Animation death;
 	Animation* current_animation;
 
-	p2SString jumpFX, deathFX, slideFX, winFX, music;
+	p2SString jumpFX,deathFX,slideFX,winFX,music;
 
 	p2List<Animation*> animations;
 
 	pugi::xml_document animation_doc;
 
-	Zombie_States state;
-	Zombie_States last_state;
+	Player_States state;
+	Player_States last_state;
 
 	SDL_RendererFlip flip;
 	Collider* collider = nullptr;
 	Collider* collider_copy;
-	SDL_Texture* debug_tex;
 
 	float speed;
 	float jumpImpulse;
@@ -105,10 +112,10 @@ public:
 	bool can_go_right = true;
 	bool can_go_left = true;
 	bool god = false;
-	const p2DynArray<iPoint>* path;
 
 private:
 	float dt = 0.0f;
 };
 
-#endif // !_j1ZOMBIE_H_
+#endif // !_j1PLAYER_H_
+

@@ -9,12 +9,12 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Audio.h"
-#include "j1EntityManager.h"
 
-j1Player::j1Player() :j1Entity(EntityType::PLAYER)
-{
-	//name.create("player");
+j1Player::j1Player():j1Module () {
+	name.create("player");
+
 	LoadAnimations();
+
 }
 
 j1Player::~j1Player(){ }
@@ -29,21 +29,16 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	folder.create(config.child("folder").child_value());
 
 	//set initial attributes of the player
-	speed = config.child("speed").attribute("value").as_float();
+	speed = config.child("speed").attribute("value").as_int();
 	jumpImpulse = config.child("jumpImpulse").attribute("value").as_float();
-	gravity =  config.child("gravity").attribute("value").as_float();
+	gravity = config.child("gravity").attribute("value").as_float();
 	jumpFX = "sounds/jump.wav";
 	deathFX = "sounds/death.wav";
 	winFX = "sounds/win.wav";
 	slideFX = "sounds/slide.wav";
 	music = "sounds/SuperSong.wav";
 
-	
-
-	//position.x = initial_x_position = App->scene->player_x_position;
-	//position.y = initial_y_position = App->scene->player_y_position;
-
-	collider = App->collision->AddCollider(SDL_Rect{ 300,400,32,64 }, COLLIDER_PLAYER, (j1Module*)App->entities->player); //a collider to start
+	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
 
 	return ret;
 }
@@ -63,7 +58,6 @@ bool j1Player::Start(){
 	waitTimer = 0;
 	deathSound = false;
 	winSound = false;
-
 
 	return true;
 }
@@ -163,9 +157,6 @@ bool j1Player::PreUpdate(){
 			}
 
 			velocity.x = speed;
-			//(int)ceil(velocity.x = speed);
-
-			//velocity.y = 0;
 		}
 
 		if (state == RUN_BACKWARD)
@@ -237,7 +228,7 @@ bool j1Player::PreUpdate(){
 				state = FALL;
 				jump.Reset();
 			}
-			
+			velocity.y -= gravity;
 		}
 		if (state == FALL)
 		{
@@ -259,6 +250,7 @@ bool j1Player::PreUpdate(){
 			{
 				fall.Reset();
 			}
+			velocity.y -= gravity;
 		}
 
 		if (state == DEATH)
@@ -278,7 +270,7 @@ bool j1Player::PreUpdate(){
 			state = FALL;
 		}
 
-		//MovementControl(dt); //calculate new position
+		MovementControl(); //calculate new position
 		
 		collider->SetPos(position.x, position.y);
 	}
@@ -367,9 +359,7 @@ bool j1Player::Update(float dt)
 		LOG("No state found");
 		break;
 	}
-	MovementControl(dt);
-	//position.x += velocity.x * dt;
-	//position.y -= velocity.y * dt;
+
 
 	death_reset = SDL_GetTicks();
 	
@@ -391,15 +381,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case COLLIDER_WALL:
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
-			if ((position.x < c2->rect.x + COLLIDER_MARGIN) && (state == FALL))
+			if ((position.x < c2->rect.x + FUTURE_COLLIDER) && (state == FALL))
 			{
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_MARGIN) && (state == FALL))
+			if ((position.x > c2->rect.x + c2->rect.w - FUTURE_COLLIDER) && (state == FALL))
 			{
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + COLLIDER_MARGIN) && (last_state == FALL))
+			if ((position.y < c2->rect.y + FUTURE_COLLIDER) && (last_state == FALL))
 			{
 				state = IDLE;
 				fall.Reset();
@@ -501,10 +491,10 @@ bool j1Player::LoadAnimations() {
 	return ret;
 }
 
-void j1Player::MovementControl(float dt) {
-	position.x += velocity.x * dt;
-	position.y -= velocity.y * dt;
-	if (!god) velocity.y -= gravity * dt;
+void j1Player::MovementControl() {
+	position.x += velocity.x;
+	position.y -= velocity.y;
+	if (!god) velocity.y -= gravity;
 	
 }
 

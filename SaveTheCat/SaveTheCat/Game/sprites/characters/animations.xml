@@ -18,14 +18,14 @@
  </animation>
 <animation name="run" loop="true">
   <data>
-  <frame x="18" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="93" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="165" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="246" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="319" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="387" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="453" y="85" w="51" h="66" speed="0.1"/>
-  <frame x="516" y="85" w="51" h="66" speed="0.1"/>
+  <frame x="18" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="93" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="165" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="246" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="319" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="387" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="453" y="85" w="51" h="66" speed="0.2"/>
+  <frame x="516" y="85" w="51" h="66" speed="0.2"/>
   </data>
  </animation>
 <animation name="slide" loop="false">
