@@ -62,7 +62,7 @@ public:
 	bool Save(pugi::xml_node& data) const;
 	bool Load(pugi::xml_node& data);
 
-	//bool LoadAnimations();
+	bool LoadAnimations();
 
 	bool waitTime(float s);
 

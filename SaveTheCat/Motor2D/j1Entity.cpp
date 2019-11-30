@@ -75,7 +75,7 @@ void j1Entity::PathfindtoPlayer(int range, j1Entity* player) {
 
 }
 
-bool j1Entity::LoadAnimations() {
+/*bool j1Entity::LoadAnimations() {
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
 	bool ret = true;
 	uint i = 0u;
@@ -123,7 +123,7 @@ bool j1Entity::LoadAnimations() {
 	LOG("%u animations loaded", i);
 
 	return ret;
-}
+}*/
 
 /*bool j1Entity::LoadAnimations(const char* path) {
 	bool ret = true;

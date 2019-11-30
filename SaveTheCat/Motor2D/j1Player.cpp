@@ -442,7 +442,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 }
 
-/*bool j1Player::LoadAnimations() {
+bool j1Player::LoadAnimations() {
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations.xml");
 	bool ret = true;
 	uint i = 0u;
@@ -490,7 +490,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	LOG("%u animations loaded", i);
 
 	return ret;
-}*/
+}
 
 void j1Player::MovementControl() {
 	position.x += velocity.x;
