@@ -35,7 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
-	player = new j1Player();
+	//player = new j1Player();
 	//zombie = new j1Zombie();
 	collision = new j1Collision();
 	fadeScreen = new j1Fade();
@@ -50,7 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(player);
+	//AddModule(player);
 	//AddModule(zombie);
 	AddModule(collision); 
 	AddModule(fadeScreen);

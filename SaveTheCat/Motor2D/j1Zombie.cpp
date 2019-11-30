@@ -60,7 +60,7 @@ j1Zombie::j1Zombie() :j1Entity(EntityType::WALKING_ENEMY)
 
 	//colliders
 	collider = App->collision->AddCollider({ 16,34,27,30 }, COLLIDER_ENEMY, (j1Module*)this);
-	raycast = App->collision->AddCollider({ 16,34,20,5 }, COLLIDER_ENEMY, (j1Module*)this);
+
 }
 
 

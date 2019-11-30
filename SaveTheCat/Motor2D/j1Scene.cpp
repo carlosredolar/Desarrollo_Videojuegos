@@ -213,17 +213,17 @@ bool j1Scene::Update(float dt)
 		left_edge+= App->player->speed;
 	}*/
 
-	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
-			App->render->camera.y += App->player->speed;
-			top_edge -= App->player->speed;
-			bottom_edge -= App->player->speed;
+	/*if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->entities->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
+			App->render->camera.y += App->entities->player->speed;
+			top_edge -= App->entities->player->speed;
+			bottom_edge -= App->entities->player->speed;
 	}
 
-	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 360)) {
-		App->render->camera.y -= App->player->speed;
-		top_edge+= App->player->speed;
-		bottom_edge+= App->player->speed;
-	}
+	if (((player_position->y + App->entities->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 360)) {
+		App->render->camera.y -= App->entities->player->speed;
+		top_edge+= App->entities->player->speed;
+		bottom_edge+= App->entities->player->speed;
+	}*/
 	
 	//camera manual control --------------
 
@@ -338,9 +338,9 @@ void j1Scene::Reset_Camera() {
 }
 
 void j1Scene::ResetLevel() {
-	App->player->position.x = player_x_position;
-	App->player->position.y = player_y_position;
+	App->entities->player->position.x = player_x_position;
+	App->entities->player->position.y = player_y_position;
 	cam_run_start = SDL_GetTicks();
 	cam_run_start_timer = cam_run_start + 5000;
-	App->player->winSound = false;
+	App->entities->player->winSound = false;
 }

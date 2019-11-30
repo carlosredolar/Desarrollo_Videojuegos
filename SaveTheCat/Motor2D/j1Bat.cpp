@@ -48,7 +48,7 @@ j1Bat::j1Bat() :j1Entity(EntityType::FLYING_ENEMY) {
 
 	//colliders
 	collider = App->collision->AddCollider({ 0,66,45,26 }, COLLIDER_ENEMY, (j1Module*)this);
-	raycast = App->collision->AddCollider({ 16,34,20,5 }, COLLIDER_ENEMY, (j1Module*)this);
+	
 }
 
 j1Bat::~j1Bat() { }

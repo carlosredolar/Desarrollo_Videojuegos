@@ -74,10 +74,7 @@ void j1EntityManager::DestroyEntity(j1Entity* entity)
 			entity->collider->to_delete = true;
 			entity->collider = nullptr;
 		}
-		if (entity->raycast != nullptr) {
-			entity->raycast->to_delete = true;
-			entity->raycast = nullptr;
-		}
+		
 		entities.del(item);;
 	}
 }

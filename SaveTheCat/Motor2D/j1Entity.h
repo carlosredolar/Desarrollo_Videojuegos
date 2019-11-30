@@ -58,7 +58,7 @@ public:
 	int max_falling_speed = 0;
 
 	Collider* collider = nullptr;
-	Collider* raycast = nullptr;
+
 	Collider* last_collider = nullptr;
 
 	uint die_fx = 0;
