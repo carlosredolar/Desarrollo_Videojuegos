@@ -31,9 +31,6 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp">
       <Filter>Desenvolupament  ========\Tools\PuguiXML</Filter>
     </ClCompile>
-    <ClCompile Include="j1Map.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
@@ -60,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="j1Zombie.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Map.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +111,6 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp">
       <Filter>Desenvolupament  ========\Tools\PuguiXML</Filter>
     </ClInclude>
-    <ClInclude Include="j1Map.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="j1Player.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
@@ -147,6 +144,9 @@
     <ClInclude Include="j1Zombie.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1Map.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -167,5 +167,31 @@
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Desenvolupament  ========\Tools\Animations">
+      <UniqueIdentifier>{bdbeeb4c-7649-4bb3-bc7b-4b1953747f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Tools\Save">
+      <UniqueIdentifier>{1d18bfdb-e970-4e79-a06b-fc6a92909fc3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\sprites\characters\animations.xml">
+      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
+    </Xml>
+    <Xml Include="..\Game\sprites\characters\animationsBat.xml">
+      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
+    </Xml>
+    <Xml Include="..\Game\sprites\characters\animationsZombie.xml">
+      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
+    </Xml>
+    <Xml Include="..\Game\save_file.xml">
+      <Filter>Desenvolupament  ========\Tools\Save</Filter>
+    </Xml>
+    <Xml Include="..\Game\save_game.xml">
+      <Filter>Desenvolupament  ========\Tools\Save</Filter>
+    </Xml>
+    <Xml Include="..\Game\config.xml">
+      <Filter>Desenvolupament  ========\Tools</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

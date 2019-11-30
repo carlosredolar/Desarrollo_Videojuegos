@@ -47,7 +47,7 @@
     <folder>sprites/characters</folder>
     <position x="200" y="400" />	
     <speed value="20"/>
-    <jumpImpulse value="30"/>
+    <jumpImpulse value="35"/>
     <gravity value="1.5"/>		
   </player>
 </config>
