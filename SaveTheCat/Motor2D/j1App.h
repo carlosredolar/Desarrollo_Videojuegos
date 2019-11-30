@@ -99,7 +99,7 @@ public:
 	j1Fade*				fadeScreen;
 	j1PathFinding*		pathfinding;
 	j1EntityManager*	entities;
-	//j1Zombie*			zombie;
+	j1Zombie*			zombie;
 
 	bool pause = false;
 

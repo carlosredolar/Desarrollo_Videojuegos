@@ -48,7 +48,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void MovementControl();
+	//void MovementControl();
 
 	bool Save(pugi::xml_node& data) const;
 	bool Load(pugi::xml_node& data);
@@ -56,7 +56,7 @@ public:
 	bool LoadAnimations();
 
 	void PathControl();
-	bool waitTime(float s);
+	//bool waitTime(float s);
 
 public:
 
