@@ -4,16 +4,13 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "p2List.h"
 
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
-
-// --------------------------------------------------
-// Recommended reading:
-// Intro: http://www.raywenderlich.com/4946/introduction-to-a-pathfinding
-// Details: http://theory.stanford.edu/~amitp/GameProgramming/
-// --------------------------------------------------
+#define NORMAL_MOVEMENT_COST 1
+#define DIAGONAL_MOVEMENT_COST 2
+#define MAX_PATH_ITERATIONS 150
 
 class j1PathFinding : public j1Module
 {
@@ -48,10 +45,10 @@ public:
 private:
 
 	// size of the map
-	uint width;
-	uint height;
+	uint width = 0u;
+	uint height = 0u;
 	// all map walkability values [0..255]
-	uchar* map;
+	uchar* map = nullptr;
 	// we store the created path here
 	p2DynArray<iPoint> last_path;
 };
@@ -66,21 +63,21 @@ struct PathNode
 {
 	// Convenient constructors
 	PathNode();
-	PathNode(int g, int h, const iPoint& pos, PathNode* parent);
+	PathNode(int g, int h, const iPoint& pos, const PathNode* parent);
 	PathNode(const PathNode& node);
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
-	uint FindWalkableAdjacents(PathList& list_to_fill);
+	uint FindWalkableAdjacents(PathList& list_to_fill) const;
 	// Calculates this tile score
 	int Score() const;
 	// Calculate the F for a specific destination tile
 	int CalculateF(const iPoint& destination);
 
 	// -----------
-	int g;
-	int h;
-	iPoint pos;
-	PathNode* parent; // needed to reconstruct sthe path in the end
+	int g = 0;
+	int h = 0;
+	iPoint pos = iPoint({ 0, 0 });
+	const PathNode* parent = nullptr; // needed to reconstruct the path in the end
 };
 
 // ---------------------------------------------------------------------
