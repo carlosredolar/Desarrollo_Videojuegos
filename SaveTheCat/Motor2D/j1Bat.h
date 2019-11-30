@@ -1,5 +1,5 @@
-#ifndef _BAT_H_
-#define _BAT_H_
+#ifndef _j1BAT_H_
+#define _j1BAT_H_
 
 #include "j1Module.h"
 #include "p2Point.h"
@@ -9,7 +9,7 @@
 #include "p2Vec2.h"
 #include "p2DynArray.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "Entity.h"
+#include "j1Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -25,12 +25,12 @@ enum Bat_States {
 	DEATH_BAT,
 };
 
-class Bat : public Entity 
+class j1Bat : public j1Entity
 {
 public:
-	Bat();
+	j1Bat();
 
-	virtual ~Bat();
+	virtual ~j1Bat();
 
 	bool Awake(pugi::xml_node&);
 

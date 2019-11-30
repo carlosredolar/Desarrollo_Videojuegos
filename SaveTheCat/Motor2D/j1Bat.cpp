@@ -1,4 +1,4 @@
-#include "Bat.h"
+#include "j1Bat.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -11,11 +11,11 @@
 #include "j1Audio.h"
 #include "j1Pathfinding.h"
 #include "j1Player.h"
-#include "Entity.h"
-#include "EntityManager.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
 
 
-Bat::Bat() :Entity(EntityType::FLYING_ENEMY) {
+j1Bat::j1Bat() :j1Entity(EntityType::FLYING_ENEMY) {
 	name.create("flying_enemy");
 	type = EntityType::FLYING_ENEMY;
 	debugPath = false;
@@ -51,16 +51,16 @@ Bat::Bat() :Entity(EntityType::FLYING_ENEMY) {
 	raycast = App->collision->AddCollider({ 16,34,20,5 }, COLLIDER_ENEMY, (j1Module*)this);
 }
 
-Bat::~Bat() { }
+j1Bat::~j1Bat() { }
 
-bool Bat::Awake(pugi::xml_node& config)
+bool j1Bat::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
 	return ret;
 }
 
-bool Bat::Start()
+bool j1Bat::Start()
 {
 	bool ret = true;
 	debug_tex = App->tex->Load("maps/path.png");
@@ -68,7 +68,7 @@ bool Bat::Start()
 	return ret;
 }
 
-void Bat::PathControl()
+void j1Bat::PathControl()
 {
 	static iPoint origin = position;
 	static bool origin_selected = false;
@@ -91,14 +91,14 @@ void Bat::PathControl()
 	else { chasing = false; }
 }
 
-bool Bat::PreUpdate()
+bool j1Bat::PreUpdate()
 {
 	PathControl();
 	
 	return true;
 }
 
-bool Bat::Update(float dt)
+bool j1Bat::Update(float dt)
 {
 	bool ret = true;
 	// Debug pathfinding ------------------------------
@@ -162,7 +162,7 @@ bool Bat::Update(float dt)
 	return ret;
 }
 
-bool Bat::CleanUp() 
+bool j1Bat::CleanUp()
 {
 	collider = nullptr;
 	debug_tex = nullptr;
@@ -170,19 +170,19 @@ bool Bat::CleanUp()
 	return true;
 }
 
-bool Bat::PostUpdate() {
+bool j1Bat::PostUpdate() {
 	/*BROFILER_CATEGORY("PostUpdate_Player", Profiler::Color::Thistle)
 		App->render->Blit(player_tex, position.x, position.y, &current_animation->GetCurrentFrame(), flip);*/
 
 	return true;
 }
 
-void Bat::OnCollision(Collider* c1, Collider* c2) 
+void j1Bat::OnCollision(Collider* c1, Collider* c2)
 {
 			
 }
 
-bool Bat::LoadAnimations() 
+bool j1Bat::LoadAnimations()
 {
 	bool ret = true;
 	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsBat.xml");
@@ -201,7 +201,7 @@ bool Bat::LoadAnimations()
 	return ret;
 }
 
-bool Bat::Save(pugi::xml_node& data) const {
+bool j1Bat::Save(pugi::xml_node& data) const {
 
 	pugi::xml_node p_position = data.append_child("position");
 
@@ -210,7 +210,7 @@ bool Bat::Save(pugi::xml_node& data) const {
 	return true;
 }
 
-bool Bat::Load(pugi::xml_node& data)
+bool j1Bat::Load(pugi::xml_node& data)
 {
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();

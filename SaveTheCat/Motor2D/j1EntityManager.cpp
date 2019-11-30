@@ -1,4 +1,4 @@
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1App.h"
 #include "j1Player.h"
 #include "p2Log.h"
@@ -13,23 +13,23 @@
 //#include "j1UI.h"
 #include "j1Particles.h"
 #include "j1Zombie.h"
-#include "Bat.h"
-#include "Entity.h"
+#include "j1Bat.h"
+#include "j1Entity.h"
 #include "brofiler/Brofiler/Brofiler.h"
 
 
-EntityManager::EntityManager() {
+j1EntityManager::j1EntityManager() {
 	name.create("entities");
 }
 
 
-EntityManager::~EntityManager() {
+j1EntityManager::~j1EntityManager() {
 }
 
-Entity* EntityManager::CreateEntity(EntityType type, int position_x, int position_y)
+j1Entity* j1EntityManager::CreateEntity(EntityType type, int position_x, int position_y)
 {
 	//static_assert(EntityType::UNKNOWN == 4, "code needs update");
-	Entity* entity = nullptr;
+	j1Entity* entity = nullptr;
 	switch (type)
 	{
 	case EntityType::PLAYER:
@@ -41,7 +41,7 @@ Entity* EntityManager::CreateEntity(EntityType type, int position_x, int positio
 		entity->position.y = position_y;
 		break;
 	case EntityType::FLYING_ENEMY:
-		entity = new Bat();
+		entity = new j1Bat();
 		entity->position.x = position_x;
 		entity->position.y = position_y;
 		break;
@@ -63,9 +63,9 @@ Entity* EntityManager::CreateEntity(EntityType type, int position_x, int positio
 	return entity;
 }
 
-void EntityManager::DestroyEntity(Entity* entity)
+void j1EntityManager::DestroyEntity(j1Entity* entity)
 {
-	p2List_item<Entity*>* item;
+	p2List_item<j1Entity*>* item;
 
 	if (entity != nullptr) {
 		item = entities.At(entities.find(entity));
@@ -83,7 +83,7 @@ void EntityManager::DestroyEntity(Entity* entity)
 }
 
 
-bool EntityManager::Awake(pugi::xml_node& config) {
+bool j1EntityManager::Awake(pugi::xml_node& config) {
 	bool ret = true;
 
 	config_data = config;
@@ -100,13 +100,13 @@ bool EntityManager::Awake(pugi::xml_node& config) {
 	reference_walking_enemy->Awake(config.child("walking_enemy"));
 
 	//reference flying enemy
-	reference_flying_enemy = new Bat();
+	reference_flying_enemy = new j1Bat();
 	reference_flying_enemy->Awake(config.child("flying_enemy"));
 
 	return ret;
 }
 
-bool EntityManager::Start()
+bool j1EntityManager::Start()
 {
 	bool ret = true;
 
@@ -114,7 +114,7 @@ bool EntityManager::Start()
 	reference_walking_enemy->texture = App->tex->Load("sprites/characters/spritesheet_zombie.png");
 	reference_flying_enemy->texture = App->tex->Load("sprites/characters/spritesheet_bat.png");
 
-	for (p2List_item<Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
+	for (p2List_item<j1Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
 	{
 		if (entity->data->type == EntityType::WALKING_ENEMY) {
 			entity->data->texture = reference_walking_enemy->texture;
@@ -127,7 +127,7 @@ bool EntityManager::Start()
 	return ret;
 }
 
-bool EntityManager::CleanUp()
+bool j1EntityManager::CleanUp()
 {
 	bool ret = true;
 	/*
@@ -147,7 +147,7 @@ bool EntityManager::CleanUp()
 	App->tex->UnLoad(reference_flying_enemy->texture);
 	reference_flying_enemy->texture = nullptr;
 
-	for (p2List_item<Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
+	for (p2List_item<j1Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
 	{
 		entity->data->DestroyEntity(entity->data);
 	}
@@ -155,19 +155,19 @@ bool EntityManager::CleanUp()
 	return ret;
 }
 
-bool EntityManager::PreUpdate()
+bool j1EntityManager::PreUpdate()
 {
 	bool ret = true;
 	player->PreUpdate();
 	return ret;
 }
 
-bool EntityManager::Update(float dt)
+bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntitiesUpdate", Profiler::Color::MediumPurple)
 		bool ret = true;
 
-	for (p2List_item<Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
+	for (p2List_item<j1Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
 	{
 		if (entity != nullptr)
 		{
@@ -178,11 +178,11 @@ bool EntityManager::Update(float dt)
 	return ret;
 }
 
-bool EntityManager::PostUpdate()
+bool j1EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("EntitiesPostUpdate", Profiler::Color::Khaki)
 		bool ret = true;
-	for (p2List_item<Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
+	for (p2List_item<j1Entity*>* entity = entities.start; entity != nullptr; entity = entity->next)
 	{
 		entity->data->PostUpdate();
 	}
@@ -190,11 +190,11 @@ bool EntityManager::PostUpdate()
 }
 
 
-bool EntityManager::Load(pugi::xml_node& data)
+bool j1EntityManager::Load(pugi::xml_node& data)
 {
 	CleanUp();
 	bool ret = true;
-	p2List_item<Entity*>* item;
+	p2List_item<j1Entity*>* item;
 
 	for (pugi::xml_node WALKING_ENEMY = data.child("walking_enemy"); WALKING_ENEMY; WALKING_ENEMY = WALKING_ENEMY.next_sibling("walking_enemy"))
 	{
@@ -210,10 +210,10 @@ bool EntityManager::Load(pugi::xml_node& data)
 	return ret;
 }
 
-bool EntityManager::Save(pugi::xml_node& data)
+bool j1EntityManager::Save(pugi::xml_node& data)
 {
 	bool ret = true;
-	p2List_item<Entity*>* item;
+	p2List_item<j1Entity*>* item;
 
 	for (item = entities.start; item != nullptr; item = item->next)
 	{
@@ -225,8 +225,8 @@ bool EntityManager::Save(pugi::xml_node& data)
 	return ret;
 }
 
-void EntityManager::DestroyAllEntities() {
-	p2List_item<Entity*>* item;
+void j1EntityManager::DestroyAllEntities() {
+	p2List_item<j1Entity*>* item;
 
 	for (item = entities.start; item != nullptr; item = item->next)
 	{

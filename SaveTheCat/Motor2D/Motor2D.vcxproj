@@ -76,9 +76,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bat.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="j1Bat.cpp" />
+    <ClCompile Include="j1Entity.cpp" />
+    <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Fade.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -101,9 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="Bat.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="j1Bat.h" />
+    <ClInclude Include="j1Entity.h" />
+    <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Fade.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
@@ -130,6 +130,14 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="p2Vec2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\save_file.xml" />
+    <Xml Include="..\Game\save_game.xml" />
+    <Xml Include="..\Game\sprites\characters\animations.xml" />
+    <Xml Include="..\Game\sprites\characters\animationsBat.xml" />
+    <Xml Include="..\Game\sprites\characters\animationsZombie.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

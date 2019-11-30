@@ -11,11 +11,11 @@
 #include "j1Zombie.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
-#include "Entity.h"
-#include "EntityManager.h"
+#include "j1Entity.h"
+#include "j1EntityManager.h"
 
 
-j1Zombie::j1Zombie() :Entity(EntityType::WALKING_ENEMY) 
+j1Zombie::j1Zombie() :j1Entity(EntityType::WALKING_ENEMY)
 {
 	name.create("walking_enemy");
 	//variable declaration from EntityManager

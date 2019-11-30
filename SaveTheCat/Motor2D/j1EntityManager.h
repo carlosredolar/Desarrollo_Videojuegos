@@ -1,12 +1,12 @@
-#ifndef _ENTITY_MANAGER_H_
-#define _ENTITY_MANAGER_H_
+#ifndef _j1ENTITY_MANAGER_H_
+#define _j1ENTITY_MANAGER_H_
 
 #include "j1Module.h"
 #include "p2Point.h"
 #include "Animation.h"
 #include "SDL_image/include/SDL_image.h"
 
-class Entity;
+class j1Entity;
 struct SDL_Texture;
 
 
@@ -21,12 +21,12 @@ enum class EntityType
 };
 
 
-class EntityManager : public j1Module
+class j1EntityManager : public j1Module
 {
 public:
 
-	EntityManager();
-	~EntityManager();
+	j1EntityManager();
+	~j1EntityManager();
 
 	virtual bool Awake(pugi::xml_node&);
 	virtual bool Start();
@@ -40,13 +40,13 @@ public:
 	virtual bool Load(pugi::xml_node& data);
 	virtual bool Save(pugi::xml_node& data);
 
-	Entity* CreateEntity(EntityType type, int position_x, int position_y);
-	virtual void DestroyEntity(Entity* delete_entity);
+	j1Entity* CreateEntity(EntityType type, int position_x, int position_y);
+	virtual void DestroyEntity(j1Entity* delete_entity);
 	void DestroyAllEntities();
 
 public:
 
-	p2List<Entity*> entities;
+	p2List<j1Entity*> entities;
 	pugi::xml_node config_data;
 
 	j1Player* player;
@@ -55,7 +55,7 @@ public:
 	int gravity = 0;
 
 	j1Zombie* reference_walking_enemy = nullptr;
-	Bat* reference_flying_enemy = nullptr;
+	j1Bat* reference_flying_enemy = nullptr;
 
 	//health
 	int trap_health = 0;

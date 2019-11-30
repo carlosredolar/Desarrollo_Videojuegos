@@ -9,9 +9,9 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Audio.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 
-j1Player::j1Player() :Entity(EntityType::PLAYER) 
+j1Player::j1Player() :j1Entity(EntityType::PLAYER)
 {
 	//name.create("player");
 	LoadAnimations("animations.tmx");

@@ -1,50 +1,50 @@
-#include "Entity.h"
+#include "j1Entity.h"
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
 #include "p2Log.h"
 
-Entity::Entity(EntityType type) : EntityManager() {
+j1Entity::j1Entity(EntityType type) : j1EntityManager() {
 }
 
-Entity::~Entity() {
+j1Entity::~j1Entity() {
 
 }
 
-bool Entity::Awake(pugi::xml_node& config) {
+bool j1Entity::Awake(pugi::xml_node& config) {
 
 	//config = config.child("")
 
 	return true;
 }
 
-bool Entity::Start() {
+bool j1Entity::Start() {
 	bool ret = true;
 
 	return ret;
 }
 
-bool Entity::PreUpdate() {
+bool j1Entity::PreUpdate() {
 	bool ret = true;
 	return ret;
 }
 
-bool Entity::Update(float dt) {
+bool j1Entity::Update(float dt) {
 	bool ret = true;
 	return ret;
 }
 
-bool Entity::PostUpdate() {
+bool j1Entity::PostUpdate() {
 	bool ret = true;
 
 	return ret;
 }
 
-void Entity::PathfindtoPlayer(int range, Entity* player) {
+void j1Entity::PathfindtoPlayer(int range, j1Entity* player) {
 
 	//if the player is close we create a path to him
 	if ((abs(player->position.x - position.x) < range) && (player->state != DEATH))
@@ -75,7 +75,7 @@ void Entity::PathfindtoPlayer(int range, Entity* player) {
 
 }
 
-bool Entity::LoadAnimations(const char* path) {
+bool j1Entity::LoadAnimations(const char* path) {
 	bool ret = true;
 
 	p2SString file("sprites/characters/%s", path);

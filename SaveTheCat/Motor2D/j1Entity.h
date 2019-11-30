@@ -1,8 +1,8 @@
-#ifndef _ENTITY_H
-#define _ENTITY_H
+#ifndef _j1ENTITY_H
+#define _j1ENTITY_H
 #include "SDL/include/SDL.h"
 #include "Animation.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "p2DynArray.h"
 #include "p2Log.h"
 
@@ -25,12 +25,12 @@ enum EntityState {
 	DEATH,
 };
 
-class Entity : public EntityManager
+class j1Entity : public j1EntityManager
 {
 public:
 
-	Entity(EntityType type);
-	virtual ~Entity();
+	j1Entity(EntityType type);
+	virtual ~j1Entity();
 
 	virtual bool Awake(pugi::xml_node&);
 	virtual bool Start();
@@ -39,7 +39,7 @@ public:
 	virtual bool PostUpdate();
 	virtual bool CleanUp() { return true; };
 	virtual void OnCollision(Collider* c1, Collider* c2) {};
-	void PathfindtoPlayer(int range, Entity* player);
+	void PathfindtoPlayer(int range, j1Entity* player);
 	bool LoadAnimations(const char* animation_file);
 
 public:

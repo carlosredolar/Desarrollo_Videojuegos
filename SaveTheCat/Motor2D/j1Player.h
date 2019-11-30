@@ -8,7 +8,7 @@
 #include "SDL/include/SDL.h"
 #include "p2Vec2.h"
 #include "brofiler/Brofiler/Brofiler.h"
-#include "Entity.h"
+#include "j1Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -37,7 +37,7 @@ struct Player_Input {
 
 };*/
 
-class j1Player : public Entity {
+class j1Player : public j1Entity {
 public:
 	j1Player();
 
