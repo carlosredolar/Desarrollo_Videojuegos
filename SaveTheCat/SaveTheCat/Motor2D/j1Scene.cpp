@@ -324,6 +324,7 @@ void j1Scene::ResetLevel() {
 	//App->bat->Start();
 	App->bat->position.x = bat_x_position;
 	App->bat->position.y = bat_y_position;
+	App->bat->state = FLY;
 
 	cam_run_start = SDL_GetTicks();
 	cam_run_start_timer = cam_run_start + 5000;
