@@ -60,7 +60,7 @@ public:
 	MapLoaded current_level;
 	int	player_x_position;
 	int	player_y_position;
-	int bat_x_position = 700;
+	int bat_x_position = 900;
 	int bat_y_position = 500;
 	int farTimer, midTimer, closeTimer;
 	int want_to_load;

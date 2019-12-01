@@ -31,7 +31,7 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 	folder.create(config.child("folder").child_value());
 
 	//set initial attributes of the bat
-	speed = 200;//config.child("bat").child("speed").attribute("value").as_float();
+	speed = 50;//config.child("bat").child("speed").attribute("value").as_float();
 	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
 	deathFX = "sounds/death.wav";
 
@@ -45,7 +45,7 @@ bool j1Bat::Start() {
 	bat_tex = App->tex->Load("sprites/characters/spritesheet_bat.png");
 	debug_tex = App->tex->Load("maps/path.png");
 
-	bat_x_position = 700;//config.child("bat").child("position").attribute("x").as_int();
+	bat_x_position = 900;//config.child("bat").child("position").attribute("x").as_int();
 	bat_y_position = 500;//config.child("bat").child("position").attribute("y").as_int();
 
 	position.x = bat_x_position; //= App->scene->bat_x_position;
@@ -84,7 +84,7 @@ bool j1Bat::PreUpdate() {
 		}
 	}
 
-
+	
 	if (!App->pause)
 	{
 		velocity.x = 0;
@@ -213,6 +213,21 @@ bool j1Bat::PreUpdate() {
 bool j1Bat::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
+
+		if (position.x > App->player->position.x)
+		{
+			position.x -= speed * dt;
+		}
+		else {
+			position.x += speed * dt;
+		}
+		if (position.y > App->player->position.y)
+		{
+			position.x -= speed * dt;
+		}
+		else {
+			position.y += speed * dt;
+		}
 		//this->dt = dt;
 		switch (state)
 		{
