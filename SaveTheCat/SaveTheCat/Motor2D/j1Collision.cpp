@@ -156,7 +156,7 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 128, 0, alpha);
 			break;
 		case COLLIDER_ENEMY:
-			App->render->DrawQuad(colliders[i]->rect, 225, 225, 0, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
 			break;
 		case COLLIDER_DEATH:
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);

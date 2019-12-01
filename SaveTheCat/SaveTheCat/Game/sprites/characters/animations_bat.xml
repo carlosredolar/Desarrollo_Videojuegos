@@ -2,10 +2,10 @@
  <spritesheet source="spritesheet_bat.png"/>
  <animation name="fly_bat" loop="true">
   <data>
-  <frame x="17" y="104" w="100" h="45" speed="0.3"/>
-  <frame x="150" y="105" w="85" h="45" speed="0.3"/>
-  <frame x="267" y="88" w="65" h="45" speed="0.3"/>
-  <frame x="385" y="105" w="80" h="45" speed="0.3"/>
+  <frame x="17" y="104" w="100" h="80" speed="0.3"/>
+  <frame x="150" y="105" w="85" h="80" speed="0.3"/>
+  <frame x="267" y="88" w="65" h="80" speed="0.3"/>
+  <frame x="385" y="105" w="80" h="80" speed="0.3"/>
   </data>
  </animation>
  

@@ -35,8 +35,8 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
 	deathFX = "sounds/death.wav";
 
-	initial_x_position = 200;//config.child("bat").child("position").attribute("x").as_int();
-	initial_y_position = 400;//config.child("bat").child("position").attribute("y").as_int();
+	initial_x_position = 400;//config.child("bat").child("position").attribute("x").as_int();
+	initial_y_position = 600;//config.child("bat").child("position").attribute("y").as_int();
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
 
@@ -85,7 +85,7 @@ bool j1Bat::PreUpdate() {
 		velocity.x = 0;
 		if (state == FLY)
 		{
-			collider->SetSize(42, 66);
+			collider->SetSize(80, 66);
 
 			if (can_go_right == true)
 			{
@@ -112,7 +112,7 @@ bool j1Bat::PreUpdate() {
 
 		if (state == FLY_RIGHT)
 		{
-			collider->SetSize(42, 66);
+			collider->SetSize(80, 66);
 			if (can_go_right == false)
 			{
 				state = FLY;
@@ -137,7 +137,7 @@ bool j1Bat::PreUpdate() {
 
 		if (state == FLY_LEFT)
 		{
-			collider->SetSize(42, 66);
+			collider->SetSize(80, 66);
 			if (can_go_left == false)
 			{
 				state = FLY;
@@ -163,7 +163,7 @@ bool j1Bat::PreUpdate() {
 
 		if (state == FLY_DOWN)
 		{
-			collider->SetSize(45, 55);
+			collider->SetSize(80, 55);
 			if (can_go_down == false)
 			{
 				state = FLY;
@@ -175,7 +175,7 @@ bool j1Bat::PreUpdate() {
 
 		if (state == FLY_UP)
 		{
-			collider->SetSize(45, 55);
+			collider->SetSize(80, 55);
 			if (can_go_up == false)
 			{
 				state = FLY;
@@ -187,7 +187,7 @@ bool j1Bat::PreUpdate() {
 
 		if (state == DEATH_BAT)
 		{
-			collider->SetSize(56, 60);
+			collider->SetSize(80, 60);
 
 			if (current_animation->Finished())
 			{
