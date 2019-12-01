@@ -55,8 +55,11 @@ You can check their official page here: https://www.gameart2d.com/cat-and-dog-fr
 ## Innovation
 
 - The player can double jump.
+- The player can slide, so he could pass through narrow sites.
 - The cam has a collider at the left and it moves forward, so you have to rush the level.
+- When enemy bat dies we can see it falling dead leaving the map.
 - Colliders are made of objectgroups instead of tiles.
+- Trees are checkpoints, if you die after a checkpoint you will restart the level at that position.
 
 ## License 
 
@@ -74,7 +77,7 @@ GNU GENERAL PUBLIC LICENSE
    - Player
    - Scene
    - Animations
-   - Cam Colliders
+   - Cam
    - Render
    - Audio
    
@@ -87,5 +90,8 @@ GNU GENERAL PUBLIC LICENSE
    - Map Colliders
    - Render
    - Sprties, textures and background
-   
-We have been working at the same time in some modules, helping us with the problems that we were having. 
+   - Bat (enemy)
+   - Pathfinding
+I have been working with the entities and the other enemy (zombie), but they are not functional.
+
+
