@@ -16,6 +16,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Player;
+class j1Bat;
 class j1Collision;
 class j1Fade;
 class j1PathFinding;
@@ -92,6 +93,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Player*			player;
+	j1Bat*				bat;
 	j1Collision*		collision;
 	j1Fade*				fadeScreen;
 	j1PathFinding*		pathfinding;

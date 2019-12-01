@@ -1,6 +1,6 @@
 <animations>
  <spritesheet source="spritesheet_bat.png"/>
- <animation name="walk_bat" loop="true">
+ <animation name="fly_bat" loop="true">
   <data>
   <frame x="17" y="104" w="100" h="45" speed="0.1"/>
   <frame x="150" y="105" w="85" h="45" speed="0.1"/>
@@ -9,7 +9,7 @@
   </data>
  </animation>
  
-<animation name="die_bat" loop="true">
+<animation name="die_bat" loop="false">
   <data>
   <frame x="503" y="91" w="60" h="55" speed="0.1"/>
   </data>

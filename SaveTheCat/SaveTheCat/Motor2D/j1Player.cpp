@@ -29,7 +29,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	folder.create(config.child("folder").child_value());
 
 	//set initial attributes of the player
-	speed = config.child("speed").attribute("value").as_int();
+	speed = config.child("speed").attribute("value").as_float();
 	jumpImpulse = config.child("jumpImpulse").attribute("value").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
 	jumpFX = "sounds/jump.wav";
@@ -275,11 +275,7 @@ bool j1Player::PreUpdate(){
 		collider->SetPos(position.x, position.y);
 	}
 
-	if (god)
-	{
-		if (player_input.pressing_W) position.y -= velocity.x;
-		if (player_input.pressing_S) position.y += velocity.x;
-	}
+	
 	return true;
 }
 
@@ -363,6 +359,12 @@ bool j1Player::Update(float dt)
 	MovementControl(dt);
 
 	death_reset = SDL_GetTicks();
+
+	if (god)
+	{
+		if (player_input.pressing_W) position.y -= speed * dt;
+		if (player_input.pressing_S) position.y += speed * dt;
+	}
 	
 	return true;
 }

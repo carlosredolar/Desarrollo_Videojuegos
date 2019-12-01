@@ -50,4 +50,11 @@
     <jumpImpulse value="400"/>
     <gravity value="20"/>		
   </player>
+  <bat>
+    <folder>audio/fx</folder>
+    <folder>sprites/characters</folder>
+    <position x="200" y="200" />
+    <speed value="200"/>
+    <gravity value="20"/>
+  </bat>
 </config>

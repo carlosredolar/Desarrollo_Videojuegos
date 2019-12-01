@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Bat.h"
 #include "j1Collision.h"
 #include "j1Pathfinding.h"
 
@@ -121,7 +122,7 @@ bool j1Scene::Update(float dt)
 
 	cam_run_start = SDL_GetTicks();
 
-	if (cam_run_start > cam_run_start_timer && App->render->camera.x > -3770)
+	if (cam_run_start > cam_run_start_timer && App->render->camera.x > -3770 && !App->player->god)
 	{
 		App->render->camera.x -= CAMERA_RUN_SPEED * dt;
 		collider->SetPos(-App->render->camera.x, 0);
@@ -320,6 +321,7 @@ void j1Scene::Reset_Camera() {
 void j1Scene::ResetLevel() {
 	App->player->position.x = player_x_position;
 	App->player->position.y = player_y_position;
+	App->bat->Start();
 	cam_run_start = SDL_GetTicks();
 	cam_run_start_timer = cam_run_start + 5000;
 	App->player->winSound = false;
