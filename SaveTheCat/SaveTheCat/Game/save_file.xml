@@ -11,11 +11,16 @@
 	</player>
 	<bat>
 		<position x="1040" y="640" />
+		<position x="50" y="407" />
+	</player>
+	<bat>
+		<position x="1076" y="476" />
 	</bat>
 	<:anonymous />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
 		<camera x="-1357" y="-170" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
