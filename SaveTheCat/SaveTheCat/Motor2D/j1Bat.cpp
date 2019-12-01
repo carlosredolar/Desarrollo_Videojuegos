@@ -15,6 +15,14 @@
 j1Bat::j1Bat() :j1Module() {
 	name.create("bat");
 
+	/*//bat animations
+	fly.PushBack({ 17, 104, 100, 45 }, 0.1);
+	fly.PushBack({ 150, 105, 85, 45 }, 0.1);
+	fly.PushBack({ 267, 88, 65, 45 }, 0.1);
+	fly.PushBack({ 385, 105, 80, 45 }, 0.1);
+
+	death_bat.PushBack({ 503, 91, 60, 55 }, 0.1);
+	death_bat.loop = false;*/
 	LoadAnimations();
 
 }
@@ -276,7 +284,7 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
 
-			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) /*&& (state == FALL)*/)
+			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
 					position.y = c2->rect.y - App->bat->collider->rect.h;
@@ -285,11 +293,11 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 				}
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) /*&& (state == FALL)*/)
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) /*&& (last_state == FALL)*/)
+			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
@@ -300,9 +308,9 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 				can_go_right = true;
 				can_go_left = true;
 			}
-
 			break;
-		case COLLIDER_DEATH:
+
+		case COLLIDER_HIT:
 			if (!god) {
 				state = DEATH_BAT;
 				velocity.x = 0;
@@ -310,35 +318,7 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }
 			}
 			break;
-		case COLLIDER_LEVEL:
-			if (!god)
-			{
 
-				if (App->scene->current_level == LEVEL_1 && App->scene->want_to_load == 2)
-				{
-					App->map->CleanUp();
-					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_2;
-					App->map->Load("Level2.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
-					//if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
-				}
-				if (App->scene->current_level == LEVEL_2 && App->scene->want_to_load == 1)
-				{
-					App->map->CleanUp();
-					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_1;
-					App->map->Load("Level1.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
-					//if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
-				}
-
-				App->scene->ResetLevel();
-				App->scene->Reset_Camera();
-			}
-			break;
 		default:
 			break;
 		}
@@ -346,14 +326,14 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 }
 
 bool j1Bat::LoadAnimations() {
-	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animations_bat.xml");
+	pugi::xml_parse_result result = animation_doc.load_file("sprites/characters/animationsBat.xml");
 	bool ret = true;
 	uint i = 0u;
 	uint j = 0;
 
 	if (result == NULL)
 	{
-		LOG("Could not load animations xml file %s. pugi error: %s", "animations.xml", result.description());
+		LOG("Could not load animations xml file %s. pugi error: %s", "animationsBat.xml", result.description());
 		ret = false;
 	}
 
