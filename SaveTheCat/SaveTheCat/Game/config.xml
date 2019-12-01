@@ -45,9 +45,9 @@
   <player>
     <folder>audio/fx</folder>
     <folder>sprites/characters</folder>
-    <position x="200" y="400" />	
-    <speed value="200"/>
-    <jumpImpulse value="350"/>
-    <gravity value="15"/>		
+    <position x="50" y="400" />	
+    <speed value="400"/>
+    <jumpImpulse value="400"/>
+    <gravity value="20"/>		
   </player>
 </config>

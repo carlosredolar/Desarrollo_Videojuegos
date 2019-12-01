@@ -4,8 +4,8 @@
 #include "j1Module.h"
 #include "brofiler/Brofiler/Brofiler.h"
 
-#define CAMERA_SPEED 5
-#define CAMERA_RUN_SPEED 5
+#define CAMERA_SPEED 100
+#define CAMERA_RUN_SPEED 100
 #define SPEED 3
 
 struct SDL_Texture;

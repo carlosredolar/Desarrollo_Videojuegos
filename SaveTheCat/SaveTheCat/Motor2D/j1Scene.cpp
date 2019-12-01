@@ -123,15 +123,15 @@ bool j1Scene::Update(float dt)
 
 	if (cam_run_start > cam_run_start_timer && App->render->camera.x > -3770)
 	{
-		App->render->camera.x -= CAMERA_RUN_SPEED;
+		App->render->camera.x -= CAMERA_RUN_SPEED * dt;
 		collider->SetPos(-App->render->camera.x, 0);
 
 		//Parallax
 		farTimer++; midTimer++; closeTimer++;
-		backPos.x += CAMERA_RUN_SPEED-2;
-		if (farTimer >= CAMERA_RUN_SPEED) { farPos.x -= CAMERA_RUN_SPEED-3; farTimer = 0; }
-		if (midTimer >= CAMERA_RUN_SPEED + 1) { midPos.x -= CAMERA_RUN_SPEED-4; midTimer = 0; }
-		if (closeTimer >= CAMERA_RUN_SPEED + 2) { closePos.x = 0; closeTimer = 0; }
+		backPos.x += CAMERA_RUN_SPEED * dt;
+		if (farTimer >= CAMERA_RUN_SPEED * dt) { farPos.x -= (CAMERA_RUN_SPEED) * dt; farTimer = 0; }
+		if (midTimer >= CAMERA_RUN_SPEED + 1 * dt) { midPos.x -= (CAMERA_RUN_SPEED/2) * dt; midTimer = 0; }
+		if (closeTimer >= CAMERA_RUN_SPEED + 2 * dt) { closePos.x = 0; closeTimer = 0; }
 	}
 	
 
@@ -215,30 +215,30 @@ bool j1Scene::Update(float dt)
 	}*/
 
 	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
-			App->render->camera.y += App->player->speed;
-			top_edge -= App->player->speed;
-			bottom_edge -= App->player->speed;
+			App->render->camera.y += App->player->speed * dt;
+			top_edge -= App->player->speed * dt;
+			bottom_edge -= App->player->speed * dt;
 	}
 
 	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 360)) {
-		App->render->camera.y -= App->player->speed;
-		top_edge+= App->player->speed;
-		bottom_edge+= App->player->speed;
+		App->render->camera.y -= App->player->speed * dt;
+		top_edge+= App->player->speed * dt;
+		bottom_edge+= App->player->speed * dt;
 	}
 	
 	//camera manual control --------------
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += CAMERA_SPEED/**dt*/;
+		App->render->camera.y += CAMERA_SPEED * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= CAMERA_SPEED/**dt*/;
+		App->render->camera.y -= CAMERA_SPEED * dt;
 
 	if((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)&&(App->render->camera.x < 0))
-		App->render->camera.x += CAMERA_SPEED/**dt*/;
+		App->render->camera.x += CAMERA_SPEED * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= CAMERA_SPEED/**dt*/;
+		App->render->camera.x -= CAMERA_SPEED * dt;
 	
 
 
