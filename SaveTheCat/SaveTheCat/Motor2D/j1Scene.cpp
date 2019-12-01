@@ -116,7 +116,7 @@ bool j1Scene::Update(float dt)
 
 		//Parallax
 		farTimer++; midTimer++; closeTimer++;
-		backPos.x = App->render->camera.x;
+		backPos.x += CAMERA_RUN_SPEED * dt;
 		if (farTimer >= CAMERA_RUN_SPEED * dt) { farPos.x -= (CAMERA_RUN_SPEED) * dt; farTimer = 0; }
 		if (midTimer >= CAMERA_RUN_SPEED + 1 * dt) { midPos.x -= (CAMERA_RUN_SPEED/2) * dt; midTimer = 0; }
 		if (closeTimer >= CAMERA_RUN_SPEED + 2 * dt) { closePos.x = 0; closeTimer = 0; }
