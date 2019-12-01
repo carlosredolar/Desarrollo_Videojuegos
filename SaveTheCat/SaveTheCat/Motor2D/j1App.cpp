@@ -176,6 +176,7 @@ bool j1App::Update()
 		ret = PostUpdate();
 
 	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) pause = !pause;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) ret = false;
 
 	FinishUpdate();
 	return ret;
