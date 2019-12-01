@@ -2,7 +2,7 @@
 #define __j1WINDOW_H__
 
 #include "j1Module.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 
 struct SDL_Window;
 struct SDL_Surface;

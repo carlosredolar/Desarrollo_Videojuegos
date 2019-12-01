@@ -160,7 +160,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 // Play WAV
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
-	BROFILER_CATEGORY("Update_PlayMusic", Profiler::Color::DeepSkyBlue)
+	BROFILER_CATEGORY("Update_PlayFx", Profiler::Color::DeepSkyBlue)
 	bool ret = false;
 
 	if(!active)

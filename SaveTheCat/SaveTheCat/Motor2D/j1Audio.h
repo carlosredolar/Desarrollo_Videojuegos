@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "SDL_mixer\include\SDL_mixer.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 #include "p2List.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f

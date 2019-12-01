@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 
 class j1Fade : public j1Module
 {

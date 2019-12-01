@@ -5,7 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 
 #define COLLIDER_OFFSET 320
 

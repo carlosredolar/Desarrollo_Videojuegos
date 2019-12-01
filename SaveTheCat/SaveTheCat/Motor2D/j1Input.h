@@ -2,7 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
-#include "brofiler/Brofiler/Brofiler.h"
+#include "Brofiler/Brofiler.h"
 
 
 #define NUM_MOUSE_BUTTONS 5

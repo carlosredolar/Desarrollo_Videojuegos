@@ -70,7 +70,7 @@ bool j1Bat::CleanUp() {
 
 
 bool j1Bat::PreUpdate() {
-	BROFILER_CATEGORY("PreUpdate_Player", Profiler::Color::Tan)
+	BROFILER_CATEGORY("PreUpdate_Bat", Profiler::Color::Khaki)
 
 	lastPosition = position;
 	last_state = state;
@@ -211,7 +211,7 @@ bool j1Bat::PreUpdate() {
 
 bool j1Bat::Update(float dt)
 {
-	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
+	BROFILER_CATEGORY("Update_Bat", Profiler::Color::Yellow)
 
 		
 	
@@ -278,7 +278,7 @@ bool j1Bat::Update(float dt)
 }
 
 bool j1Bat::PostUpdate() {
-	BROFILER_CATEGORY("PostUpdate_Player", Profiler::Color::Thistle)
+	BROFILER_CATEGORY("PostUpdate_Bat", Profiler::Color::Bisque)
 		App->render->Blit(bat_tex, position.x, position.y, &current_animation->GetCurrentFrame(), flip);
 
 	return true;
