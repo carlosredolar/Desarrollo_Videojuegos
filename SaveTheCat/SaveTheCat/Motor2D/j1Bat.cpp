@@ -295,25 +295,28 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
 
-			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) && (state == FLY_DOWN))
+			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) /*&& (state == FLY_DOWN)*/)
 			{
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
 					position.y = c2->rect.y - App->bat->collider->rect.h;
 					state = FLY;
+					velocity.y = speed;
 					//fall.Reset();
 				}
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) && (state == FLY_DOWN))
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION)/*&& (state == FLY_DOWN)*/)
 			{
+				velocity.y = speed;
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) && (state == FLY_DOWN))
+			if ((position.y < c2->rect.y + COLLIDER_PREDICTION)/* && (state == FLY_DOWN)*/)
 			{
 
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
 					position.y = c2->rect.y - App->bat->collider->rect.h;
 				}
+				velocity.y = speed;
 				state = FLY;
 				//fall.Reset();
 				can_go_right = true;
@@ -384,19 +387,23 @@ bool j1Bat::LoadAnimations() {
 void j1Bat::MovementControl(float dt) {
 	if (position.x > App->player->position.x)
 	{
-		position.x -= speed * dt;
+		velocity.x = -speed;
+		position.x += velocity.x * dt;
 		flip = SDL_FLIP_HORIZONTAL;
 	}
 	else {
-		position.x += speed * dt;
+		velocity.x = speed;
+		position.x += velocity.x * dt;
 		flip = SDL_FLIP_NONE;
 	}
 	if (position.y > App->player->position.y && (state != DEATH_BAT))
 	{
-		position.x -= speed * dt;
+		velocity.y = speed;
+		position.y -= velocity.y * dt;
 	}
 	else if(state != DEATH_BAT){
-		position.y += speed * dt;
+		velocity.y = speed;
+		position.y += velocity.y * dt;
 	}
 }
 
