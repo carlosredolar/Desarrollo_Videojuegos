@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="150" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="59">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="right-down" width="150" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="60">
  <tileset firstgid="1" name="Tile" tilewidth="32" tileheight="32" tilecount="78" columns="13">
   <image source="Tile.png" width="416" height="192"/>
  </tileset>
@@ -12065,5 +12065,6 @@
   <object id="55" type="Death" x="4292.67" y="896.667" width="52" height="32"/>
   <object id="56" type="Death" x="4352" y="903.333" width="25.3333" height="24.6667"/>
   <object id="58" type="Death" x="740" y="1157" width="22" height="25"/>
+  <object id="59" type="Checkpoint" x="1921" y="961" width="95" height="64"/>
  </objectgroup>
 </map>

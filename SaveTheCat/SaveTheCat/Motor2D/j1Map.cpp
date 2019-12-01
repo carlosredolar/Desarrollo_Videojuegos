@@ -477,6 +477,9 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 				if (type =="Collider")
 				objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_WALL);
 
+				if (type == "Checkpoint")
+					objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_CHECKPOINT);
+
 				if (type == "Death")
 				objectgroup->collider[i] = App->collision->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
 

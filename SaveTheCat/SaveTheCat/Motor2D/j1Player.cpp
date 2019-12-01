@@ -422,7 +422,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				state = DEATH;
 				velocity.x = 0;
 				velocity.y = 0;
-				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }										
+				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }	
+				if (game_saved == true) { App->LoadGame(); state = IDLE; }
 			}
 			break;
 
@@ -434,6 +435,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					velocity.x = 0;
 					velocity.y = 0;
 					if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }
+					if (game_saved == true) { App->LoadGame(); state = IDLE; }
 				}
 			}
 			
@@ -466,6 +468,27 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				
 				App->scene->ResetLevel();
 				App->scene->Reset_Camera();
+			}
+			break;
+		case COLLIDER_CHECKPOINT:
+			if (!god)
+			{
+
+				if (App->scene->current_level == LEVEL_1)
+				{
+					App->SaveGame();
+					game_saved = true;
+					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
+				}
+				if (App->scene->current_level == LEVEL_2)
+				{
+					App->SaveGame();
+					game_saved = true;
+					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
+				}
+
+				//App->scene->ResetLevel();
+				//App->scene->Reset_Camera();
 			}
 			break;
 		default:

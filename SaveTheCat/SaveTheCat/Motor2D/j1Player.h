@@ -113,6 +113,7 @@ public:
 	bool can_go_right = true;
 	bool can_go_left = true;
 	bool god = false;
+	bool game_saved = false;
 
 private:
 	float dt = 0.0f;

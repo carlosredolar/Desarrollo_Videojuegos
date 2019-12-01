@@ -13,58 +13,58 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_HIT] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_CHECKPOINT] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_HIT] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_CHECKPOINT] = false;
 
 	matrix[COLLIDER_HIT][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_HIT][COLLIDER_WALL] = false;
 	matrix[COLLIDER_HIT][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_HIT][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_HIT][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_HIT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_HIT][COLLIDER_HIT] = false;
+	matrix[COLLIDER_HIT][COLLIDER_CHECKPOINT] = false;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_WALL][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_WALL][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_HIT] = false;
+	matrix[COLLIDER_WALL][COLLIDER_CHECKPOINT] = false;
+
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_LEVEL] = true;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_HIT] = false;
+	matrix[COLLIDER_CHECKPOINT][COLLIDER_CHECKPOINT] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_HIT] = false;
-
-	matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
-	matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_PLATFORM][COLLIDER_WALL] = false;
-	matrix[COLLIDER_PLATFORM][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_PLATFORM][COLLIDER_LEVEL] = false;
-	matrix[COLLIDER_PLATFORM][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLATFORM][COLLIDER_HIT] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_CHECKPOINT] = false;
 
 	matrix[COLLIDER_LEVEL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_LEVEL][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_LEVEL][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_HIT] = false;
+	matrix[COLLIDER_LEVEL][COLLIDER_CHECKPOINT] = false;
 
 }
 
@@ -149,6 +149,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_WALL:
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 225, alpha);
 			break;
+		case COLLIDER_CHECKPOINT:
+			App->render->DrawQuad(colliders[i]->rect, 95, 252, 0, alpha);
+			break;
 		case COLLIDER_PLAYER:
 			App->render->DrawQuad(colliders[i]->rect, 225, 225, 0, alpha);
 			break;
@@ -160,9 +163,6 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_DEATH:
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
-			break;
-		case COLLIDER_PLATFORM:
-			App->render->DrawQuad(colliders[i]->rect, 100, 0, 255, alpha);
 			break;
 		case COLLIDER_LEVEL:
 			App->render->DrawQuad(colliders[i]->rect, 0, 225, 255, alpha);
