@@ -7,15 +7,15 @@
 	<map />
 	<scene />
 	<player>
-		<position x="2020" y="639" />
+		<position x="2023" y="639" />
 	</player>
 	<bat>
-		<position x="1425" y="6019" />
+		<position x="1065" y="523" />
 	</bat>
 	<:anonymous />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-1914" y="-170" />
+		<camera x="-1390" y="-169" />
 	</renderer>
 </game_state>

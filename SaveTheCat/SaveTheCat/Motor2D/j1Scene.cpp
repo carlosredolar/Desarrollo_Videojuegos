@@ -129,7 +129,7 @@ bool j1Scene::Update(float dt)
 
 		//Parallax
 		farTimer++; midTimer++; closeTimer++;
-		backPos.x += CAMERA_RUN_SPEED * dt;
+		backPos.x = App->render->camera.x;
 		if (farTimer >= CAMERA_RUN_SPEED * dt) { farPos.x -= (CAMERA_RUN_SPEED) * dt; farTimer = 0; }
 		if (midTimer >= CAMERA_RUN_SPEED + 1 * dt) { midPos.x -= (CAMERA_RUN_SPEED/2) * dt; midTimer = 0; }
 		if (closeTimer >= CAMERA_RUN_SPEED + 2 * dt) { closePos.x = 0; closeTimer = 0; }
@@ -159,6 +159,7 @@ bool j1Scene::Update(float dt)
 		}
 		else
 		{
+			App->player->game_saved = false;
 			App->map->CleanUp();
 			//App->collision->CleanUp();
 			//App->scene->CleanUp();
@@ -177,6 +178,7 @@ bool j1Scene::Update(float dt)
 		}
 		else
 		{
+			App->player->game_saved = false;
 			App->map->CleanUp();
 			//App->collision->CleanUp();
 			//App->scene->CleanUp();
@@ -215,13 +217,13 @@ bool j1Scene::Update(float dt)
 		left_edge+= App->player->speed;
 	}*/
 
-	if (((player_position->y < top_edge))&&(top_edge > App->render->initial_camera_y - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
+	if (((player_position->y < top_edge))&&(top_edge > 0 - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
 			App->render->camera.y += App->player->speed * dt;
 			top_edge -= App->player->speed * dt;
 			bottom_edge -= App->player->speed * dt;
 	}
 
-	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < App->render->initial_camera_y + 360)) {
+	if (((player_position->y + App->player->current_animation->GetCurrentFrame().h > bottom_edge))&&(top_edge < 0+ 360)) {
 		App->render->camera.y -= App->player->speed * dt;
 		top_edge+= App->player->speed * dt;
 		bottom_edge+= App->player->speed * dt;
@@ -304,8 +306,8 @@ bool j1Scene::CleanUp()
 }
 
 void j1Scene::Reset_Camera() {
-	App->render->camera.x = App->render->initial_camera_x;
-	App->render->camera.y = App->render->initial_camera_y;
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 	top_edge = App->render->camera.y + App->render->camera.h / 4;
 	bottom_edge = App->render->camera.y + App->render->camera.h * 3/4;
 	collider->SetPos(-App->render->camera.x, 0);

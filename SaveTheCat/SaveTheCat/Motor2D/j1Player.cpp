@@ -423,7 +423,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				velocity.x = 0;
 				velocity.y = 0;
 				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }	
-				if (game_saved == true) { App->LoadGame(); state = IDLE; }
+				
+				if (game_saved == true)
+				{
+					App->render->camera.x = position.x - 100;
+					App->LoadGame();
+					state = IDLE;
+				}
+			
 			}
 			break;
 
@@ -435,15 +442,22 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					velocity.x = 0;
 					velocity.y = 0;
 					if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }
-					if (game_saved == true) { App->LoadGame(); state = IDLE; }
+					
+					if (game_saved == true)
+					{
+						App->render->camera.x = position.x - 100;
+						App->LoadGame();
+						state = IDLE;
+					}
+					
 				}
 			}
-			
 			break;
 
 		case COLLIDER_LEVEL:
 			if (!god) 
 			{
+				game_saved = false;
 				
 				if (App->scene->current_level == LEVEL_1 && App->scene->want_to_load == 2)
 				{
@@ -451,8 +465,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					App->scene->CleanUp();
 					//App->scene->current_level = LEVEL_2;
 					App->map->Load("Level2.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
+					App->scene->ResetLevel();
+					App->scene->Reset_Camera();
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }					
 				}
 				if (App->scene->current_level == LEVEL_2 && App->scene->want_to_load == 1)
@@ -461,8 +475,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					App->scene->CleanUp();
 					//App->scene->current_level = LEVEL_1;
 					App->map->Load("Level1.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
+					App->scene->ResetLevel();
+					App->scene->Reset_Camera();
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
 				}
 				
