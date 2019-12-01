@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<position x="2016" y="639" />
+	</player>
+	<bat>
+		<position x="1040" y="640" />
+	</bat>
+	<:anonymous />
+	<:anonymous />
+	<pathfinding />
+	<renderer>
+		<camera x="-1357" y="-170" />
+	</renderer>
+</game_state>
