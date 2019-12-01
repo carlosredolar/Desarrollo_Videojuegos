@@ -39,7 +39,6 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	music = "sounds/SuperSong.wav";
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
-	collider_hit = App->collision->AddCollider({ 0,0,40,20 },COLLIDER_HIT, (j1Module*)App->player);
 
 	return ret;
 }
@@ -65,7 +64,6 @@ bool j1Player::Start(){
 
 bool j1Player::CleanUp() {
 	collider->to_delete = true;
-	collider_hit->to_delete = true;
 	SDL_DestroyTexture(player_tex);
 	//player_tex = nullptr;
 	return true;
@@ -275,7 +273,6 @@ bool j1Player::PreUpdate(){
 		//MovementControl(); //calculate new position
 		
 		collider->SetPos(position.x, position.y);
-		collider_hit->SetPos(position.x, position.y - current_animation->GetCurrentFrame().h);
 	}
 
 	

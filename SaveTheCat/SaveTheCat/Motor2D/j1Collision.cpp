@@ -16,7 +16,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_HIT] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
@@ -24,15 +23,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_PLATFORM] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_HIT] = true;
-
-	matrix[COLLIDER_HIT][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_HIT][COLLIDER_WALL] = false;
-	matrix[COLLIDER_HIT][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_HIT][COLLIDER_PLATFORM] = false;
-	matrix[COLLIDER_HIT][COLLIDER_LEVEL] = false;
-	matrix[COLLIDER_HIT][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_HIT][COLLIDER_HIT] = false;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
@@ -40,7 +30,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_WALL][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_WALL][COLLIDER_HIT] = false;
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
@@ -48,7 +37,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_DEATH][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_HIT] = false;
 
 	matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
@@ -56,7 +44,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLATFORM][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_PLATFORM][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_PLATFORM][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLATFORM][COLLIDER_HIT] = false;
 
 	matrix[COLLIDER_LEVEL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_PLAYER] = true;
@@ -64,7 +51,6 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_LEVEL][COLLIDER_PLATFORM] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_LEVEL] = false;
 	matrix[COLLIDER_LEVEL][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_LEVEL][COLLIDER_HIT] = false;
 
 }
 

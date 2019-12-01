@@ -102,7 +102,6 @@ public:
 
 	SDL_RendererFlip flip;
 	Collider* collider = nullptr;
-	Collider* collider_hit = nullptr;
 	Collider* collider_copy;
 
 	float speed;
