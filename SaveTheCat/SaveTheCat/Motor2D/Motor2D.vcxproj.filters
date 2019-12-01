@@ -178,9 +178,6 @@
     <Xml Include="..\Game\sprites\characters\animations.xml">
       <Filter>Desenvolupament  ========\Tools\Animations</Filter>
     </Xml>
-    <Xml Include="..\Game\sprites\characters\animationsBat.xml">
-      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
-    </Xml>
     <Xml Include="..\Game\sprites\characters\animationsZombie.xml">
       <Filter>Desenvolupament  ========\Tools\Animations</Filter>
     </Xml>
@@ -192,6 +189,9 @@
     </Xml>
     <Xml Include="..\Game\config.xml">
       <Filter>Desenvolupament  ========\Tools</Filter>
+    </Xml>
+    <Xml Include="..\Game\sprites\characters\animations_bat.xml">
+      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
     </Xml>
   </ItemGroup>
 </Project>

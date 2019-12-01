@@ -53,7 +53,7 @@
   <bat>
     <folder>audio/fx</folder>
     <folder>sprites/characters</folder>
-    <position x="200" y="200" />
+    <position x="200" y="400" />
     <speed value="200"/>
     <gravity value="20"/>
   </bat>

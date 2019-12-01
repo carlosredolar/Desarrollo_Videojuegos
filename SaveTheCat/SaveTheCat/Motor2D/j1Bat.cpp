@@ -32,11 +32,11 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 
 	//set initial attributes of the bat
 	speed = config.child("bat").child("speed").attribute("value").as_float();
-	gravity = config.child("bat").child("gravity").attribute("value").as_float();
+	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
 	deathFX = "sounds/death.wav";
 
-	initial_x_position = config.child("bat").child("position").attribute("x").as_int();
-	initial_y_position = config.child("bat").child("position").attribute("y").as_int();
+	initial_x_position = 200;//config.child("bat").child("position").attribute("x").as_int();
+	initial_y_position = 400;//config.child("bat").child("position").attribute("y").as_int();
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
 
