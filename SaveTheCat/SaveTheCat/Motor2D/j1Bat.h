@@ -16,6 +16,7 @@ struct SDL_Texture;
 struct Collider;
 
 #define COLLIDER_PREDICTION speed
+#define DELAY 2000
 
 /*struct Bat_Input {
 	bool pressing_W;
@@ -63,7 +64,6 @@ public:
 
 	bool LoadAnimations();
 
-	bool waitTime(float s);
 
 	void j1Bat::calculate_path();
 	void j1Bat::blit_path();
@@ -81,6 +81,7 @@ public:
 	int death_reset = 0;
 	int death_timer = 0;
 	float waitTimer = 0;
+	int timer;
 	iPoint position;
 	iPoint lastPosition;
 	fVec2 velocity;

@@ -31,6 +31,11 @@ bool j1Map::Awake(pugi::xml_node& config)
 	level_1_player_y = config.child("level1").child("player_position").attribute("y").as_int();
 	level_2_player_x = config.child("level2").child("player_position").attribute("x").as_int();
 	level_2_player_y = config.child("level2").child("player_position").attribute("y").as_int();
+
+	level_1_bat_x = config.child("level1").child("bat_position").attribute("x").as_int();
+	level_1_bat_x = config.child("level1").child("bat_position").attribute("y").as_int();
+	level_2_bat_x = config.child("level2").child("bat_position").attribute("x").as_int();
+	level_2_bat_x = config.child("level2").child("bat_position").attribute("y").as_int();
 	return ret;
 }
 

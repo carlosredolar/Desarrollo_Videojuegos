@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "brofiler/Brofiler/Brofiler.h"
 
-#define CAMERA_SPEED 100
+#define CAMERA_SPEED 300
 #define CAMERA_RUN_SPEED 100
 #define SPEED 3
 
@@ -60,6 +60,8 @@ public:
 	MapLoaded current_level;
 	int	player_x_position;
 	int	player_y_position;
+	int bat_x_position = 200;
+	int	bat_y_position = 800;
 	int farTimer, midTimer, closeTimer;
 	int want_to_load;
 	SDL_Texture* backTex;

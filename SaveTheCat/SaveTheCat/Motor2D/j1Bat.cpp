@@ -48,8 +48,8 @@ bool j1Bat::Start() {
 	bat_x_position = 200;//config.child("bat").child("position").attribute("x").as_int();
 	bat_y_position = 800;//config.child("bat").child("position").attribute("y").as_int();
 
-	position.x = bat_x_position;
-	position.y = bat_y_position;
+	position.x = bat_x_position; //= App->scene->bat_x_position;
+	position.y = bat_y_position; //= App->scene->bat_y_position;
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
 
@@ -242,21 +242,22 @@ bool j1Bat::Update(float dt)
 
 		case DEATH_BAT:
 			current_animation = &death_bat;
-			collider->to_delete = true;
-			if (waitTime(30))
-			{
-				LOG("Wait done");
-				deathSound = false;
-				SDL_DestroyTexture(bat_tex);
-				velocity.x = 0;
-				velocity.y = 0;
-			}
-
+			collider->type = COLLIDER_HIT;
+			timer = SDL_GetTicks();
+			deathSound = false;
 			break;
 		default:
 			LOG("No state found");
 			break;
 		}
+
+	if (timer - SDL_GetTicks() >= DELAY)
+	{
+		collider->type = COLLIDER_ENEMY;
+		velocity.x = 0;
+		velocity.y = 0;
+		//timer = 0;
+	}
 
 	MovementControl(dt);
 
@@ -391,13 +392,7 @@ bool j1Bat::Load(pugi::xml_node& data)
 	return true;
 }
 
-bool j1Bat::waitTime(float sec)
-{
-	bool ret = false;
-	waitTimer++;
-	if (waitTimer >= sec) { ret = true; waitTimer = 0; }
-	return ret;
-}
+
 
 void j1Bat::calculate_path()
 {

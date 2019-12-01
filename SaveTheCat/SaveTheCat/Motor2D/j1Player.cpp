@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Audio.h"
+#include "j1Bat.h"
 
 j1Player::j1Player():j1Module () {
 	name.create("player");
@@ -346,6 +347,7 @@ bool j1Player::Update(float dt)
 			position.y = initial_y_position;//App->map->data.player_initial_y;
 			App->scene->Reset_Camera();
 			App->scene->ResetLevel();
+			//App->bat->Start();
 			state = IDLE;
 			deathSound = false;
 		}

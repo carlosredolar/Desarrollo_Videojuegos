@@ -157,8 +157,12 @@ private:
 	bool				map_loaded;
 	int level_1_player_x;
 	int level_1_player_y;
+	int level_1_bat_x;
+	int level_1_bat_y;
 	int level_2_player_x;
 	int level_2_player_y;
+	int level_2_bat_x;
+	int level_2_bat_y;
 
 };
 
