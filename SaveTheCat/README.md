@@ -92,6 +92,7 @@ GNU GENERAL PUBLIC LICENSE
    - Sprties, textures and background
    - Bat (enemy)
    - Pathfinding
-I have been working with the entities and the other enemy (zombie), but they are not functional.
+
+We have been working with the entities and the other enemy (zombie), but they are not functional.
 
 
