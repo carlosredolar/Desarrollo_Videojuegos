@@ -319,21 +319,14 @@ void j1Scene::Reset_Camera() {
 }
 
 void j1Scene::ResetLevel() {
-	if (App->bat->timer - SDL_GetTicks() >= DELAY)
-	{
-		//collider->type = COLLIDER_ENEMY;
-		//velocity.x = 0;
-		//velocity.y = 0;
-		//timer = 0;
-		App->player->position.x = player_x_position;
-		App->player->position.y = player_y_position;
-		//App->bat->Start();
-		App->bat->position.x = bat_x_position;
-		App->bat->position.y = bat_y_position;
 
-		cam_run_start = SDL_GetTicks();
-		cam_run_start_timer = cam_run_start + 5000;
-		App->player->winSound = false;
-	}
-	
+	App->player->position.x = player_x_position;
+	App->player->position.y = player_y_position;
+	//App->bat->Start();
+	App->bat->position.x = bat_x_position;
+	App->bat->position.y = bat_y_position;
+
+	cam_run_start = SDL_GetTicks();
+	cam_run_start_timer = cam_run_start + 5000;
+	App->player->winSound = false;
 }
