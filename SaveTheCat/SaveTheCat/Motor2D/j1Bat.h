@@ -76,8 +76,8 @@ public:
 	SDL_Texture* debug_tex = nullptr;
 	p2SString folder;
 	//Bat_Input bat_input;
-	int initial_x_position;
-	int initial_y_position;
+	int bat_x_position;
+	int bat_y_position;
 	int death_reset = 0;
 	int death_timer = 0;
 	float waitTimer = 0;

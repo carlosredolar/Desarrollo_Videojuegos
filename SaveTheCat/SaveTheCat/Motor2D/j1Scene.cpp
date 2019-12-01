@@ -321,7 +321,10 @@ void j1Scene::Reset_Camera() {
 void j1Scene::ResetLevel() {
 	App->player->position.x = player_x_position;
 	App->player->position.y = player_y_position;
+	App->bat->CleanUp();
 	App->bat->Start();
+	//App->bat->position.x = App->bat->bat_x_position;
+	//App->bat->position.y = App->bat->bat_y_position;
 	cam_run_start = SDL_GetTicks();
 	cam_run_start_timer = cam_run_start + 5000;
 	App->player->winSound = false;

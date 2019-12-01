@@ -39,7 +39,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	music = "sounds/SuperSong.wav";
 
 	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
-	collider_hit = App->collision->AddCollider({ 0,0,30,20 }, COLLIDER_HIT, (j1Module*)App->player);
+	collider_hit = App->collision->AddCollider({ 0,0,30,40 }, COLLIDER_HIT, (j1Module*)App->player);
 
 	return ret;
 }
@@ -422,6 +422,20 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }										
 			}
 			break;
+
+		case COLLIDER_ENEMY:
+			if (c1->type == COLLIDER_PLAYER)
+			{
+				if (!god) {
+					state = DEATH;
+					velocity.x = 0;
+					velocity.y = 0;
+					if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }
+				}
+			}
+			
+			break;
+
 		case COLLIDER_LEVEL:
 			if (!god) 
 			{

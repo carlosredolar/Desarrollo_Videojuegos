@@ -35,10 +35,7 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
 	deathFX = "sounds/death.wav";
 
-	initial_x_position = 400;//config.child("bat").child("position").attribute("x").as_int();
-	initial_y_position = 600;//config.child("bat").child("position").attribute("y").as_int();
-
-	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
+	
 
 	return ret;
 }
@@ -46,8 +43,15 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 bool j1Bat::Start() {
 	//load character sprites
 	bat_tex = App->tex->Load("sprites/characters/spritesheet_bat.png");
-	position.x = initial_x_position;
-	position.y = initial_y_position;
+	
+
+	bat_x_position = 200;//config.child("bat").child("position").attribute("x").as_int();
+	bat_y_position = 800;//config.child("bat").child("position").attribute("y").as_int();
+
+	position.x = bat_x_position;
+	position.y = bat_y_position;
+
+	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
 
 	App->audio->LoadFx(deathFX.GetString());
 
@@ -189,10 +193,6 @@ bool j1Bat::PreUpdate() {
 		{
 			collider->SetSize(80, 60);
 
-			if (current_animation->Finished())
-			{
-				state = FLY;
-			}
 			velocity.y -= gravity;
 		}
 
@@ -201,6 +201,8 @@ bool j1Bat::PreUpdate() {
 
 		collider->SetPos(position.x, position.y);
 	}
+
+
 
 	return true;
 }
@@ -240,11 +242,14 @@ bool j1Bat::Update(float dt)
 
 		case DEATH_BAT:
 			current_animation = &death_bat;
+			collider->to_delete = true;
 			if (waitTime(30))
 			{
 				LOG("Wait done");
 				deathSound = false;
-				App->bat->CleanUp();
+				SDL_DestroyTexture(bat_tex);
+				velocity.x = 0;
+				velocity.y = 0;
 			}
 
 			break;
@@ -256,6 +261,8 @@ bool j1Bat::Update(float dt)
 	MovementControl(dt);
 
 	death_reset = SDL_GetTicks();
+
+
 
 	return true;
 }
@@ -276,7 +283,7 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
 
-			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) /*&& (state == FALL)*/)
+			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
 					position.y = c2->rect.y - App->bat->collider->rect.h;
@@ -285,11 +292,11 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 				}
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) /*&& (state == FALL)*/)
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) /*&& (last_state == FALL)*/)
+			if ((position.y < c2->rect.y + COLLIDER_PREDICTION) && (state == FLY_DOWN))
 			{
 
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
@@ -302,43 +309,14 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 			}
 
 			break;
-		case COLLIDER_DEATH:
+
+		case COLLIDER_HIT:
 			if (!god) {
 				state = DEATH_BAT;
 				velocity.x = 0;
-				velocity.y = 0;
-				if (!deathSound) { deathSound = true; App->audio->PlayFx(2, 0); }
 			}
 			break;
-		case COLLIDER_LEVEL:
-			if (!god)
-			{
 
-				if (App->scene->current_level == LEVEL_1 && App->scene->want_to_load == 2)
-				{
-					App->map->CleanUp();
-					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_2;
-					App->map->Load("Level2.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
-					//if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
-				}
-				if (App->scene->current_level == LEVEL_2 && App->scene->want_to_load == 1)
-				{
-					App->map->CleanUp();
-					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_1;
-					App->map->Load("Level1.tmx");
-					//App->scene->ResetLevel();
-					//App->scene->Reset_Camera();
-					//if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
-				}
-
-				App->scene->ResetLevel();
-				App->scene->Reset_Camera();
-			}
-			break;
 		default:
 			break;
 		}
@@ -459,5 +437,9 @@ void j1Bat::check_path_toMove()
 	}
 	if (pos.x >= position.x - 5 && pos.x <= position.x + 5) {
 		state = FLY_DOWN;
+	}
+	else
+	{
+		state = FLY_UP;
 	}
 }
