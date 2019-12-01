@@ -45,7 +45,7 @@ bool j1Bat::Start() {
 	bat_tex = App->tex->Load("sprites/characters/spritesheet_bat.png");
 	debug_tex = App->tex->Load("maps/path.png");
 
-	bat_x_position = 900;//config.child("bat").child("position").attribute("x").as_int();
+	bat_x_position = 1100;//config.child("bat").child("position").attribute("x").as_int();
 	bat_y_position = 500;//config.child("bat").child("position").attribute("y").as_int();
 
 	position.x = bat_x_position; //= App->scene->bat_x_position;
@@ -214,20 +214,7 @@ bool j1Bat::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
 
-		if (position.x > App->player->position.x)
-		{
-			position.x -= speed * dt;
-		}
-		else {
-			position.x += speed * dt;
-		}
-		if (position.y > App->player->position.y)
-		{
-			position.x -= speed * dt;
-		}
-		else {
-			position.y += speed * dt;
-		}
+		
 		//this->dt = dt;
 		switch (state)
 		{
@@ -260,6 +247,8 @@ bool j1Bat::Update(float dt)
 
 		case DEATH_BAT:
 			current_animation = &death_bat;
+			velocity.y -= gravity;
+			position.y -= velocity.y * dt;
 			collider->type = COLLIDER_HIT;
 			timer = SDL_GetTicks();
 			deathSound = false;
@@ -268,6 +257,8 @@ bool j1Bat::Update(float dt)
 			LOG("No state found");
 			break;
 		}
+
+	
 
 	if (timer - SDL_GetTicks() >= DELAY)
 	{
@@ -391,8 +382,22 @@ bool j1Bat::LoadAnimations() {
 }
 
 void j1Bat::MovementControl(float dt) {
-	position.x += velocity.x * dt;
-	position.y -= velocity.y * dt;
+	if (position.x > App->player->position.x)
+	{
+		position.x -= speed * dt;
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+	else {
+		position.x += speed * dt;
+		flip = SDL_FLIP_NONE;
+	}
+	if (position.y > App->player->position.y && (state != DEATH_BAT))
+	{
+		position.x -= speed * dt;
+	}
+	else if(state != DEATH_BAT){
+		position.y += speed * dt;
+	}
 }
 
 bool j1Bat::Save(pugi::xml_node& data) const {
