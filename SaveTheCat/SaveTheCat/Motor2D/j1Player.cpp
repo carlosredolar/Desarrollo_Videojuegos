@@ -75,6 +75,7 @@ bool j1Player::CleanUp() {
 
 bool j1Player::PreUpdate(){
 	BROFILER_CATEGORY("PreUpdate_Player", Profiler::Color::Tan)
+
 	//get player input
 	player_input.pressing_W = App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT;
 	player_input.pressing_A = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;

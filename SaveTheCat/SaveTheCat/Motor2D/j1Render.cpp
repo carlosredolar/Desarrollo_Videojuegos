@@ -69,6 +69,7 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {	
 	BROFILER_CATEGORY("Update_Render", Profiler::Color::Orchid)
+
 	return true;
 }
 

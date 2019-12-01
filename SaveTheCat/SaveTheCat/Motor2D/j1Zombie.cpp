@@ -77,6 +77,8 @@ bool j1Zombie::PreUpdate()
 
 bool j1Zombie::Update(float dt) 
 {
+	BROFILER_CATEGORY("Update_Collision", Profiler::Color::Tomato)
+
 	bool ret = true;
 	lastPosition = position;
 	gravity = 925;

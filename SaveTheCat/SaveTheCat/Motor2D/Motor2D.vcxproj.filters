@@ -37,9 +37,6 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Particles.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Fade.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="p2Vec2.h">
       <Filter>Programacio 2 ===========</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Particles.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Fade.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
