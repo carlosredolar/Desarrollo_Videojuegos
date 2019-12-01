@@ -30,9 +30,9 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 
 	folder.create(config.child("folder").child_value());
 
-	//set initial attributes of the bat
-	speed = 50;//config.child("bat").child("speed").attribute("value").as_float();
-	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
+	
+	speed = 50;
+	gravity = 20;
 	deathFX = "sounds/death.wav";
 
 	
@@ -45,13 +45,13 @@ bool j1Bat::Start() {
 	bat_tex = App->tex->Load("sprites/characters/spritesheet_bat.png");
 	debug_tex = App->tex->Load("maps/path.png");
 
-	bat_x_position = 1100;//config.child("bat").child("position").attribute("x").as_int();
-	bat_y_position = 500;//config.child("bat").child("position").attribute("y").as_int();
+	bat_x_position = 1100;
+	bat_y_position = 500;
 
-	position.x = bat_x_position; //= App->scene->bat_x_position;
-	position.y = bat_y_position; //= App->scene->bat_y_position;
+	position.x = bat_x_position;
+	position.y = bat_y_position;
 
-	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat); //a collider to start
+	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_ENEMY, (j1Module*)App->bat);
 
 	App->audio->LoadFx(deathFX.GetString());
 
@@ -127,14 +127,14 @@ bool j1Bat::PreUpdate() {
 			if (can_go_up == true)
 			{
 				state = FLY_UP;
-				//velocity.y = speed;
+				
 			}
 
 			if (can_go_down == true)
 			{
 				state = FLY_DOWN;
 				flip == SDL_FLIP_NONE;
-				//velocity.y = -speed;
+				
 			}
 
 			velocity.x = speed;
@@ -152,14 +152,14 @@ bool j1Bat::PreUpdate() {
 			if (can_go_up == true)
 			{
 				state = FLY_UP;
-				//velocity.y = speed;
+				
 			}
 
 			if (can_go_down == true)
 			{
 				state = FLY_DOWN;
 				flip == SDL_FLIP_HORIZONTAL;
-				//velocity.y = -speed;
+				
 			}
 
 			velocity.x = -speed;
@@ -198,13 +198,12 @@ bool j1Bat::PreUpdate() {
 		}
 
 
-		//MovementControl(); //calculate new position
+		
 
 		collider->SetPos(position.x, position.y);
 	}
 
-	//PATH TO PLAYER (LOGIC)
-	//calculate_path();
+	
 
 
 	return true;
@@ -215,7 +214,7 @@ bool j1Bat::Update(float dt)
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
 
 		
-		//this->dt = dt;
+	
 		switch (state)
 		{
 		case FLY:
@@ -225,24 +224,24 @@ bool j1Bat::Update(float dt)
 		case FLY_RIGHT:
 			current_animation = &fly;
 			flip = SDL_FLIP_NONE;
-			//velocity.x = speed * dt;
+			
 			break;
 
 		case FLY_LEFT:
 			current_animation = &fly;
 			flip = SDL_FLIP_HORIZONTAL;
-			//velocity.x = -speed * dt;
+		
 			break;
 
 
 		case FLY_DOWN:
 			current_animation = &fly;
-			//velocity.x = speed * dt;
+			
 			break;
 
 		case FLY_UP:
 			current_animation = &fly;
-			//velocity.y = jumpImpulse * dt;	
+			
 			break;
 
 		case DEATH_BAT:
@@ -265,15 +264,14 @@ bool j1Bat::Update(float dt)
 		collider->type = COLLIDER_ENEMY;
 		velocity.x = 0;
 		velocity.y = 0;
-		//timer = 0;
+		
 	}
 
 	MovementControl(dt);
 
 	death_reset = SDL_GetTicks();
 
-	/*if (App->collision->debug)
-		blit_path();*/
+	
 
 
 	return true;
@@ -295,22 +293,22 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 			position = lastPosition;
 			velocity.x = velocity.y = 0;
 
-			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) /*&& (state == FLY_DOWN)*/)
+			if ((position.x < c2->rect.x + COLLIDER_PREDICTION) )
 			{
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
 					position.y = c2->rect.y - App->bat->collider->rect.h;
 					state = FLY;
 					velocity.y = speed;
-					//fall.Reset();
+					
 				}
 				can_go_right = false;
 			}
-			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION)/*&& (state == FLY_DOWN)*/)
+			if ((position.x > c2->rect.x + c2->rect.w - COLLIDER_PREDICTION))
 			{
 				velocity.y = speed;
 				can_go_left = false;
 			}
-			if ((position.y < c2->rect.y + COLLIDER_PREDICTION)/* && (state == FLY_DOWN)*/)
+			if ((position.y < c2->rect.y + COLLIDER_PREDICTION))
 			{
 
 				if (position.y + current_animation->GetCurrentFrame().h < c2->rect.y + COLLIDER_PREDICTION) {
@@ -318,7 +316,7 @@ void j1Bat::OnCollision(Collider* c1, Collider* c2) {
 				}
 				velocity.y = speed;
 				state = FLY;
-				//fall.Reset();
+				
 				can_go_right = true;
 				can_go_left = true;
 			}
@@ -426,7 +424,7 @@ bool j1Bat::Load(pugi::xml_node& data)
 
 
 
-void j1Bat::calculate_path()
+void j1Bat::CalculatePath()
 {
 	iPoint origin = App->map->WorldToMap(App->player->position.x, App->player->position.y);
 
@@ -435,12 +433,12 @@ void j1Bat::calculate_path()
 	if (App->player->position.x - position.x <= 160 && position.x - App->player->position.x >= -160) {
 		App->pathfinding->CreatePath(origin, p);
 		if (set_path == true) {
-			check_path_toMove();
+			Path2Move();
 		}
 	}
 }
 
-void j1Bat::blit_path()
+void j1Bat::BlitPath()
 {
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
@@ -451,7 +449,7 @@ void j1Bat::blit_path()
 	}
 }
 
-void j1Bat::check_path_toMove()
+void j1Bat::Path2Move()
 {
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 	iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);

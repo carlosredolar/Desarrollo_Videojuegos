@@ -18,14 +18,7 @@ struct Collider;
 #define COLLIDER_PREDICTION speed
 #define DELAY 2000
 
-/*struct Bat_Input {
-	bool pressing_W;
-	bool pressing_A;
-	bool pressing_S;
-	bool pressing_D;
-	bool pressing_space;
-	bool S_keyUp;
-};*/
+
 
 enum Bat_States {
 	FLY,
@@ -65,9 +58,9 @@ public:
 	bool LoadAnimations();
 
 
-	void j1Bat::calculate_path();
-	void j1Bat::blit_path();
-	void j1Bat::check_path_toMove();
+	void j1Bat::CalculatePath();
+	void j1Bat::BlitPath();
+	void j1Bat::Path2Move();
 
 
 public:
@@ -75,7 +68,7 @@ public:
 	SDL_Texture* bat_tex;
 	SDL_Texture* debug_tex = nullptr;
 	p2SString folder;
-	//Bat_Input bat_input;
+
 	int bat_x_position;
 	int bat_y_position;
 	int death_reset = 0;

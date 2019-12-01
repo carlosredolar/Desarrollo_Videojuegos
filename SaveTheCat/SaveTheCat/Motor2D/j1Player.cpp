@@ -29,7 +29,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 	folder.create(config.child("folder").child_value());
 
-	//set initial attributes of the player
+	//player values
 	speed = config.child("speed").attribute("value").as_float();
 	jumpImpulse = config.child("jumpImpulse").attribute("value").as_float();
 	gravity = config.child("gravity").attribute("value").as_float();
@@ -39,7 +39,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	slideFX = "sounds/slide.wav";
 	music = "sounds/SuperSong.wav";
 
-	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); //a collider to start
+	collider = App->collision->AddCollider(current_animation->GetCurrentFrame(), COLLIDER_PLAYER, (j1Module*)App->player); 
 	collider_hit = App->collision->AddCollider({ 0,0,30,40 }, COLLIDER_HIT, (j1Module*)App->player);
 
 	return ret;
@@ -68,7 +68,7 @@ bool j1Player::CleanUp() {
 	collider->to_delete = true;
 	collider_hit->to_delete = true;
 	SDL_DestroyTexture(player_tex);
-	//player_tex = nullptr;
+
 	return true;
 }
 
@@ -197,7 +197,7 @@ bool j1Player::PreUpdate(){
 				state = RUN_FORWARD;
 				velocity.y = JUMP_AFTER_SLIDE;
 			}
-			//position.x += speed;
+			
 			
 			velocity.x = speed;
 		}
@@ -210,7 +210,7 @@ bool j1Player::PreUpdate(){
 				state = RUN_BACKWARD;
 				velocity.y = JUMP_AFTER_SLIDE;
 			}
-			//position.x -= speed;
+		
 			velocity.x = -speed;
 		}
 
@@ -237,7 +237,7 @@ bool j1Player::PreUpdate(){
 		if (state == FALL)
 		{
 			collider->SetSize(42, 66);
-			//let the player move while faling
+			//move while falling
 			if ((player_input.pressing_D)&&(can_go_right == true)) velocity.x = speed/2;
 			if ((player_input.pressing_A)&&(can_go_left == true)) velocity.x = -speed/2;
 
@@ -274,7 +274,7 @@ bool j1Player::PreUpdate(){
 			state = FALL;
 		}
 
-		//MovementControl(); //calculate new position
+	
 		
 		collider->SetPos(position.x, position.y);
 		collider_hit->SetPos(position.x + current_animation->GetCurrentFrame().w/8, position.y + current_animation->GetCurrentFrame().h);
@@ -287,7 +287,7 @@ bool j1Player::PreUpdate(){
 bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Update_Player", Profiler::Color::Teal)
-	//this->dt = dt;
+
 	switch (state)
 	{
 	case IDLE:
@@ -300,55 +300,52 @@ bool j1Player::Update(float dt)
 	case RUN_FORWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_NONE;
-		//velocity.x = speed * dt;
+	
 		break;
 
 	case RUN_BACKWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_HORIZONTAL;
-		//velocity.x = -speed * dt;
+	
 		break;
 
 
 	case SLIDE_FORWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_NONE;
-		//velocity.x = speed * dt;
+	
 		break;
 
 	case SLIDE_BACKWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_HORIZONTAL;
-		//velocity.x = -speed * dt;
+	
 		break;
 
 	case JUMP:
 		current_animation = &death;
-		//velocity.y = jumpImpulse * dt;
+	
 		if (velocity.y <= 0)
 		{
 			state = FALL;
 			jump.Reset();
 		}
-		/*if ((last_state = RUN_FORWARD)||(last_state == RUN_BACKWARD))
-		{
-			//velocity.x /= 2;
-		}*/
+		
 		break;
 	case FALL:
 		current_animation = &fall;
-		//velocity.y -= gravity * dt;
+		
 		break;
 	case DEATH:
 		current_animation = &jump;
 		if (waitTime(30))
 		{
 			LOG("Wait done");
-			position.x = initial_x_position;//App->map->data.player_initial_x;
-			position.y = initial_y_position;//App->map->data.player_initial_y;
+			position.x = initial_x_position;
+			position.y = initial_y_position;
 			App->scene->Reset_Camera();
 			App->scene->ResetLevel();
-			//App->bat->Start();
+		
 			state = IDLE;
 			deathSound = false;
 		}
@@ -463,7 +460,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				{
 					App->map->CleanUp();
 					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_2;
+					
 					App->map->Load("Level2.tmx");
 					App->scene->ResetLevel();
 					App->scene->Reset_Camera();
@@ -473,7 +470,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				{
 					App->map->CleanUp();
 					App->scene->CleanUp();
-					//App->scene->current_level = LEVEL_1;
+					
 					App->map->Load("Level1.tmx");
 					App->scene->ResetLevel();
 					App->scene->Reset_Camera();
@@ -501,8 +498,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					if (!winSound) { winSound = true; App->audio->PlayFx(3, 0); }
 				}
 
-				//App->scene->ResetLevel();
-				//App->scene->Reset_Camera();
 			}
 			break;
 		default:

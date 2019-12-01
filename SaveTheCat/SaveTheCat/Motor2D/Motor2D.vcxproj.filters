@@ -49,9 +49,6 @@
     <ClCompile Include="j1Timer.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Zombie.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Map.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
     <ClInclude Include="j1Timer.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Zombie.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="j1Map.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
@@ -170,9 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\sprites\characters\animations.xml">
-      <Filter>Desenvolupament  ========\Tools\Animations</Filter>
-    </Xml>
-    <Xml Include="..\Game\sprites\characters\animationsZombie.xml">
       <Filter>Desenvolupament  ========\Tools\Animations</Filter>
     </Xml>
     <Xml Include="..\Game\save_file.xml">

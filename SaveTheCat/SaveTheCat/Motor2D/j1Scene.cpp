@@ -35,34 +35,21 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	//invisible square delimiting the space in the camera where the player can move
+	
 	if (App->render->camera.y < 1)
 	{
 		top_edge = App->render->camera.y + App->render->camera.h / 4;
 		bottom_edge = App->render->camera.y + App->render->camera.h * 3 / 4;
 	}
 	
-	//left_edge = App->render->camera.x + App->render->camera.w / 3;
-	//right_edge = App->render->camera.x + App->render->camera.w *1/2;
-
-	/*backTex = App->tex->Load("sprites/parallax/background.png");
-	farTex = App->tex->Load("sprites/parallax/sofar.png");
-	midTex = App->tex->Load("sprites/parallax/medium.png");
-	closeTex = App->tex->Load("sprites/parallax/front.png");
-	backPos.x = 0; backPos.y = -App->render->camera.y;
-	farPos.x = 0; farPos.y = -App->render->camera.y;
-	midPos.x = 0; midPos.y = -App->render->camera.y;*/
-	//closePos.x = 0; closePos.y = -App->render->camera.y;
+	
 	container = new SDL_Rect{0,0,8000,1000};
 	cam_death = SDL_Rect{ 0,0,10,App->render->camera.h*2 };
 	farTimer = 0;
 	midTimer = 0;
 	closeTimer = 0;
 
-	//App->audio->PlayMusic("music_sadpiano.ogg");
 	
-	//App->map->Load("hello2.tmx");
-	//App->map->Load("Level1.tmx");
 	if (App->map->Load("Level1.tmx") == true)
 	{
 		int w, h;
@@ -72,7 +59,7 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(data);
 	}
-	//App->map->Load("Level2.tmx");	
+	
 	App->render->camera.y = 0;
 	speedCount = 0;
 
@@ -161,8 +148,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->player->game_saved = false;
 			App->map->CleanUp();
-			//App->collision->CleanUp();
-			//App->scene->CleanUp();
+			
 			App->map->Load("Level1.tmx");
 			ResetLevel();
 			Reset_Camera();
@@ -180,8 +166,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->player->game_saved = false;
 			App->map->CleanUp();
-			//App->collision->CleanUp();
-			//App->scene->CleanUp();
+		
 			App->map->Load("Level2.tmx");
 			ResetLevel();
 			Reset_Camera();
@@ -197,25 +182,7 @@ bool j1Scene::Update(float dt)
 		App->LoadGame();
 
 
-	//camera window ------------------
-
-	/*speedCount++;
-	if (speedCount >= SPEED) { App->render->camera.x -= 1; speedCount = 0; }*/
-	
-	
-
-	/*
-	if (((player_position->x < left_edge)) &&(left_edge > App->render->initial_camera_x + App->render->camera.w / 3)){
-			App->render->camera.x += App->player->speed;
-			right_edge -= App->player->speed;
-			left_edge -= App->player->speed;
-	}
-
-	if (player_position->x+App->player->current_animation->GetCurrentFrame().w > right_edge) { 
-		App->render->camera.x -= App->player->speed;
-		right_edge += App->player->speed;
-		left_edge+= App->player->speed;
-	}*/
+	//camera limits	
 
 	if (((player_position->y < top_edge))&&(top_edge > 0 - App->player->current_animation->GetCurrentFrame().h)&&(App->render->camera.y > 300)) {
 			App->render->camera.y += App->player->speed * dt;
@@ -247,13 +214,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	/*p2SString title("Save The Cat",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count());*/
-
-	//App->win->SetTitle(title.GetString());
-
+	
 	
 	// Debug pathfinding ------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) debugPath=!debugPath;
@@ -290,10 +251,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	/*if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		App->input->windowEvents[WE_QUIT] = true;
-	}*/
+	
 	return ret;
 }
 
@@ -315,15 +273,14 @@ void j1Scene::Reset_Camera() {
 	farPos.x = 0;
 	midPos.x = 0;
 	closePos.x = 0;
-	/*left_edge = App->render->camera.x + App->render->camera.w / 3;
-	right_edge = App->render->camera.x + App->render->camera.w * 1 / 2;*/
+	
 }
 
 void j1Scene::ResetLevel() {
 
 	App->player->position.x = player_x_position;
 	App->player->position.y = player_y_position;
-	//App->bat->Start();
+
 	App->bat->position.x = bat_x_position;
 	App->bat->position.y = bat_y_position;
 	App->bat->state = FLY;

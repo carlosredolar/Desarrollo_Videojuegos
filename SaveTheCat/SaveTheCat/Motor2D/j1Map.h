@@ -11,7 +11,7 @@
 
 struct Collider;
 
-// ----------------------------------------------------
+
 struct Properties
 {
 	struct Property

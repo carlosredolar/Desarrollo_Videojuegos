@@ -6,11 +6,7 @@
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
-//Load Scenes
-/*#include "ModulePlayerSelection.h"
-#include "ModuleWelcomeScreen.h"
-#include "ModuleFFIntro.h"
-#include "ModuleFFIntro2.h"*/
+
 
 j1Fade::j1Fade()
 {
