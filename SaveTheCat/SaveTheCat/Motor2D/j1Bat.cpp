@@ -31,7 +31,7 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 	folder.create(config.child("folder").child_value());
 
 	//set initial attributes of the bat
-	speed = config.child("bat").child("speed").attribute("value").as_float();
+	speed = 200;//config.child("bat").child("speed").attribute("value").as_float();
 	gravity = 20;//config.child("bat").child("gravity").attribute("value").as_float();
 	deathFX = "sounds/death.wav";
 
@@ -43,10 +43,10 @@ bool j1Bat::Awake(pugi::xml_node& config) {
 bool j1Bat::Start() {
 	//load character sprites
 	bat_tex = App->tex->Load("sprites/characters/spritesheet_bat.png");
-	
+	debug_tex = App->tex->Load("maps/path.png");
 
-	bat_x_position = 200;//config.child("bat").child("position").attribute("x").as_int();
-	bat_y_position = 800;//config.child("bat").child("position").attribute("y").as_int();
+	bat_x_position = 700;//config.child("bat").child("position").attribute("x").as_int();
+	bat_y_position = 500;//config.child("bat").child("position").attribute("y").as_int();
 
 	position.x = bat_x_position; //= App->scene->bat_x_position;
 	position.y = bat_y_position; //= App->scene->bat_y_position;
@@ -83,6 +83,7 @@ bool j1Bat::PreUpdate() {
 			velocity.y = 0;
 		}
 	}
+
 
 	if (!App->pause)
 	{
@@ -202,6 +203,8 @@ bool j1Bat::PreUpdate() {
 		collider->SetPos(position.x, position.y);
 	}
 
+	//PATH TO PLAYER (LOGIC)
+	//calculate_path();
 
 
 	return true;
@@ -263,6 +266,8 @@ bool j1Bat::Update(float dt)
 
 	death_reset = SDL_GetTicks();
 
+	/*if (App->collision->debug)
+		blit_path();*/
 
 
 	return true;
@@ -425,16 +430,16 @@ void j1Bat::check_path_toMove()
 	iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
 	if (pos.x < position.x) {
-		state = FLY_LEFT;
+		can_go_left = true;
 	}
 	if (pos.x > position.x) {
-		state = FLY_RIGHT;
+		can_go_right = true;
 	}
 	if (pos.x >= position.x - 5 && pos.x <= position.x + 5) {
-		state = FLY_DOWN;
+		can_go_down = true;
 	}
 	else
 	{
-		state = FLY_UP;
+		can_go_up = true;
 	}
 }

@@ -159,7 +159,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = speed;
+			//velocity.x = speed;
 		}
 
 		if (state == RUN_BACKWARD)
@@ -184,7 +184,7 @@ bool j1Player::PreUpdate(){
 				App->audio->PlayFx(4, 0);
 			}
 
-			velocity.x = -speed;
+			//velocity.x = -speed;
 		}
 
 
@@ -198,7 +198,7 @@ bool j1Player::PreUpdate(){
 			}
 			//position.x += speed;
 			
-			velocity.x = speed;
+			//velocity.x = speed;
 		}
 
 		if (state == SLIDE_BACKWARD)
@@ -210,7 +210,7 @@ bool j1Player::PreUpdate(){
 				velocity.y = JUMP_AFTER_SLIDE;
 			}
 			//position.x -= speed;
-			velocity.x = -speed;
+			//velocity.x = -speed;
 		}
 
 		if (state == JUMP && !god)
@@ -299,26 +299,26 @@ bool j1Player::Update(float dt)
 	case RUN_FORWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_NONE;
-		//velocity.x = speed * dt;
+		velocity.x = speed;
 		break;
 
 	case RUN_BACKWARD:
 		current_animation = &run;
 		flip = SDL_FLIP_HORIZONTAL;
-		//velocity.x = -speed * dt;
+		velocity.x = -speed;
 		break;
 
 
 	case SLIDE_FORWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_NONE;
-		//velocity.x = speed * dt;
+		velocity.x = speed;
 		break;
 
 	case SLIDE_BACKWARD:
 		current_animation = &slide;
 		flip = SDL_FLIP_HORIZONTAL;
-		//velocity.x = -speed * dt;
+		velocity.x = -speed;
 		break;
 
 	case JUMP:
