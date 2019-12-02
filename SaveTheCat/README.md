@@ -77,9 +77,11 @@ GNU GENERAL PUBLIC LICENSE
    - Player
    - Scene
    - Animations
-   - Cam
+   - Camera
    - Render
    - Audio
+   - Enemies
+   - Pathfinding
    
 - Carlos:
    - Player
